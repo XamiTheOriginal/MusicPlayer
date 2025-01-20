@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 
 
-namespace PlayerMP3
+namespace MusicPlayer
 {
     public partial class Form1 : Form
     {

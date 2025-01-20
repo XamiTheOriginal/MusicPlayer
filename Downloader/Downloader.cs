@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlayerMP3
+namespace MusicPlayer
 {
     public class Downloader
     {

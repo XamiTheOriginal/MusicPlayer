@@ -1,4 +1,4 @@
-namespace PlayerMP3
+namespace MusicPlayer
 {
     internal static class Program
     {

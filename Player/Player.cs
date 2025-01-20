@@ -1,6 +1,6 @@
 ﻿using NAudio.Wave;
 
-namespace PlayerMP3
+namespace MusicPlayer
 {
     public class Player
     {
