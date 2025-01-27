@@ -4,7 +4,7 @@ namespace MusicPlayer
 {
     public class Player
     {
-        public string filepath = "";
+        public string filepath;
 
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;

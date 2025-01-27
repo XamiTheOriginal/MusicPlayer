@@ -29,7 +29,7 @@ namespace MusicPlayer
             string musicDirectory = player.filepath;
             if (!Directory.Exists(musicDirectory))
             {
-                MessageBox.Show("Le répertoire n'existe pas : " + musicDirectory, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This directory doesn't exist : " + musicDirectory, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -62,11 +62,6 @@ namespace MusicPlayer
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-
-        }
-
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
                 if (listBoxSongs.SelectedItem != null)
@@ -75,7 +70,7 @@ namespace MusicPlayer
                     string selectedSong = listBoxSongs.SelectedItem.ToString();
                     player.setFilepath(selectedSong);
                     TitleLab.Text = player.getFileName();
-            }
+                }
         }
     }
 }
