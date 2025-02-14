@@ -16,17 +16,35 @@ namespace MusicPlayer
         public Form1()
         {
             InitializeComponent();
-            player = new Player(@"C:\Users\maxim\OneDrive\Bureau\Music");
-            downloader = new Downloader("oui",player.filepath);
+            string musicPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+            Player player = new Player(musicPath); //ça s'adapte au nom d'utilisateur et ça recherche les fichiers dans
+            //le dossier musique par défaut de Windows
+            
+            if (player == null)
+            {
+                throw new Exception("Player object is not initialized.");
+            }
+
+            if (string.IsNullOrEmpty(player.getFilepath()))
+            {
+                throw new Exception("Player filepath is null or empty.");
+            }
+            
+            Console.WriteLine($"musicPath: {musicPath}");
+            Console.WriteLine($"player: {player != null}");
+            Console.WriteLine($"player.filepath: {player?.getFilepath()}");
+            Console.WriteLine($"downloader: {downloader != null}");
+            
+            //downloader = new Downloader("oui",player.filepath);
             initialPath = player.getFilepath();
             listBoxSongs.SelectedIndex = -1;
-            Console.WriteLine(downloader.filepath);
+            //Console.WriteLine(downloader.filepath);
             LoadSongs();
         }
 
         private void LoadSongs()
         {
-            string musicDirectory = player.filepath;
+            string musicDirectory = player.getFilepath();
             if (!Directory.Exists(musicDirectory))
             {
                 MessageBox.Show("This directory doesn't exist : " + musicDirectory, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
