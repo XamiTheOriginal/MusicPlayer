@@ -7,12 +7,12 @@ namespace MusicPlayer
 {
     public partial class Form1 : Form
     {
-        private bool isPlaying = false;
+        private bool _isPlaying = false;
 
 
-        private Player player;
-        private string initialPath;
-        private Downloader downloader;
+        private Player _player;
+        private string _initialPath;
+        private Downloader _downloader;
         public Form1()
         {
             InitializeComponent();
@@ -25,18 +25,18 @@ namespace MusicPlayer
                 throw new Exception("Player object is not initialized.");
             }
 
-            if (string.IsNullOrEmpty(player.getFilepath()))
+            if (string.IsNullOrEmpty(player.GetFilepath()))
             {
                 throw new Exception("Player filepath is null or empty.");
             }
             
             Console.WriteLine($"musicPath: {musicPath}");
             Console.WriteLine($"player: {player != null}");
-            Console.WriteLine($"player.filepath: {player?.getFilepath()}");
-            Console.WriteLine($"downloader: {downloader != null}");
+            Console.WriteLine($"player.filepath: {player?.GetFilepath()}");
+            Console.WriteLine($"downloader: {_downloader != null}");
             
             //downloader = new Downloader("oui",player.filepath);
-            initialPath = player.getFilepath();
+            _initialPath = player.GetFilepath();
             listBoxSongs.SelectedIndex = -1;
             //Console.WriteLine(downloader.filepath);
             LoadSongs();
@@ -44,7 +44,7 @@ namespace MusicPlayer
 
         private void LoadSongs()
         {
-            string musicDirectory = player.getFilepath();
+            string musicDirectory = _player.GetFilepath();
             if (!Directory.Exists(musicDirectory))
             {
                 MessageBox.Show("This directory doesn't exist : " + musicDirectory, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -66,17 +66,17 @@ namespace MusicPlayer
                 MessageBox.Show("Veuillez sélectionner une chanson.");
                 return;
             }
-            if (!isPlaying)
+            if (!_isPlaying)
             {
-                player.playDaMusic();
+                _player.PlayDaMusic();
                 buttonPlayPause.Text = "Pause";
-                isPlaying = true;
+                _isPlaying = true;
             }
             else
             {
-                player.pauseDaMusic();
+                _player.PauseDaMusic();
                 buttonPlayPause.Text = "Play";
-                isPlaying = false;
+                _isPlaying = false;
             }
         }
 
@@ -84,10 +84,10 @@ namespace MusicPlayer
         {
                 if (listBoxSongs.SelectedItem != null)
                 {
-                    player.pauseDaMusic();
+                    _player.PauseDaMusic();
                     string selectedSong = listBoxSongs.SelectedItem.ToString();
-                    player.setFilepath(selectedSong);
-                    TitleLab.Text = player.getFileName();
+                    _player.SetFilepath(selectedSong);
+                    TitleLab.Text = _player.GetFileName();
                 }
         }
     }

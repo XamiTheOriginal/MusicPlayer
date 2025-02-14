@@ -9,21 +9,21 @@ namespace MusicPlayer
 {
     public class Converter
     {
-        WaveFileWriter writer;
-        string filepath;
+        WaveFileWriter _writer;
+        string _filepath;
 
         public Converter(WaveFileWriter writer, string filepath)
         {
-            this.writer = writer;
-            this.filepath = filepath;
+            this._writer = writer;
+            this._filepath = filepath;
         }
 
-        public void toWave()
+        public void ToWave()
         {
             //TODO : A implem
         }
 
-        public void toMP3()
+        public void ToMp3()
         {
             //TODO : A implem
         }
