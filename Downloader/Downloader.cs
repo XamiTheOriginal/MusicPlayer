@@ -8,13 +8,13 @@ namespace MusicPlayer
 {
     public class Downloader
     {
-        public string url;
-        public string filepath;
+        public string Url;
+        public string Filepath;
         public Downloader(string url, string path) //We will always use the path if the music directory
                                                    //Url is meant to be a youtube video, we will parse it later to check it is a good one
         {
-            this.url = url;
-            this.filepath = path;
+            this.Url = url;
+            this.Filepath = path;
         }
         /* private bool IsMP3(byte[] buf)
          {
@@ -25,14 +25,14 @@ namespace MusicPlayer
              return false;
          }*/
 
-        private string getNameNoExtension()
+        private string GetNameNoExtension()
         {
             string res = "";
             int i = 0;
-            int l = this.filepath.Length;
-            while (i < l && this.filepath[i] != '.') //meant to find the first . in the path which should be the extension
+            int l = this.Filepath.Length;
+            while (i < l && this.Filepath[i] != '.') //meant to find the first . in the path which should be the extension
             {
-                res += this.filepath[i];
+                res += this.Filepath[i];
             }
             return res;
         }
