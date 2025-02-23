@@ -77,7 +77,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(896, 514);
             Controls.Add(listBoxSongs);
             Controls.Add(progressBar1);
             Controls.Add(TitleLab);

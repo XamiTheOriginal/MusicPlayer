@@ -17,26 +17,26 @@ namespace MusicPlayer
         {
             InitializeComponent();
             string musicPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-            Player player = new Player(musicPath); //ça s'adapte au nom d'utilisateur et ça recherche les fichiers dans
+            _player = new Player(musicPath); //ça s'adapte au nom d'utilisateur et ça recherche les fichiers dans
             //le dossier musique par défaut de Windows
             
-            if (player == null)
+            if (_player == null)
             {
                 throw new Exception("Player object is not initialized.");
             }
 
-            if (string.IsNullOrEmpty(player.GetFilepath()))
+            if (string.IsNullOrEmpty(_player.GetFilepath()))
             {
                 throw new Exception("Player filepath is null or empty.");
             }
             
             Console.WriteLine($"musicPath: {musicPath}");
-            Console.WriteLine($"player: {player != null}");
-            Console.WriteLine($"player.filepath: {player?.GetFilepath()}");
+            Console.WriteLine($"player: {_player != null}");
+            Console.WriteLine($"player.filepath: {_player?.GetFilepath()}");
             Console.WriteLine($"downloader: {_downloader != null}");
             
-            //downloader = new Downloader("oui",player.filepath);
-            _initialPath = player.GetFilepath();
+            _downloader = new Downloader("oui",_player.Filepath);
+            _initialPath = _player.GetFilepath();
             listBoxSongs.SelectedIndex = -1;
             //Console.WriteLine(downloader.filepath);
             LoadSongs();
