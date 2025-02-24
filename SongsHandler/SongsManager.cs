@@ -36,7 +36,12 @@ public class SongsManager
         if (_availableIds.Count > 0) id = _availableIds.Dequeue(); // Prendre un ID libre
         else id = _nextId++;
 
+        filepath = Converter.ToWave(filepath);
+        
         var obj = new Song(filepath, id);
+        
+        
+        
         _songsList.Add(obj);
         SaveState(); // Sauvegarder l'état après l'ajout
         return id;

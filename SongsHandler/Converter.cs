@@ -5,23 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicPlayer //PUTE
+namespace MusicPlayer.SongsHandler
 {
-    public class Converter
+    public static class Converter
     {
-        private string _filepath;
-        public Converter( string filepath)
-        {
-            _filepath = filepath;
-        }
-
-        public void ToWave(string outfile)
-        {
-            using(var reader = new MediaFoundationReader(_filepath))
-            {
-                 WaveFileWriter.CreateWaveFile(outfile, reader);
-            }
-        }
+        static Converter() { }
         
+        public static string ToWave(string infile)
+        {
+            string outfile = infile;
+            if (Path.GetExtension(infile) != ".wav")
+            {
+                outfile = Path.ChangeExtension(infile, ".wav");
+                using (var reader = new MediaFoundationReader(infile))
+                {
+                    WaveFileWriter.CreateWaveFile(outfile, reader);
+                }
+            }
+
+            return outfile;
+        }
     }
 }
