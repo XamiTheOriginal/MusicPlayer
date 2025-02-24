@@ -43,7 +43,7 @@ namespace MusicPlayer
 
         private void LoadSongs()
         {
-           
+
             string musicDirectory = _player.GetFilepath();
             if (!Directory.Exists(musicDirectory))
             {

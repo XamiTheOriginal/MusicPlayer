@@ -4,50 +4,25 @@ namespace MusicPlayer
     //TODO : test me
     public class Playlist
     {
-        List<string> queue;
-        string filepath;
-
-        public Playlist(List<string> queue)
+        public List<int> Queue;
+        public string Name;
+        public Playlist(List<int> queue, string name)
         {
-            this.queue = queue;
-            this.filepath = string.Empty;
+            Queue = queue;
+            Name = name;
         }
 
-        public void Add(string item) //On ne veut ajouter que le nom de la musique
+        public void Add(int item) //On ne veut ajouter que le nom de la musique
         {
-            this.queue.Add(item);
+            Queue.Add(item);
         }
 
-        public void Remove(string item)
+        public void Remove(int item)
         {
-            this.queue.Remove(item);
+            Queue.Remove(item);
         }
-
-        public string GetPlaylist() 
-        {
-            string res = "";
-            using (StreamReader sr = new StreamReader(this.filepath)) 
-            {
-                
-                while(sr.ReadLine() != null) 
-                {
-                    res += sr.ReadLine();
-                }
-            }
-            return res;
-        }
-
-        public void Save()
-        {
-            string current = GetPlaylist();
-            using (StreamWriter wr = new StreamWriter(filepath))
-            {
-                foreach(var t in this.queue) 
-                {
-                    if(!current.Contains(t))
-                        wr.WriteLine(t);
-                }
-            }
-        }
+        
+        
+        
     }
 }
