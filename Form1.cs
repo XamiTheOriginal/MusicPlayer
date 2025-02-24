@@ -11,7 +11,6 @@ namespace MusicPlayer
 
 
         private Player _player;
-        private string _initialPath;
         private Downloader _downloader;
         public Form1()
         {
@@ -48,7 +47,8 @@ namespace MusicPlayer
             string musicDirectory = _player.GetFilepath();
             if (!Directory.Exists(musicDirectory))
             {
-                MessageBox.Show("This directory doesn't exist : " + musicDirectory, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This directory doesn't exist : " 
+                    + musicDirectory, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
