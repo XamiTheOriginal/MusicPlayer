@@ -44,6 +44,7 @@ namespace MusicPlayer
 
         private void LoadSongs()
         {
+           
             string musicDirectory = _player.GetFilepath();
             if (!Directory.Exists(musicDirectory))
             {
@@ -51,7 +52,8 @@ namespace MusicPlayer
                 return;
             }
 
-            string[] files = Directory.GetFiles(musicDirectory);
+            string[] files = Directory.GetFiles(musicDirectory).Where
+                (f => Path.GetFileName(f).ToLower() != "desktop.ini").ToArray();
             foreach (string file in files) 
             {
                 listBoxSongs.Items.Add(file);
