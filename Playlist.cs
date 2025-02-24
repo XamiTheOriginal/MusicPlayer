@@ -7,6 +7,7 @@ namespace MusicPlayer
 {
     public class Playlist
     {
+        private JsonHandler playlistSaver = new JsonHandler("PLaylistData.json");
         public List<int> SongList { get; set; }
         public string Name { get; set; }
 
@@ -26,7 +27,10 @@ namespace MusicPlayer
             SongList.Remove(item);
         }
 
-
+        public void Save()
+        {
+            
+        }
        
     }
 }

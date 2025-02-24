@@ -15,4 +15,8 @@
     <PackageReference Include="VideoLibrary" Version="3.2.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DATA\" />
+  </ItemGroup>
+
 </Project>
