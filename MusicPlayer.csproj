@@ -12,11 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="TagLibSharp" Version="2.3.0" />
     <PackageReference Include="VideoLibrary" Version="3.2.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DATA\" />
   </ItemGroup>
 
 </Project>
