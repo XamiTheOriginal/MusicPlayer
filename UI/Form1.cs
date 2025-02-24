@@ -34,7 +34,7 @@ namespace MusicPlayer
             Console.WriteLine($"player.filepath: {_player?.GetFilepath()}");
             Console.WriteLine($"downloader: {_downloader != null}");
             
-            _downloader = new Downloader("oui",_player.Filepath);
+            _downloader = new Downloader();
             _initialPath = _player.GetFilepath();
             listBoxSongs.SelectedIndex = -1;
             //Console.WriteLine(downloader.filepath);
