@@ -38,7 +38,7 @@
             // 
             buttonPlayPause.BackColor = SystemColors.ActiveCaptionText;
             buttonPlayPause.ForeColor = Color.FloralWhite;
-            buttonPlayPause.Location = new Point(262, 334);
+            buttonPlayPause.Location = new Point(545, 387);
             buttonPlayPause.Name = "buttonPlayPause";
             buttonPlayPause.Size = new Size(250, 104);
             buttonPlayPause.TabIndex = 0;
@@ -49,7 +49,7 @@
             // TitleLab
             // 
             TitleLab.AutoSize = true;
-            TitleLab.Location = new Point(362, 241);
+            TitleLab.Location = new Point(660, 244);
             TitleLab.Name = "TitleLab";
             TitleLab.Size = new Size(38, 20);
             TitleLab.TabIndex = 2;
@@ -58,7 +58,7 @@
             // 
             // progressBar1
             // 
-            progressBar1.Location = new Point(39, 299);
+            progressBar1.Location = new Point(322, 289);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(692, 29);
             progressBar1.TabIndex = 3;
@@ -67,7 +67,7 @@
             // 
             listBoxSongs.FormattingEnabled = true;
             listBoxSongs.ItemHeight = 20;
-            listBoxSongs.Location = new Point(39, 12);
+            listBoxSongs.Location = new Point(371, 43);
             listBoxSongs.Name = "listBoxSongs";
             listBoxSongs.Size = new Size(610, 104);
             listBoxSongs.TabIndex = 4;
@@ -77,7 +77,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(896, 514);
+            ClientSize = new Size(1346, 595);
             Controls.Add(listBoxSongs);
             Controls.Add(progressBar1);
             Controls.Add(TitleLab);
