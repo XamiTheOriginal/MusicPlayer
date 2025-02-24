@@ -1,8 +1,9 @@
 using System;
 using System.IO;
 using MusicPlayer.DATA;
+using MusicPlayer;
 using TagLib;
-
+using Microsoft.Extensions.DependencyInjection;
 namespace MusicPlayer.SongsHandler;
 
 
@@ -17,13 +18,29 @@ public class Song
     public double Duration { get; set; }
     public Moods Mood { get; set; }
     
-    
     public Song(string filepath, int id)
     {
         Filepath = filepath;
         Id = id;
         Mood = Moods.Neutral;
         ExtractMetadata();
+        PlaylistSetup();
+    }
+
+    private void PlaylistSetup()
+    {
+        var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+        
+        if (Artist is not null)
+        {
+            Playlist? temp = playlistsManager.GetItemByName(Artist);
+            if (temp is not null) temp.AddSong(Id);
+        }
+        if (Album is not null)
+        {
+            Playlist? temp = playlistsManager.GetItemByName(Album);
+            if (temp is not null) temp.AddSong(Id);
+        }
     }
 
     private void ExtractMetadata()

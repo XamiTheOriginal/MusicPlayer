@@ -2,10 +2,20 @@ namespace MusicPlayer.DATA;
 
 public enum Moods
 {
-    Sad,
-    Joyful,
-    Happy,
     Neutral,
+    Euphoric,
+    Melancholy,
+    Serene,
+    Vibrant,
+    Dreamy,
+    Hazy,
+    Moody,
+    Chill,
+    Lush,
+    Hypnotic,
     Energetic,
-    Chill
+    Nostalgic,
+    Blissful,
+    Groovy,
+    Somber
 }

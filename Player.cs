@@ -1,9 +1,14 @@
-﻿using NAudio.Wave;
+﻿using MusicPlayer.SongsHandler;
+using NAudio.Wave;
+
 
 namespace MusicPlayer
 {
+    
+    
     public class Player
     {
+        
         public string Filepath;
 
         private WaveOutEvent _outputDevice;
