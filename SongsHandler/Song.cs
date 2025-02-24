@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using MusicPlayer.DATA;
 using TagLib;
 
 namespace MusicPlayer.SongsHandler;
@@ -9,21 +10,19 @@ public class Song
 {
     public int Id { get; set; }
     public string Filepath { get; set; }
-    public string Title { get; set; }
+    public string? Title { get; set; }
     public string? Artist { get; set; }
     public string? Album { get; set; }
     
     public double Duration { get; set; }
+    public Moods Mood { get; set; }
     
     
-    public Song(int id)
-    {
-        Id = id;
-    }
-    
-    public Song(string filepath)
+    public Song(string filepath, int id)
     {
         Filepath = filepath;
+        Id = id;
+        Mood = Moods.Neutral;
         ExtractMetadata();
     }
 
