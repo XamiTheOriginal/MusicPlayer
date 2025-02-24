@@ -22,10 +22,6 @@ namespace MusicPlayer //PUTE
                  WaveFileWriter.CreateWaveFile(outfile, reader);
             }
         }
-
-        public void ToMp3()
-        {
-            //TODO : A implem
-        }
+        
     }
 }
