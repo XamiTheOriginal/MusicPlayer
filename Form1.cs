@@ -11,6 +11,7 @@ namespace MusicPlayer
 
 
         private Player _player;
+        private string _initialPath;
         private Downloader _downloader;
         public Form1()
         {
