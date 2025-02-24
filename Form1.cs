@@ -9,7 +9,7 @@ namespace MusicPlayer
     {
         private bool _isPlaying = false;
 
-
+        private string _initialPath;
         private Player _player;
         private Downloader _downloader;
         public Form1()

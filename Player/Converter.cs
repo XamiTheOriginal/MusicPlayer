@@ -9,18 +9,18 @@ namespace MusicPlayer
 {
     public class Converter
     {
-        WaveFileWriter _writer;
-        string _filepath;
-
-        public Converter(WaveFileWriter writer, string filepath)
+        private string _filepath;
+        public Converter( string filepath)
         {
-            this._writer = writer;
-            this._filepath = filepath;
+            _filepath = filepath;
         }
 
-        public void ToWave()
+        public void ToWave(string outfile)
         {
-            //TODO : A implem
+            using(var reader = new MediaFoundationReader(_filepath))
+            {
+                 WaveFileWriter.CreateWaveFile(outfile, reader);
+            }
         }
 
         public void ToMp3()
