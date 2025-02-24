@@ -7,15 +7,26 @@ namespace MusicPlayer
 {
     public class Playlist
     {
-        private JsonHandler playlistSaver = new JsonHandler("PLaylistData.json");
-        public List<int> SongList { get; set; }
-        public string Name { get; set; }
+        private JsonHandler _fileManager = new JsonHandler("PLaylists.json");
+        public List<int>? SongList { get; set; }
+        public string? Name { get; set; }
 
-        public Playlist(List<int> list, string name)
+        public Playlist() { }
+
+        public void CreatePLaylist(List<int>? list, string name)
         {
             SongList = list ?? new List<int>();
             Name = name;
         }
+
+        public void LoadPLaylist(string name)
+        {
+            
+        }
+
+ 
+        
+        
 
         public void Add(int item)
         {
@@ -29,7 +40,7 @@ namespace MusicPlayer
 
         public void Save()
         {
-            
+            _fileManager.SaveToJson(Name, SongList);
         }
        
     }

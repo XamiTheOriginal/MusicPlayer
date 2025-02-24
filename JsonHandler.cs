@@ -11,7 +11,7 @@ namespace MusicPlayer
 
         public JsonHandler(string filePath)
         {
-            _filePath = filePath;
+            _filePath = "DATA\\" + filePath;
         }
 
         // Sauvegarde une liste avec un nom (sans écraser les autres)
@@ -29,8 +29,9 @@ namespace MusicPlayer
         public List<int> LoadFromJson(string name)
         {
             Dictionary<string, List<int>> data = LoadAll();
-
-            return data.TryGetValue(name, out var numbers) ? numbers : new List<int>();
+            bool temp = data.TryGetValue(name, out var numbers);
+            if (!temp) throw new Exception("No data found for " + name);
+            return numbers;
         }
 
         // Charge toutes les données du fichier (ou crée un dictionnaire vide)
