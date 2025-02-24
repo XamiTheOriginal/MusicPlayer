@@ -10,7 +10,7 @@ namespace MusicPlayer
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            Converter temp = new Converter();
+            Converter temp = new Converter("/Users/theobaldmazet/Music/Loud Pipes Ratatat");
             //ApplicationConfiguration.Initialize();
             //Application.Run(new Form1());
         }

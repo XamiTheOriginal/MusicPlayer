@@ -8,8 +8,7 @@ namespace MusicPlayer
     public partial class Form1 : Form
     {
         private bool _isPlaying = false;
-
-        private string _initialPath;
+        
         private Player _player;
         private string _initialPath;
         private Downloader _downloader;
