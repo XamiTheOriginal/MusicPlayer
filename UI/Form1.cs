@@ -16,8 +16,8 @@ namespace MusicPlayer
         {
             InitializeComponent();
             string musicPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-            _player = new Player(musicPath); //ça s'adapte au nom d'utilisateur et ça recherche les fichiers dans
-            //le dossier musique par défaut de Windows
+            _player = new Player(musicPath); //ï¿½a s'adapte au nom d'utilisateur et ï¿½a recherche les fichiers dans
+            //le dossier musique par dï¿½faut de Windows
             
             if (_player == null)
             {
@@ -34,7 +34,7 @@ namespace MusicPlayer
             Console.WriteLine($"player.filepath: {_player?.GetFilepath()}");
             Console.WriteLine($"downloader: {_downloader != null}");
             
-            _downloader = new Downloader("oui",_player.Filepath);
+            //_downloader = new Downloader("oui",_player.Filepath);
             _initialPath = _player.GetFilepath();
             listBoxSongs.SelectedIndex = -1;
             //Console.WriteLine(downloader.filepath);
@@ -65,7 +65,7 @@ namespace MusicPlayer
         {
             if (listBoxSongs.SelectedItem == null)
             {
-                MessageBox.Show("Veuillez sélectionner une chanson.");
+                MessageBox.Show("Veuillez sï¿½lectionner une chanson.");
                 return;
             }
             if (!_isPlaying)
