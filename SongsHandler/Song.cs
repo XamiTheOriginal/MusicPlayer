@@ -1,4 +1,4 @@
-namespace MusicPlayer;
+namespace MusicPlayer.SongsHandler;
 
 public class Song
 {

@@ -3,45 +3,46 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace MusicPlayer
+namespace MusicPlayer.SongsHandler
 {
     public class Playlist
     {
-        private JsonHandler _fileManager = new JsonHandler("PLaylists.json");
-        public List<int>? SongList { get; set; }
-        public string? Name { get; set; }
+        private readonly JsonHandler _fileManager = new JsonHandler("PLaylists.json");
+        private List<int> _songList;
+        public int SongCount => _songList.Count;
+        public bool IsEmpty => _songList.Count == 0;
+        public string Name { get; set; }
 
-        public Playlist() { }
-
-        public void CreatePLaylist(List<int>? list, string name)
+        public Playlist(string name, List<int> songList)
         {
-            SongList = list ?? new List<int>();
             Name = name;
+            _songList = songList;
         }
-
-        public void LoadPLaylist(string name)
-        {
-            
-        }
-
- 
         
-        
-
-        public void Add(int item)
+        public Playlist(string name)
         {
-            SongList.Add(item);
+            Name = name;
+            _songList = _fileManager.LoadFromJson(name);
+        }
+        
+        public List<int> GetSongList()
+        {
+            return _songList;
+        }
+        
+        public void AddSong(int item)
+        {
+            _songList.Add(item);
         }
 
-        public void Remove(int item)
+        public void RemoveSong(int item)
         {
-            SongList.Remove(item);
+            _songList.Remove(item);
         }
 
         public void Save()
         {
-            _fileManager.SaveToJson(Name, SongList);
+            _fileManager.SaveToJson(Name, _songList);
         }
-       
     }
 }
