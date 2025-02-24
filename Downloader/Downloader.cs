@@ -5,8 +5,9 @@ using System.Net;
 using VideoLibrary;
 using VideoLibrary.Helpers;
 
-class Downloader
+public class Downloader
 {
+
     public static void DownloadAudio(string videoUrl, string outputPath)
     {
         try
