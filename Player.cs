@@ -1,45 +1,44 @@
 ﻿using MusicPlayer.SongsHandler;
 using NAudio.Wave;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace MusicPlayer
 {
     
-    
+    //faire un signleton avec le player comme les managers
     public class Player
     {
+        public int CurrentSongId;
+        private Queue<int> _songIdQueue = new Queue<int>();
+        public Song CurrentSong
+        {
+            get
+            {
+                var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
+                return songsManager.GetItemById(CurrentSongId);
+            }
+        }
         
-        public string Filepath;
-
         private WaveOutEvent _outputDevice;
         private AudioFileReader _audioFile;
 
         private bool _isPlaying = false;
         private bool _isPaused = false;
-        public Player(string path)
+        
+        public Player()
         {
-            this.Filepath = path;
+            CurrentSongId = -1;
         }
-
-        public string GetFilepath()
-        { 
-            return this.Filepath; 
-        }
-
-        public void SetFilepath(string path)
-        {
-            this.Filepath = path;
-        }
+        
         public void PlayDaMusic()
         {
-            if (this.Filepath == null)
-            {
-                throw new ArgumentException(this.GetFileName());
-            }
+            var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
+
             if (_isPaused)
             {
                 _outputDevice.Stop();
-                _audioFile = new AudioFileReader(this.Filepath);
+                _audioFile = new AudioFileReader(CurrentSong.Filepath);
                 _outputDevice.Init(_audioFile);
                 _outputDevice.Play();
                 _isPlaying = true;
@@ -52,7 +51,7 @@ namespace MusicPlayer
                 {
                     try
                     {
-                        using (_audioFile = new AudioFileReader(this.Filepath))
+                        using (_audioFile = new AudioFileReader(CurrentSong.Filepath))
                         using (_outputDevice = new WaveOutEvent())
                         {
                             _outputDevice.Init(_audioFile);
@@ -86,41 +85,16 @@ namespace MusicPlayer
             }
         }
 
-        public string GetFileName()
-        /*
-         * Retourne uniquement le nom du fichier,
-         * en prenant en argument le path entier
-         */
+        public void PlayDaPlaylist(int id)
         {
-            if (string.IsNullOrEmpty(this.Filepath))
-                throw new ArgumentException("filepath is null or empty");
-            string[] filename = this.Filepath.Split('\\');
-            string[] res = filename[filename.Length - 1].Split('.');
-            return res[0];
-        }
-
-        public void PlayDaPlaylist()
-        {
-            if (!Directory.Exists(this.Filepath))
-            {
-                throw new ArgumentException($"{nameof(this.Filepath)} does not exist");
-            }
-
-            string path = this.Filepath;
-            foreach (string file in Directory.GetFiles(this.Filepath, "*.mp3"))
-            {
-                try
-                {
-                    this.Filepath = file;
-                    Console.WriteLine($"Now playing: {this.GetFileName()}");
-                    this.PlayDaMusic();
-                    this.Filepath = path;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Error while playing {file}: {e.Message}");
-                }
-            }
+            var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+            var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
+            Playlist playlist = playlistsManager.GetItemById(id);
+            _songIdQueue = new Queue<int>(playlist.GetSongList());
+            int temp = _songIdQueue.Dequeue();
+            CurrentSongId = temp;
+            PlayDaMusic();
         }
     }
+    
 }

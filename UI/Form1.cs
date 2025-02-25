@@ -1,6 +1,8 @@
 using Microsoft.VisualBasic.ApplicationServices;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler;
 
 
 namespace MusicPlayer
@@ -16,7 +18,7 @@ namespace MusicPlayer
         {
             InitializeComponent();
             string musicPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-            _player = new Player(musicPath); //�a s'adapte au nom d'utilisateur et �a recherche les fichiers dans
+            _player = new Player(); //�a s'adapte au nom d'utilisateur et �a recherche les fichiers dans
             //le dossier musique par d�faut de Windows
             
             if (_player == null)
@@ -24,18 +26,18 @@ namespace MusicPlayer
                 throw new Exception("Player object is not initialized.");
             }
 
-            if (string.IsNullOrEmpty(_player.GetFilepath()))
+            if (_player.CurrentSongId == -1)
             {
                 throw new Exception("Player filepath is null or empty.");
             }
             
             Console.WriteLine($"musicPath: {musicPath}");
             Console.WriteLine($"player: {_player != null}");
-            Console.WriteLine($"player.filepath: {_player?.GetFilepath()}");
+            Console.WriteLine($"player.filepath: {_player?.CurrentSong.Filepath}");
             Console.WriteLine($"downloader: {_downloader != null}");
             
             //_downloader = new Downloader("oui",_player.Filepath);
-            _initialPath = _player.GetFilepath();
+            _initialPath = _player.CurrentSong.Filepath;
             listBoxSongs.SelectedIndex = -1;
             //Console.WriteLine(downloader.filepath);
             LoadSongs();
@@ -44,7 +46,7 @@ namespace MusicPlayer
         private void LoadSongs()
         {
 
-            string musicDirectory = _player.GetFilepath();
+            string musicDirectory = _player.CurrentSong.Filepath;
             if (!Directory.Exists(musicDirectory))
             {
                 MessageBox.Show("This directory doesn't exist : " 
@@ -82,6 +84,7 @@ namespace MusicPlayer
             }
         }
 
+        /*
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
                 if (listBoxSongs.SelectedItem != null)
@@ -92,7 +95,8 @@ namespace MusicPlayer
                     TitleLab.Text = _player.GetFileName();
                 }
         }
-
+        */
+        
         private void button1_Click_1(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
@@ -105,6 +109,8 @@ namespace MusicPlayer
 
         private void TitleLab_Click(object sender, EventArgs e)
         {
+            
+            
             throw new System.NotImplementedException();
         }
     }
