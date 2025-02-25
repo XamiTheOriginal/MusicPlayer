@@ -92,5 +92,20 @@ namespace MusicPlayer
                     TitleLab.Text = _player.GetFileName();
                 }
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void TitleLab_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
