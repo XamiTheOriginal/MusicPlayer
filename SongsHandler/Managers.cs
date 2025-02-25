@@ -77,10 +77,10 @@ public abstract class BaseManager<T>
         SaveState();
     }
 
-    public T? GetItemById(int id)
+    public T GetItemById(int id)
     {
         dynamic foundItem = ItemsList.FirstOrDefault(item => ((dynamic)item).Id == id);
-        return foundItem != null ? foundItem : null;
+        return foundItem != null ? foundItem : throw new KeyNotFoundException();
     }
     
     public T? GetItemByName(string name)
