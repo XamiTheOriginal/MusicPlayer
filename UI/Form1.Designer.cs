@@ -75,7 +75,7 @@
             listBoxSongs.Name = "listBoxSongs";
             listBoxSongs.Size = new System.Drawing.Size(610, 100);
             listBoxSongs.TabIndex = 4;
-            listBoxSongs.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            //listBoxSongs.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // buttonPreviousSong
             // 

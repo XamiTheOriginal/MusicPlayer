@@ -90,28 +90,8 @@ public abstract class BaseManager<T>
     }
 }
 
-/// <summary>
-/// Gère la liste des chansons.
-/// </summary>
-public class SongsManager : BaseManager<Song>
-{
-    public SongsManager() : base("\\DATA\\Songs.json") {}
-}
-
-/// <summary>
-/// Gère la liste des playlists.
-/// </summary>
-public class PlaylistsManager : BaseManager<Playlist>
-{
-    public PlaylistsManager() : base("\\DATA\\Playlists.json") {}
-}
 
 
-public static class DependencyInjection
-{
-    public static void AddMusicManagers(this ServiceCollection services)
-    {
-        services.AddSingleton<SongsManager>();
-        services.AddSingleton<PlaylistsManager>();
-    }
-}
+
+
+

@@ -1,6 +1,7 @@
 ﻿using MusicPlayer.SongsHandler;
 using NAudio.Wave;
 using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler.Managers;
 
 
 namespace MusicPlayer
