@@ -11,6 +11,7 @@ namespace MusicPlayer.SongsHandler.Managers
     /// </summary>
     public class PlaylistsManager : BaseManager<Playlist>
     {
-        public PlaylistsManager() : base("\\DATA\\Playlists.json") { }
+        public PlaylistsManager() 
+            : base(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DATA", "PlayLists.json")) { }
     }
 }
