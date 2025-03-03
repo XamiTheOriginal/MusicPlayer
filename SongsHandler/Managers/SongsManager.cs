@@ -21,8 +21,8 @@ namespace MusicPlayer.SongsHandler.Managers
         /// </summary>
         protected override void InitializeDefaultData()
         {
-            AddItem(new Song("C:\\Musique\\Chanson1.mp3", NextId));
-            AddItem(new Song("C:\\Musique\\Chanson2.mp3", NextId));
+            AddItem(new Song("C:\\Users\\maxim\\Music\\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm", NextId));
+            AddItem(new Song("C:\\Users\\maxim\\Music\\NeverGonna.mp3", NextId));
             SaveState(); // On sauvegarde pour créer le fichier JSON
         }
     }
