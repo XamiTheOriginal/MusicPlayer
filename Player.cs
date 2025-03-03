@@ -7,7 +7,7 @@ using MusicPlayer.SongsHandler.Managers;
 namespace MusicPlayer
 {
     
-    //faire un signleton avec le player comme les managers
+    //faire un singleton avec le player comme les managers
     public class Player
     {
         public int CurrentSongId;
@@ -16,7 +16,7 @@ namespace MusicPlayer
         {
             get
             {
-                if (CurrentSongId == -1)
+                if (CurrentSongId < -1)
                 {
                     Console.WriteLine("Aucune chanson sélectionnée.");
                     return null;
@@ -47,6 +47,11 @@ namespace MusicPlayer
         {
             CurrentSongId = -1;
             this.CurrentSong.Id = -1;
+        }
+
+        public string GetFilePath()
+        {
+            return this.CurrentSong.Filepath;
         }
         
         public void PlayDaMusic()
@@ -102,7 +107,7 @@ namespace MusicPlayer
                 _isPaused = true;
             }
         }
-
+            
         public void PlayDaPlaylist(int id)
         {
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
