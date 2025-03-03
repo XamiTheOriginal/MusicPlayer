@@ -12,15 +12,31 @@ namespace MusicPlayer
     {
         public int CurrentSongId;
         private Queue<int> _songIdQueue = new Queue<int>();
-        public Song CurrentSong
+        public Song? CurrentSong
         {
             get
             {
-                var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
-                return songsManager.GetItemById(CurrentSongId);
+                if (CurrentSongId == -1)
+                {
+                    Console.WriteLine("Aucune chanson sélectionnée.");
+                    return null;
+                }
+
+                var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
+                try
+                {
+                    return songsManager.GetItemById(CurrentSongId);
+                }
+                catch (KeyNotFoundException)
+                {
+                    Console.WriteLine($"Erreur : Impossible de trouver la chanson avec l'ID {CurrentSongId}, sélection automatique de la première.");
+                    CurrentSongId = songsManager.GetAllItems().FirstOrDefault()?.Id ?? -1;
+                    return songsManager.GetAllItems().FirstOrDefault();
+                }
             }
         }
-        
+
+
         private WaveOutEvent _outputDevice;
         private AudioFileReader _audioFile;
 

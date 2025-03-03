@@ -11,7 +11,10 @@ namespace MusicPlayer
         {
             var services = new ServiceCollection();
             services.AddMusicManagers(); // Ajout des managers au conteneur DI
-            
+
+            services.AddSingleton<Player>(); //Ajoute le singleton du player
+
+
             var provider = services.BuildServiceProvider();
             ServiceLocator.Init(provider);
             var songsManager = provider.GetRequiredService<SongsManager>();

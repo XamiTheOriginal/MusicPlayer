@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
+using MusicPlayer.SongsHandler.Managers;
 
 
 namespace MusicPlayer
@@ -18,22 +19,28 @@ namespace MusicPlayer
         {
             InitializeComponent();
             string musicPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-            _player = new Player(); //�a s'adapte au nom d'utilisateur et �a recherche les fichiers dans
-            //le dossier musique par d�faut de Windows
-            
+            _player = ServiceLocator.Instance.GetRequiredService<Player>();
+            var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
+            songsManager.LoadState();
+            songsManager.EnsureDataLoaded(); // Appel de la méthode publique
+
+
             if (_player == null)
             {
                 throw new Exception("Player object is not initialized.");
             }
 
-            if (_player.CurrentSongId == -1)
+            if (_player.CurrentSongId == -1 || string.IsNullOrEmpty(_player.CurrentSong?.Filepath))
             {
-                throw new Exception("Player filepath is null or empty.");
+                Console.WriteLine("Aucune chanson chargée pour le moment.");
             }
-            
+
+
             Console.WriteLine($"musicPath: {musicPath}");
             Console.WriteLine($"player: {_player != null}");
-            Console.WriteLine($"player.filepath: {_player?.CurrentSong.Filepath}");
+            Console.WriteLine($"player.filepath: {(_player?.CurrentSong != null ? _player.CurrentSong.Filepath : "Aucune chanson sélectionnée")}");
+
+
             Console.WriteLine($"downloader: {_downloader != null}");
             
             //_downloader = new Downloader("oui",_player.Filepath);

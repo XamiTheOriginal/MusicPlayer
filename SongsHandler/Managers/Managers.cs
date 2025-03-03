@@ -31,17 +31,47 @@ public abstract class BaseManager<T>
         LoadState();
     }
 
-    protected void LoadState()
+    public void LoadState()
     {
         if (File.Exists(SaveFilePath))
         {
             string json = File.ReadAllText(SaveFilePath);
-            var saveData = JsonConvert.DeserializeObject<SaveData>(json) ?? new SaveData();
-            ItemsList = saveData.Items;
-            AvailableIds = new Queue<int>(saveData.AvailableIds);
-            NextId = saveData.NextId;
+            Console.WriteLine($"Chargement du fichier {SaveFilePath} : {json}");
+
+            var saveData = JsonConvert.DeserializeObject<SaveData>(json);
+            if (saveData != null)
+            {
+                ItemsList = saveData.Items ?? new List<T>();
+                AvailableIds = new Queue<int>(saveData.AvailableIds ?? new List<int>());
+                NextId = saveData.NextId;
+            }
+            else
+            {
+                Console.WriteLine("Erreur : Le fichier JSON est corrompu, création d'une nouvelle liste.");
+                ItemsList = new List<T>();
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Le fichier {SaveFilePath} n'existe pas, initialisation avec des valeurs par défaut.");
+            ItemsList = new List<T>();
+            InitializeDefaultData();
         }
     }
+
+    protected virtual void InitializeDefaultData()
+    {
+        Console.WriteLine("Aucune donnée trouvée, ajout de valeurs par défaut...");
+    }
+    public void EnsureDataLoaded()
+    {
+        if (ItemsList.Count == 0)
+        {
+            Console.WriteLine("Aucune donnée trouvée, chargement des valeurs par défaut...");
+            InitializeDefaultData();
+        }
+    }
+
 
     protected void SaveState()
     {
