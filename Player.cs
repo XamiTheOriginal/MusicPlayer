@@ -34,6 +34,7 @@ namespace MusicPlayer
                     return songsManager.GetAllItems().FirstOrDefault();
                 }
             }
+            private set { }
         }
 
 
@@ -46,6 +47,7 @@ namespace MusicPlayer
         public Player()
         {
             CurrentSongId = -1;
+            this.CurrentSong.Id = -1;
         }
         
         public void PlayDaMusic()
