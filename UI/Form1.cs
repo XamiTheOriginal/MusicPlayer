@@ -30,7 +30,7 @@ namespace MusicPlayer
                 throw new Exception("Player object is not initialized.");
             }
 
-            if (_player.CurrentSongId == -1 || string.IsNullOrEmpty(_player.CurrentSong?.Filepath))
+            if (_player.CurrentSongId == -1)
             {
                 Console.WriteLine("Aucune chanson chargée pour le moment.");
             }
@@ -38,15 +38,15 @@ namespace MusicPlayer
 
             Console.WriteLine($"musicPath: {musicPath}");
             Console.WriteLine($"player: {_player != null}");
-            Console.WriteLine($"player.filepath: {(_player?.CurrentSong != null ? _player.CurrentSong.Filepath : "Aucune chanson sélectionnée")}");
+            Console.WriteLine($"player.filepath: {(_player.CurrentSongId != -1 ? "Non": "Aucune chanson sélectionnée")}");
 
 
             Console.WriteLine($"downloader: {_downloader != null}");
             
             //_downloader = new Downloader("oui",_player.Filepath);
             
-            if (_player.CurrentSong is null) throw new Exception("Player.CurrentSong object is not initialized.");
-            _initialPath = _player.CurrentSong.Filepath;
+            if (_player.CurrentSongId == -2) throw new Exception("Player.CurrentSong object is not initialized.");
+            _initialPath = songsManager.GetItemById(_player.CurrentSongId).Filepath;//_player.CurrentSong.Filepath;
             listBoxSongs.SelectedIndex = -1;
             //Console.WriteLine(downloader.filepath);
             LoadSongs();
@@ -54,8 +54,8 @@ namespace MusicPlayer
 
         private void LoadSongs()
         {
-
-            string musicDirectory = _player.CurrentSong.Filepath;
+            var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
+            string musicDirectory = songsManager.GetItemById(_player.CurrentSongId).Filepath;
             if (!Directory.Exists(musicDirectory))
             {
                 MessageBox.Show("This directory doesn't exist : " 
