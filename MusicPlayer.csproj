@@ -17,4 +17,13 @@
     <PackageReference Include="VideoLibrary" Version="3.2.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\DATA\Playlists.json" />
+    <None Include="bin\DATA\Songs.json" />
+  </ItemGroup>
+
 </Project>
