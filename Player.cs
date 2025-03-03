@@ -12,7 +12,7 @@ namespace MusicPlayer
     {
         public int CurrentSongId;
         private Queue<int> _songIdQueue = new Queue<int>();
-        public Song? CurrentSong
+        private Song? CurrentSong
         {
             get
             {
