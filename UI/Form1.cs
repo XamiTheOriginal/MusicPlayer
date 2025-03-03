@@ -44,6 +44,8 @@ namespace MusicPlayer
             Console.WriteLine($"downloader: {_downloader != null}");
             
             //_downloader = new Downloader("oui",_player.Filepath);
+            
+            if (_player.CurrentSong is null) throw new Exception("Player.CurrentSong object is not initialized.");
             _initialPath = _player.CurrentSong.Filepath;
             listBoxSongs.SelectedIndex = -1;
             //Console.WriteLine(downloader.filepath);
