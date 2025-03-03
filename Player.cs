@@ -34,7 +34,6 @@ namespace MusicPlayer
                     return songsManager.GetAllItems().FirstOrDefault();
                 }
             }
-            private set { }
         }
 
 
