@@ -43,7 +43,7 @@ namespace MusicPlayer
 
         private void LoadSongs()
         { 
-
+            //TODO : Changer le Directory.Exists pour mettre le bon path
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
             string musicDirectory = songsManager.GetItemById(_player.CurrentSongId).Filepath;
             if (!Directory.Exists(_player.GetFilePath()))
