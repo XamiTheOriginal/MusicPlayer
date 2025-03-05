@@ -16,12 +16,35 @@ namespace MusicPlayer.SongsHandler.Managers
         public SongsManager() : base(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "DATA", "Songs.json"))
         {
         }
+        
+        public Song? TryGetItemById(int id)
+        {
+            try
+            {
+                return GetItemById(id);
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
+        }
+
 
         public new void AddItem(Song item) 
         {
             base.AddItem(item);
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
-            playlistsManager.GetItemByName("Default").AddSong(item.Id);
+            var defaultPlaylist = playlistsManager.GetItemByName("Default");
+
+            if (defaultPlaylist != null)
+            {
+                defaultPlaylist.AddSong(item.Id);
+            }
+            else
+            {
+                Console.WriteLine("⚠️ Playlist 'Default' introuvable.");
+            }
+
             
         }
 

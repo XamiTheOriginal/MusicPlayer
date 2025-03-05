@@ -40,46 +40,23 @@ namespace MusicPlayer
         
         public void PlayDaMusic()
         {
-            var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
-
-            if (_isPaused)
+            try
             {
-                _outputDevice.Stop();
+                if (_audioFile != null) _audioFile.Dispose();
+                if (_outputDevice != null) _outputDevice.Dispose();
+
                 _audioFile = new AudioFileReader(CurrentSong.Filepath);
+                _outputDevice = new WaveOutEvent();
                 _outputDevice.Init(_audioFile);
                 _outputDevice.Play();
                 _isPlaying = true;
-                _isPaused = false;
             }
-            else 
+            catch (Exception e)
             {
-                Task.Run(() =>
-                {
-                    try
-                    {
-                        using (_audioFile = new AudioFileReader(CurrentSong.Filepath))
-                        using (_outputDevice = new WaveOutEvent())
-                        {
-                            _outputDevice.Init(_audioFile);
-                            _outputDevice.PlaybackStopped += (sender, args) =>
-                            {
-                                _isPlaying = false;
-                            };  
-                            _outputDevice.Play();
-                            _isPlaying = true;
-                            while (_outputDevice.PlaybackState == PlaybackState.Playing)
-                            {
-                                Thread.Sleep(100);
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine($"Error: {e.Message}");
-                    }
-                });
+                Console.WriteLine($"Erreur lors de la lecture : {e.Message}");
             }
         }
+
 
         public void PauseDaMusic()
         {
@@ -97,9 +74,16 @@ namespace MusicPlayer
             var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
             Playlist playlist = playlistsManager.GetItemById(id);
             _songIdQueue = new Queue<int>(playlist.GetSongList());
-            int temp = _songIdQueue.Dequeue();
-            CurrentSongId = temp;
-            PlayDaMusic();
+            if (_songIdQueue.Count > 0)
+            {
+                CurrentSongId = _songIdQueue.Dequeue();
+                PlayDaMusic();
+            }
+            else
+            {
+                Console.WriteLine("La playlist est vide.");
+            }
+
         }
     }
     

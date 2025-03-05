@@ -35,19 +35,26 @@ public abstract class BaseManager<T>
     {
         if (File.Exists(SaveFilePath))
         {
-            string json = File.ReadAllText(SaveFilePath);
-            Console.WriteLine($"Chargement du fichier {SaveFilePath} : {json}");
+            try
+            {
+                string json = File.ReadAllText(SaveFilePath);
+                var saveData = JsonConvert.DeserializeObject<SaveData>(json);
 
-            var saveData = JsonConvert.DeserializeObject<SaveData>(json);
-            if (saveData != null)
-            {
-                ItemsList = saveData.Items;
-                AvailableIds = new Queue<int>(saveData.AvailableIds);
-                NextId = saveData.NextId;
+                if (saveData != null)
+                {
+                    ItemsList = saveData.Items ?? new List<T>();
+                    AvailableIds = new Queue<int>(saveData.AvailableIds ?? new List<int>());
+                    NextId = saveData.NextId;
+                }
+                else
+                {
+                    Console.WriteLine("Le fichier JSON est corrompu. Réinitialisation...");
+                    ItemsList = new List<T>();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Erreur : Le fichier JSON est corrompu, création d'une nouvelle liste.");
+                Console.WriteLine($"Erreur de lecture du fichier JSON : {ex.Message}");
                 ItemsList = new List<T>();
             }
         }

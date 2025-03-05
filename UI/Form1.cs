@@ -47,9 +47,10 @@ namespace MusicPlayer
             var playlistManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
             foreach (int id in playlistManager.GetItemByName("Default").GetSongList())
             {
-                if (!File.Exists(songsManager.GetItemById(id).Filepath))
+                var song = songsManager.TryGetItemById(id);
+                if (song != null && !File.Exists(song.Filepath))
                 {
-                    Console.WriteLine($"This file : {songsManager.GetItemById(id).Filepath} doesn't exist.");
+                    Console.WriteLine($"Le fichier {song.Filepath} n'existe pas.");
                 }
             }
             string musicDirectory = songsManager.GetItemById(_player.CurrentSongId).Filepath;

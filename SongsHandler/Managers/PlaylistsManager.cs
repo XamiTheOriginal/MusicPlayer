@@ -17,11 +17,9 @@ namespace MusicPlayer.SongsHandler.Managers
 
         private static string GetDataFilePath()
         {
-            // Récupère le dossier du projet en remontant depuis bin/Debug
             string projectDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
             string dataFilePath = Path.Combine(projectDirectory, "DATA", "Playlists.json");
-
-            // Vérifie si le fichier existe
+    
             if (!File.Exists(dataFilePath))
             {
                 Console.WriteLine($"⚠️ Le fichier Playlists.json est introuvable : {dataFilePath}");
