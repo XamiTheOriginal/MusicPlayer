@@ -11,6 +11,7 @@ namespace MusicPlayer
     public partial class Form1 : Form
     {
         private bool _isPlaying = false;
+
         private Player _player;
         private string _initialPath;
         private Downloader _downloader;
@@ -42,18 +43,16 @@ namespace MusicPlayer
 
         private void LoadSongs()
         { 
-            //TODO : Changer le File.Exists pour mettre le bon path
+            //TODO : Changer le Directory.Exists pour mettre le bon path
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
-            var playlistManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
-            foreach (int id in playlistManager.GetItemByName("Default").GetSongList())
-            {
-                var song = songsManager.TryGetItemById(id);
-                if (song != null && !File.Exists(song.Filepath))
-                {
-                    Console.WriteLine($"Le fichier {song.Filepath} n'existe pas.");
-                }
-            }
             string musicDirectory = songsManager.GetItemById(_player.CurrentSongId).Filepath;
+            if (!Directory.Exists(_player.GetFilePath()))
+            {
+                MessageBox.Show("This directory doesn't exist : blabla "
+                    + musicDirectory, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             string[] files = Directory.GetFiles(musicDirectory).Where
                 (f => Path.GetFileName(f).ToLower() != "desktop.ini").ToArray();
             foreach (string file in files)
@@ -97,11 +96,16 @@ namespace MusicPlayer
         }
         */
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void buttonPreviousSong_Click_1(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            _player.PreviousSong();
         }
 
+        private void buttonNextSong_Click_1(object sender, EventArgs e)
+        {
+            _player.NextSong();
+        }
+        
         private void progressBar1_Click(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
@@ -109,19 +113,8 @@ namespace MusicPlayer
 
         private void TitleLab_Click(object sender, EventArgs e)
         {
-
-
             throw new System.NotImplementedException();
         }
         
-        private void buttonNextSong_Click_1(object sender, EventArgs e)
-        {
-            _player.NextSong();
-        }
-
-        private void buttonPreviousSong_Click_1(object sender, EventArgs e)
-        {
-            _player.PreviousSong();
-        }
     }
 }

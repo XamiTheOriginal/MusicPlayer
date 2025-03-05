@@ -2,7 +2,7 @@
   "Items": [
     {
       "Id": 1,
-      "Filepath": "\"C:\\Users\\maxim\\OneDrive\\Bureau\\C#\\MusicPlayer\\bin\\DATA\\Musics\\NeverGonna.mp3\"",
+      "Filepath": "\"DATA\\Musics\\NeverGonna.mp3\"",
       "Title": "Chanson1",
       "Artist": null,
       "Album": null,
@@ -10,6 +10,6 @@
       "Mood": 0
     }
   ],
-  "AvailableIds": [],
+  "AvailableIds": [2],
   "NextId": 3
 }

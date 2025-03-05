@@ -31,7 +31,7 @@ namespace MusicPlayer
         
         public Player()
         {
-            CurrentSongId = 0;
+            CurrentSongId = 1;
         }
 
         public string GetFilePath()
@@ -43,8 +43,8 @@ namespace MusicPlayer
         {
             try
             {
-                if (_audioFile != null) _audioFile.Dispose();
-                if (_outputDevice != null) _outputDevice.Dispose();
+                if (_audioFile is not null) _audioFile.Dispose();
+                if (_outputDevice is not null) _outputDevice.Dispose();
 
                 _audioFile = new AudioFileReader(CurrentSong.Filepath);
                 _outputDevice = new WaveOutEvent();

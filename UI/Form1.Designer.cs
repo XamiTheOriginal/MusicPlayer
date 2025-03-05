@@ -34,6 +34,9 @@
             listBoxSongs = new System.Windows.Forms.ListBox();
             buttonPreviousSong = new System.Windows.Forms.Button();
             buttonNextSong = new System.Windows.Forms.Button();
+            listBoxPlaylists = new System.Windows.Forms.ListBox();
+            MusicPictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)MusicPictureBox).BeginInit();
             SuspendLayout();
             // 
             // buttonPlayPause
@@ -73,7 +76,7 @@
             listBoxSongs.ItemHeight = 32;
             listBoxSongs.Location = new System.Drawing.Point(371, 43);
             listBoxSongs.Name = "listBoxSongs";
-            listBoxSongs.Size = new System.Drawing.Size(610, 100);
+            listBoxSongs.Size = new System.Drawing.Size(357, 420);
             listBoxSongs.TabIndex = 4;
             // 
             // buttonPreviousSong
@@ -86,7 +89,7 @@
             buttonPreviousSong.TabIndex = 5;
             buttonPreviousSong.Text = "⏮️";
             buttonPreviousSong.UseVisualStyleBackColor = false;
-            buttonPreviousSong.Click += buttonPreviousSong_Click_1;
+            buttonPreviousSong.Click += button1_Click_1;
             // 
             // buttonNextSong
             // 
@@ -98,13 +101,32 @@
             buttonNextSong.TabIndex = 6;
             buttonNextSong.Text = "⏭️";
             buttonNextSong.UseVisualStyleBackColor = false;
-            buttonNextSong.Click += buttonNextSong_Click_1;
+            buttonNextSong.Click += buttonNextSong_Click;
+            // 
+            // listBoxPlaylists
+            // 
+            listBoxPlaylists.FormattingEnabled = true;
+            listBoxPlaylists.ItemHeight = 32;
+            listBoxPlaylists.Location = new System.Drawing.Point(36, 43);
+            listBoxPlaylists.Name = "listBoxPlaylists";
+            listBoxPlaylists.Size = new System.Drawing.Size(238, 420);
+            listBoxPlaylists.TabIndex = 7;
+            // 
+            // MusicPictureBox
+            // 
+            MusicPictureBox.Location = new System.Drawing.Point(833, 43);
+            MusicPictureBox.Name = "MusicPictureBox";
+            MusicPictureBox.Size = new System.Drawing.Size(428, 420);
+            MusicPictureBox.TabIndex = 8;
+            MusicPictureBox.TabStop = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1346, 595);
+            ClientSize = new System.Drawing.Size(1499, 903);
+            Controls.Add(MusicPictureBox);
+            Controls.Add(listBoxPlaylists);
             Controls.Add(buttonNextSong);
             Controls.Add(buttonPreviousSong);
             Controls.Add(listBoxSongs);
@@ -113,9 +135,14 @@
             Controls.Add(buttonPlayPause);
             Margin = new System.Windows.Forms.Padding(5);
             Text = "MP3PlayerCustom";
+            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)MusicPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
+
+        private System.Windows.Forms.ListBox listBoxPlaylists;
+        private System.Windows.Forms.PictureBox MusicPictureBox;
 
         private System.Windows.Forms.Button buttonPreviousSong;
         private System.Windows.Forms.Button buttonNextSong;
