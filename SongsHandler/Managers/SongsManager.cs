@@ -47,7 +47,5 @@ namespace MusicPlayer.SongsHandler.Managers
 
             
         }
-
-
     }
 }
