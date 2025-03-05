@@ -24,7 +24,5 @@ namespace MusicPlayer.SongsHandler.Managers
             playlistsManager.GetItemByName("Default").AddSong(item.Id);
             
         }
-
-
     }
 }
