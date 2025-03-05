@@ -30,7 +30,7 @@ namespace MusicPlayer
         
         public Player()
         {
-            CurrentSongId = -1;
+            CurrentSongId = 0;
         }
 
         public string GetFilePath()
