@@ -12,27 +12,12 @@ namespace MusicPlayer
     {
         public int CurrentSongId;
         private Queue<int> _songIdQueue = new Queue<int>();
-        private Song? CurrentSong
+        private Song CurrentSong
         {
             get
             {
-                if (CurrentSongId < -1)
-                {
-                    Console.WriteLine("Aucune chanson sélectionnée.");
-                    return null;
-                }
-
                 var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
-                try
-                {
-                    return songsManager.GetItemById(CurrentSongId);
-                }
-                catch (KeyNotFoundException)
-                {
-                    Console.WriteLine($"Erreur : Impossible de trouver la chanson avec l'ID {CurrentSongId}, sélection automatique de la première.");
-                    CurrentSongId = songsManager.GetAllItems().FirstOrDefault()?.Id ?? -1;
-                    return songsManager.GetAllItems().FirstOrDefault();
-                }
+                return songsManager.GetItemById(CurrentSongId);
             }
         }
 
@@ -46,12 +31,11 @@ namespace MusicPlayer
         public Player()
         {
             CurrentSongId = -1;
-            this.CurrentSong.Id = -1;
         }
 
         public string GetFilePath()
         {
-            return this.CurrentSong.Filepath;
+            return CurrentSong.Filepath;
         }
         
         public void PlayDaMusic()
@@ -66,7 +50,6 @@ namespace MusicPlayer
                 _outputDevice.Play();
                 _isPlaying = true;
                 _isPaused = false;
-                return;
             }
             else 
             {

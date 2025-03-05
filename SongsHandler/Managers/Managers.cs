@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MusicPlayer.SongsHandler;
+namespace MusicPlayer.SongsHandler.Managers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,8 +41,8 @@ public abstract class BaseManager<T>
             var saveData = JsonConvert.DeserializeObject<SaveData>(json);
             if (saveData != null)
             {
-                ItemsList = saveData.Items ?? new List<T>();
-                AvailableIds = new Queue<int>(saveData.AvailableIds ?? new List<int>());
+                ItemsList = saveData.Items;
+                AvailableIds = new Queue<int>(saveData.AvailableIds);
                 NextId = saveData.NextId;
             }
             else

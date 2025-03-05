@@ -112,6 +112,15 @@ namespace MusicPlayer
 
             throw new System.NotImplementedException();
         }
+        
+        private void buttonNextSong_Click_1(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
 
+        private void buttonPreviousSong_Click_1(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
