@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MusicPlayer.SongsHandler.Managers
 {
@@ -16,14 +17,14 @@ namespace MusicPlayer.SongsHandler.Managers
         {
         }
 
-        /// <summary>
-        /// Initialise les données par défaut si le fichier JSON n'existe pas ou est invalide.
-        /// </summary>
-        protected override void InitializeDefaultData()
+        public new void AddItem(Song item) 
         {
-            AddItem(new Song("C:\\Users\\maxim\\Music\\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm", NextId));
-            AddItem(new Song("C:\\Users\\maxim\\Music\\NeverGonna.mp3", NextId));
-            SaveState(); // On sauvegarde pour créer le fichier JSON
+            base.AddItem(item);
+            var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+            playlistsManager.GetItemByName("Default").AddSong(item.Id);
+            
         }
+
+
     }
 }
