@@ -11,7 +11,6 @@ namespace MusicPlayer
     public partial class Form1 : Form
     {
         private bool _isPlaying = false;
-
         private Player _player;
         private string _initialPath;
         private Downloader _downloader;
@@ -43,16 +42,17 @@ namespace MusicPlayer
 
         private void LoadSongs()
         { 
-            //TODO : Changer le Directory.Exists pour mettre le bon path
+            //TODO : Changer le File.Exists pour mettre le bon path
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
-            string musicDirectory = songsManager.GetItemById(_player.CurrentSongId).Filepath;
-            if (!Directory.Exists(_player.GetFilePath()))
+            var playlistManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+            foreach (int id in playlistManager.GetItemByName("Default").GetSongList())
             {
-                MessageBox.Show("This directory doesn't exist : blabla "
-                    + musicDirectory, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (!File.Exists(songsManager.GetItemById(id).Filepath))
+                {
+                    Console.WriteLine($"This file : {songsManager.GetItemById(id).Filepath} doesn't exist.");
+                }
             }
-
+            string musicDirectory = songsManager.GetItemById(_player.CurrentSongId).Filepath;
             string[] files = Directory.GetFiles(musicDirectory).Where
                 (f => Path.GetFileName(f).ToLower() != "desktop.ini").ToArray();
             foreach (string file in files)

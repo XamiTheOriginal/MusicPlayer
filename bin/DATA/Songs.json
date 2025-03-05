@@ -2,17 +2,8 @@
   "Items": [
     {
       "Id": 1,
-      "Filepath": "C:\\Musique\\Chanson1.mp3",
+      "Filepath": "\"C:\\Users\\maxim\\OneDrive\\Bureau\\C#\\MusicPlayer\\bin\\DATA\\Musics\\NeverGonna.mp3\"",
       "Title": "Chanson1",
-      "Artist": null,
-      "Album": null,
-      "Duration": 0.0,
-      "Mood": 0
-    },
-    {
-      "Id": 2,
-      "Filepath": "C:\\Musique\\Chanson2.mp3",
-      "Title": "Chanson2",
       "Artist": null,
       "Album": null,
       "Duration": 0.0,
