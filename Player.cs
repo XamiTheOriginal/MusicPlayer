@@ -11,7 +11,8 @@ namespace MusicPlayer
     public class Player
     {
         public int CurrentSongId;
-        private Queue<int> _songIdQueue = new Queue<int>();
+        private Queue<int> _nextSongIdQueue = new Queue<int>();
+        private Queue<int> _previousSongQueue = new Queue<int>();
         private Song CurrentSong
         {
             get
@@ -73,17 +74,30 @@ namespace MusicPlayer
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
             var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
             Playlist playlist = playlistsManager.GetItemById(id);
-            _songIdQueue = new Queue<int>(playlist.GetSongList());
-            if (_songIdQueue.Count > 0)
+            _nextSongIdQueue = new Queue<int>(playlist.GetSongList());
+            if (_nextSongIdQueue.Count > 0)
             {
-                CurrentSongId = _songIdQueue.Dequeue();
-                PlayDaMusic();
+                NextSong();
             }
             else
             {
                 Console.WriteLine("La playlist est vide.");
             }
 
+        }
+
+        public void NextSong()
+        {
+            _previousSongQueue.Enqueue(CurrentSongId);
+            CurrentSongId = _nextSongIdQueue.Dequeue();
+            PlayDaMusic();
+        }
+
+        public void PreviousSong()
+        {
+            _nextSongIdQueue.Enqueue(CurrentSongId);
+            CurrentSongId = _previousSongQueue.Dequeue();
+            PlayDaMusic();
         }
     }
     
