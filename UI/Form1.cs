@@ -11,7 +11,7 @@ namespace MusicPlayer
     public partial class Form1 : Form
     {
         private bool _isPlaying = false;
-        
+
         private Player _player;
         private string _initialPath;
         private Downloader _downloader;
@@ -35,37 +35,27 @@ namespace MusicPlayer
                 Console.WriteLine("Aucune chanson chargée pour le moment.");
             }
 
-
-            Console.WriteLine($"musicPath: {musicPath}");
-            Console.WriteLine($"player: {_player != null}");
-            Console.WriteLine($"player.filepath: {(_player.CurrentSongId != -1 ? "Non": "Aucune chanson sélectionnée")}");
-
-
-            Console.WriteLine($"downloader: {_downloader != null}");
-            
-            //_downloader = new Downloader("oui",_player.Filepath);
-            
-            if (_player.CurrentSongId == -2) throw new Exception("Player.CurrentSong object is not initialized.");
-            _initialPath = songsManager.GetItemById(_player.CurrentSongId).Filepath;//_player.CurrentSong.Filepath;
+            if (_player.CurrentSongId < -1) throw new Exception("Player.CurrentSong object is not initialized.");
+            _initialPath = songsManager.GetItemById(_player.CurrentSongId).Filepath;
             listBoxSongs.SelectedIndex = -1;
-            //Console.WriteLine(downloader.filepath);
             LoadSongs();
         }
 
         private void LoadSongs()
-        {
+        { 
+            //TODO : Changer le Directory.Exists pour mettre le bon path
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
             string musicDirectory = songsManager.GetItemById(_player.CurrentSongId).Filepath;
-            if (!Directory.Exists(musicDirectory))
+            if (!Directory.Exists(_player.GetFilePath()))
             {
-                MessageBox.Show("This directory doesn't exist : " 
+                MessageBox.Show("This directory doesn't exist : blabla "
                     + musicDirectory, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             string[] files = Directory.GetFiles(musicDirectory).Where
                 (f => Path.GetFileName(f).ToLower() != "desktop.ini").ToArray();
-            foreach (string file in files) 
+            foreach (string file in files)
             {
                 listBoxSongs.Items.Add(file);
                 Console.WriteLine(file);
@@ -76,7 +66,7 @@ namespace MusicPlayer
         {
             if (listBoxSongs.SelectedItem == null)
             {
-                MessageBox.Show("Veuillez s�lectionner une chanson.");
+                MessageBox.Show("Veuillez sélectionner une chanson.");
                 return;
             }
             if (!_isPlaying)
@@ -105,7 +95,7 @@ namespace MusicPlayer
                 }
         }
         */
-        
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             throw new System.NotImplementedException();
@@ -118,9 +108,10 @@ namespace MusicPlayer
 
         private void TitleLab_Click(object sender, EventArgs e)
         {
-            
-            
+
+
             throw new System.NotImplementedException();
         }
+
     }
 }
