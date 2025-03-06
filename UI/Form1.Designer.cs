@@ -43,7 +43,7 @@
             // 
             buttonPlayPause.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             buttonPlayPause.ForeColor = System.Drawing.Color.FloralWhite;
-            buttonPlayPause.Location = new System.Drawing.Point(925, 479);
+            buttonPlayPause.Location = new System.Drawing.Point(1146, 642);
             buttonPlayPause.Name = "buttonPlayPause";
             buttonPlayPause.Size = new System.Drawing.Size(250, 104);
             buttonPlayPause.TabIndex = 0;
@@ -54,7 +54,7 @@
             // TitleLab
             // 
             TitleLab.AutoSize = true;
-            TitleLab.Location = new System.Drawing.Point(36, 479);
+            TitleLab.Location = new System.Drawing.Point(1242, 770);
             TitleLab.Name = "TitleLab";
             TitleLab.Size = new System.Drawing.Size(60, 32);
             TitleLab.TabIndex = 2;
@@ -64,9 +64,9 @@
             // 
             // progressBar1
             // 
-            progressBar1.Location = new System.Drawing.Point(36, 534);
+            progressBar1.Location = new System.Drawing.Point(979, 822);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new System.Drawing.Size(692, 29);
+            progressBar1.Size = new System.Drawing.Size(594, 40);
             progressBar1.TabIndex = 3;
             progressBar1.Click += progressBar1_Click;
             // 
@@ -74,16 +74,16 @@
             // 
             listBoxSongs.FormattingEnabled = true;
             listBoxSongs.ItemHeight = 32;
-            listBoxSongs.Location = new System.Drawing.Point(371, 43);
+            listBoxSongs.Location = new System.Drawing.Point(584, 57);
             listBoxSongs.Name = "listBoxSongs";
-            listBoxSongs.Size = new System.Drawing.Size(357, 420);
+            listBoxSongs.Size = new System.Drawing.Size(357, 804);
             listBoxSongs.TabIndex = 4;
             // 
             // buttonPreviousSong
             // 
             buttonPreviousSong.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             buttonPreviousSong.ForeColor = System.Drawing.Color.FloralWhite;
-            buttonPreviousSong.Location = new System.Drawing.Point(753, 500);
+            buttonPreviousSong.Location = new System.Drawing.Point(974, 663);
             buttonPreviousSong.Name = "buttonPreviousSong";
             buttonPreviousSong.Size = new System.Drawing.Size(166, 63);
             buttonPreviousSong.TabIndex = 5;
@@ -95,7 +95,7 @@
             // 
             buttonNextSong.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             buttonNextSong.ForeColor = System.Drawing.Color.FloralWhite;
-            buttonNextSong.Location = new System.Drawing.Point(1181, 500);
+            buttonNextSong.Location = new System.Drawing.Point(1402, 663);
             buttonNextSong.Name = "buttonNextSong";
             buttonNextSong.Size = new System.Drawing.Size(166, 63);
             buttonNextSong.TabIndex = 6;
@@ -107,14 +107,14 @@
             // 
             listBoxPlaylists.FormattingEnabled = true;
             listBoxPlaylists.ItemHeight = 32;
-            listBoxPlaylists.Location = new System.Drawing.Point(36, 43);
+            listBoxPlaylists.Location = new System.Drawing.Point(249, 57);
             listBoxPlaylists.Name = "listBoxPlaylists";
-            listBoxPlaylists.Size = new System.Drawing.Size(238, 420);
+            listBoxPlaylists.Size = new System.Drawing.Size(238, 804);
             listBoxPlaylists.TabIndex = 7;
             // 
             // MusicPictureBox
             // 
-            MusicPictureBox.Location = new System.Drawing.Point(833, 43);
+            MusicPictureBox.Location = new System.Drawing.Point(1054, 206);
             MusicPictureBox.Name = "MusicPictureBox";
             MusicPictureBox.Size = new System.Drawing.Size(428, 420);
             MusicPictureBox.TabIndex = 8;
@@ -124,7 +124,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1499, 903);
+            ClientSize = new System.Drawing.Size(1595, 903);
             Controls.Add(MusicPictureBox);
             Controls.Add(listBoxPlaylists);
             Controls.Add(buttonNextSong);
