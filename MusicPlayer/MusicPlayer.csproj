@@ -24,4 +24,16 @@
         <PackageReference Include="TagLibSharp" Version="2.3.0" />
         <PackageReference Include="VideoLibrary" Version="3.2.8" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="bin\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="bin\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm" />
+      <None Include="bin\DATA\Musics\Linkin Park ⧸ Slipknot ⧸ Eminem - Damage [OFFICIAL MUSIC VIDEO] [FULL-HD] [MASHUP] - Copie.mp3" />
+      <None Include="bin\DATA\Musics\NeverGonna.mp3" />
+      <None Include="bin\DATA\Playlists.json" />
+      <None Include="bin\DATA\Songs.json" />
+    </ItemGroup>
 </Project>
