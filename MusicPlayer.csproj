@@ -1,30 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Project>Sdk="Microsoft.NET.Sdk"</Project>
-    <EnableWindowsTargeting>true</EnableWindowsTargeting>
-  </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1"/>
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.1">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="MessageBox.Avalonia" Version="3.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
+        <PackageReference Include="NAudio" Version="2.2.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="TagLibSharp" Version="2.3.0" />
+        <PackageReference Include="VideoLibrary" Version="3.2.8" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.2.5" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
-    <PackageReference Include="NAudio" Version="2.2.1" />
-    <PackageReference Include="TagLibSharp" Version="2.3.0" />
-    <PackageReference Include="VideoLibrary" Version="3.2.6" />
-  </ItemGroup>
+    <ItemGroup>
+      <Folder Include="bin\" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="bin\DATA\Musics\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bin\DATA\Playlists.json" />
-    <None Include="bin\DATA\Songs.json" />
-  </ItemGroup>
-
+    <ItemGroup>
+      <None Include="bin\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm" />
+      <None Include="bin\DATA\Musics\Linkin Park ⧸ Slipknot ⧸ Eminem - Damage [OFFICIAL MUSIC VIDEO] [FULL-HD] [MASHUP] - Copie.mp3" />
+      <None Include="bin\DATA\Musics\NeverGonna.mp3" />
+      <None Include="bin\DATA\Playlists.json" />
+      <None Include="bin\DATA\Songs.json" />
+    </ItemGroup>
 </Project>

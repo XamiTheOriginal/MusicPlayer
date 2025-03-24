@@ -1,4 +1,6 @@
-﻿using MusicPlayer.SongsHandler;
+﻿using System;
+using System.Collections.Generic;
+using MusicPlayer.SongsHandler;
 using NAudio.Wave;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler.Managers;
