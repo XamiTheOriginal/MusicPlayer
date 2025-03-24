@@ -1,8 +1,6 @@
 ﻿using Avalonia;
 using System;
-using MusicPlayer.SongsHandler;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using MusicPlayer.SongsHandler.Managers;
 
 namespace MusicPlayer;
