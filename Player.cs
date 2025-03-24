@@ -45,9 +45,8 @@ namespace MusicPlayer
         {
             try
             {
-                if (_audioFile is not null) _audioFile.Dispose();
-                if (_outputDevice is not null) _outputDevice.Dispose();
-
+                _audioFile.Dispose();
+                _outputDevice.Dispose();
                 _audioFile = new AudioFileReader(CurrentSong.Filepath);
                 _outputDevice = new WaveOutEvent();
                 _outputDevice.Init(_audioFile);
