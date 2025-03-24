@@ -37,4 +37,15 @@
       <None Include="bin\DATA\Playlists.json" />
       <None Include="bin\DATA\Songs.json" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="UI\App.axaml.cs">
+        <DependentUpon>App.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UI\Views\MainWindow.axaml.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>
