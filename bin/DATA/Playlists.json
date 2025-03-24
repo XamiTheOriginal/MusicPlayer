@@ -1,0 +1,12 @@
+{
+  "Items": [
+    {
+      "Id": 1,
+      "SongCount": 0,
+      "IsEmpty": true,
+      "Name": "Default"
+    }
+  ],
+  "AvailableIds": [],
+  "NextId": 2
+}
