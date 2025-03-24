@@ -7,6 +7,6 @@
         Title="MusicPlayer">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Bienvenue dans MusicPlayer!" FontSize="20" Margin="0,0,0,20"/>
-                <Button Content="Lire une chanson" Width="200"/>
+                <Button Content="Lire une chanson" Width="200" Click="Button_OnClick"/>
         </StackPanel>
 </Window>
