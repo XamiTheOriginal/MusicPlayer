@@ -1,4 +1,4 @@
-namespace MusicPlayer.DATA;
+namespace MusicPlayer;
 
 public enum Moods
 {

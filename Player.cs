@@ -28,11 +28,13 @@ namespace MusicPlayer
         private WaveOutEvent _outputDevice;
         private AudioFileReader _audioFile;
 
-        private bool _isPlaying = false;
-        private bool _isPaused = false;
+        private bool _isPlaying;
+        private bool _isPaused;
         
-        public Player()
+        public Player(WaveOutEvent outputDevice, AudioFileReader audioFile)
         {
+            _outputDevice = outputDevice;
+            _audioFile = audioFile;
             CurrentSongId = 1;
         }
 
@@ -73,7 +75,7 @@ namespace MusicPlayer
         public void PlayDaPlaylist(int id)
         {
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
-            var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
+            //var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
             Playlist playlist = playlistsManager.GetItemById(id);
             _nextSongIdQueue = new Queue<int>(playlist.GetSongList());
             _previousSongQueue = new Queue<int>();
