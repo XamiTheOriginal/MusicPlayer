@@ -47,10 +47,12 @@
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
-    
 
     <ItemGroup>
-        <EmbeddedResource Include="UI\Assets\Logo.png" />
+        <AvaloniaResource Include="UI/Assets/Logo.png"/>
+    </ItemGroup>
+    
+    <ItemGroup>
         <EmbeddedResource Include="bin\DATA\Playlists.json" />
         <EmbeddedResource Include="bin\DATA\Songs.json" />
     </ItemGroup>
