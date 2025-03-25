@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <RootNamespace>MusicPlayer</RootNamespace>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
@@ -34,8 +35,6 @@
       <None Include="bin\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm" />
       <None Include="bin\DATA\Musics\Linkin Park ⧸ Slipknot ⧸ Eminem - Damage [OFFICIAL MUSIC VIDEO] [FULL-HD] [MASHUP] - Copie.mp3" />
       <None Include="bin\DATA\Musics\NeverGonna.mp3" />
-      <None Include="bin\DATA\Playlists.json" />
-      <None Include="bin\DATA\Songs.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -47,5 +46,14 @@
         <DependentUpon>MainWindow.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AvaloniaResource Include="UI/Assets/Logo.png"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <EmbeddedResource Include="bin\DATA\Playlists.json" />
+        <EmbeddedResource Include="bin\DATA\Songs.json" />
     </ItemGroup>
 </Project>
