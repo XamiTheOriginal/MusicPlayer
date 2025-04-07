@@ -1,31 +1,29 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler;
+using MusicPlayer.SongsHandler.Managers;
+
 
 namespace MusicPlayer.UI.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<string> Songs { get; } = new ObservableCollection<string>
+        public ObservableCollection<string>? Songs { get; }
+        
+        public MainViewModel()
         {
-            "Chanson 1",
-            "Chanson 2",
-            "Chanson 3",
-            "Chanson 1",
-            "Chanson 2",
-            "Chanson 3",
-            "Chanson 1",
-            "Chanson 2",
-            "Chanson 3",
-            "Chanson 1",
-            "Chanson 2",
-            "Chanson 3",
-            "Chanson 1",
-            "Chanson 2",
-            "Chanson 3",
-            "Chanson 1",
-            "Chanson 2",
-            "Chanson 3"
-        };
+            var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
+
+            Songs = new ObservableCollection<string>();
+            foreach (Song variableSong in songsManager.GetAllItems())
+            {
+                Songs.Add(variableSong.Title);
+            }
+            
+            
+        }
+        
         
         private int _selectedSongIndex;
         public int SelectedIndex

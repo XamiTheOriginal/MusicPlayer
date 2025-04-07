@@ -13,8 +13,6 @@ public partial class MainWindow : Window
 
     }
 
-
-
     private void Button_Previous(object? sender, RoutedEventArgs e)
     {
         throw new System.NotImplementedException();

@@ -25,6 +25,13 @@ namespace MusicPlayer.SongsHandler
             return _songList;
         }
         
+        public List<string> GetSongNames()
+        {
+            List<string> names = new List<string>();
+            foreach (var song in _songList) names.Add(song.ToString());
+            return names;
+        }
+        
         public void AddSong(int item)
         {
             _songList.Add(item);
