@@ -1,5 +1,3 @@
-
-
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -14,16 +12,30 @@ namespace MusicPlayer.UI.ViewModels
             "Chanson 3"
         };
         
-        private int _selectedIndex;
+        private int _selectedSongIndex;
         public int SelectedIndex
         {
-            get => _selectedIndex;
+            get => _selectedSongIndex;
             set
             {
-                if (_selectedIndex != value)
+                if (_selectedSongIndex != value)
                 {
-                    _selectedIndex = value;
+                    _selectedSongIndex = value;
                     OnPropertyChanged(nameof(SelectedIndex));
+                }
+            }
+        }
+
+        private double _progress;
+        public double Progress
+        {
+            get => _progress;
+            set
+            {
+                if (_progress != value)
+                {
+                    _progress = value;
+                    OnPropertyChanged(nameof(Progress));
                 }
             }
         }
