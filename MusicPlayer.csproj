@@ -51,9 +51,8 @@
     <ItemGroup>
         <AvaloniaResource Include="UI/Assets/Logo.png"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-        <EmbeddedResource Include="bin\DATA\Playlists.json" />
-        <EmbeddedResource Include="bin\DATA\Songs.json" />
+      <EmbeddedResource Include="bin\DATA\Playlists.json" />
     </ItemGroup>
 </Project>
