@@ -13,7 +13,19 @@ public partial class MainWindow : Window
 
     }
 
-    private void Button_OnClick(object? sender, RoutedEventArgs e)
+
+
+    private void Button_Previous(object? sender, RoutedEventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
+    
+    private void Button_Play(object? sender, RoutedEventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
+    
+    private void Button_Next(object? sender, RoutedEventArgs e)
     {
         throw new System.NotImplementedException();
     }

@@ -27,9 +27,9 @@
         <!-- Barre de progression + contrôles média en bas -->
         <StackPanel Grid.Row="2" Orientation="Vertical" Spacing="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
-                <Button Content="⏮️" Width="50" Height="30"/>
-                <Button Content="▶️" Width="50" Height="30"/>
-                <Button Content="⏭️" Width="50" Height="30"/>
+                <Button Content="⏮️" Width="50" Height="30" Click="Button_Previous"/>
+                <Button Content="▶️" Width="50" Height="30" Click="Button_Play"/>
+                <Button Content="⏭️" Width="50" Height="30" Click="Button_Next"/>
             </StackPanel>
             <ProgressBar Height="20" Minimum="0" Maximum="100" Value="{Binding Progress}" Margin="0,0,0,0"/>
 
