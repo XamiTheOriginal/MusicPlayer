@@ -17,8 +17,7 @@ namespace MusicPlayer.SongsHandler.Managers
 
         private static string GetDataFilePath()
         {
-            string projectDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
-            string dataFilePath = Path.Combine(projectDirectory, "DATA", "Playlists.json");
+            string dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DATA", "Playlists.json");
     
             if (!File.Exists(dataFilePath))
             {

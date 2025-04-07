@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,15 +14,12 @@ namespace MusicPlayer.UI.ViewModels
         
         public MainViewModel()
         {
-            var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
-
-            Songs = new ObservableCollection<string>();
-            foreach (Song variableSong in songsManager.GetAllItems())
-            {
-                Songs.Add(variableSong.Title);
-            }
-            
-            
+            /*
+            var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+            var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
+            songsManager.AddItem(new Song("NeverGonna.mp3", 2));
+            List<string> Songs = playlistsManager.GetItemByName("Default").GetSongNames();
+            */
         }
         
         

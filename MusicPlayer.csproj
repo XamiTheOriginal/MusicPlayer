@@ -28,16 +28,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="bin\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="bin\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm" />
-      <None Include="bin\DATA\Musics\Linkin Park ⧸ Slipknot ⧸ Eminem - Damage [OFFICIAL MUSIC VIDEO] [FULL-HD] [MASHUP] - Copie.mp3" />
-      <None Include="bin\DATA\Musics\NeverGonna.mp3" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Update="UI\App.axaml.cs">
         <DependentUpon>App.axaml</DependentUpon>
         <SubType>Code</SubType>
@@ -49,10 +39,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AvaloniaResource Include="UI/Assets/Logo.png"/>
+        <AvaloniaResource Include="UI/Assets/**" />
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="bin\DATA\Playlists.json" />
+        <Content Include="DATA\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 </Project>
