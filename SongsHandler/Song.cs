@@ -1,7 +1,5 @@
 using System;
 using System.IO;
-using MusicPlayer;
-using TagLib;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler.Managers;
 namespace MusicPlayer.SongsHandler;

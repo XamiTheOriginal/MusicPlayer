@@ -12,6 +12,7 @@ namespace MusicPlayer
         public DefaultSong(string filepath, int id) : 
             base("C:\\Users\\maxim\\OneDrive\\Bureau\\C#\\MusicPlayer\\bin\\DATA\\Musics\\NeverGonna.mp3", -1)
         {
+            //TODO : Nothing hard just change the path to use a relative one
         }
     }
 }
