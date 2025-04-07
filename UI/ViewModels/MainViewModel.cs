@@ -9,6 +9,21 @@ namespace MusicPlayer.UI.ViewModels
         {
             "Chanson 1",
             "Chanson 2",
+            "Chanson 3",
+            "Chanson 1",
+            "Chanson 2",
+            "Chanson 3",
+            "Chanson 1",
+            "Chanson 2",
+            "Chanson 3",
+            "Chanson 1",
+            "Chanson 2",
+            "Chanson 3",
+            "Chanson 1",
+            "Chanson 2",
+            "Chanson 3",
+            "Chanson 1",
+            "Chanson 2",
             "Chanson 3"
         };
         

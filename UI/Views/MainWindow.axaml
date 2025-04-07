@@ -1,4 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
+        Width="800" Height="450"
+        MinWidth="600" MinHeight="400"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,24 +9,30 @@
         x:Class="MusicPlayer.UI.Views.MainWindow"
         x:DataType="viewModels:MainViewModel"
         Title="MusicPlayer">
-    <Grid RowDefinitions="Auto,*,Auto,Auto" Margin="20">
-        <!-- En-tête et liste -->
-        <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Spacing="10">
-            <Image Source="avares://MusicPlayer/UI/Assets/Logo.png" Width="100" Height="100"/>
-            <Button Content="Lire une chanson" Width="200" Click="Button_OnClick"/>
-            <ScrollViewer Width="200" Height="150">
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        <!-- Logo en haut -->
+        <Image Source="avares://MusicPlayer/UI/Assets/Logo.png"
+               Width="100" Height="100" Grid.Row="0" HorizontalAlignment="Center"/>
+
+        <!-- Liste de chansons (s'adapte entre le logo et le footer) -->
+        <Grid Grid.Row="1" ColumnDefinitions="1*,3*" Margin="0,10,0,10">
+            <!-- Colonne de gauche : logo + liste -->
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
                 <ListBox ItemsSource="{Binding Songs}"/>
             </ScrollViewer>
-        </StackPanel>
 
-        <!-- Contrôles média -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,10" Spacing="20">
-            <Button Content="⏮️" Width="50" Height="30"/>
-            <Button Content="▶️" Width="50" Height="30"/>
-            <Button Content="⏭️" Width="50" Height="30"/>
-        </StackPanel>
+            <!-- Colonne de droite vide (pour futur contenu) -->
+        </Grid>
 
-        <!-- Barre de chargement -->
-        <ProgressBar Grid.Row="3" Height="20" Minimum="0" Maximum="100" Value="{Binding Progress}" Margin="0,10,0,0"/>
+        <!-- Barre de progression + contrôles média en bas -->
+        <StackPanel Grid.Row="2" Orientation="Vertical" Spacing="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
+                <Button Content="⏮️" Width="50" Height="30"/>
+                <Button Content="▶️" Width="50" Height="30"/>
+                <Button Content="⏭️" Width="50" Height="30"/>
+            </StackPanel>
+            <ProgressBar Height="20" Minimum="0" Maximum="100" Value="{Binding Progress}" Margin="0,0,0,0"/>
+
+        </StackPanel>
     </Grid>
 </Window>
