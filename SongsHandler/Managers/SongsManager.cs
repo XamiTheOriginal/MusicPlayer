@@ -14,8 +14,10 @@ namespace MusicPlayer.SongsHandler.Managers
         /// <summary>
         /// Constructeur qui définit le chemin du fichier JSON.
         /// </summary>
-        public SongsManager() : base(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "DATA", "Songs.json"))
+        public SongsManager() : 
+            base(Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName, "DATA", "Playlists.json"))
         {
+            
         }
         
         public Song? TryGetItemById(int id)

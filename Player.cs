@@ -12,9 +12,15 @@ namespace MusicPlayer
     //faire un singleton avec le player comme les managers
     public class Player
     {
+        #region ClassVariables
+
         public int CurrentSongId;
         private Queue<int> _nextSongIdQueue = new Queue<int>();
         private Queue<int> _previousSongQueue = new Queue<int>();
+        
+        private WaveOutEvent _outputDevice;
+        private AudioFileReader _audioFile;
+        private bool _isPlaying;
         private Song CurrentSong
         {
             get
@@ -24,12 +30,7 @@ namespace MusicPlayer
             }
         }
 
-
-        private WaveOutEvent _outputDevice;
-        private AudioFileReader _audioFile;
-
-        private bool _isPlaying;
-        private bool _isPaused;
+        #endregion
         
         public Player(WaveOutEvent outputDevice, AudioFileReader audioFile)
         {
@@ -47,12 +48,31 @@ namespace MusicPlayer
         {
             try
             {
-                _audioFile.Dispose();
-                _outputDevice.Dispose();
+                // Si déjà en train de jouer, on ne relance pas
+                if (_isPlaying)
+                    return;
+
+                // Libération des anciens objets s'ils existent
+                _audioFile?.Dispose();
+                _outputDevice?.Dispose();
+
+                // Chargement du nouveau fichier
                 _audioFile = new AudioFileReader(CurrentSong.Filepath);
                 _outputDevice = new WaveOutEvent();
+
+                // Gestion de fin automatique
+                _outputDevice.PlaybackStopped += (s, e) =>
+                {
+                    // Vérifie que la musique est bien terminée (et pas juste "pause")
+                    if (_audioFile.Position >= _audioFile.Length)
+                    {
+                        NextSong();
+                    }
+                };
+
                 _outputDevice.Init(_audioFile);
                 _outputDevice.Play();
+
                 _isPlaying = true;
             }
             catch (Exception e)
@@ -61,16 +81,15 @@ namespace MusicPlayer
             }
         }
 
-
         public void PauseDaMusic()
         {
-            if (_isPlaying && !_isPaused)
+            if (_outputDevice != null && _isPlaying)
             {
                 _outputDevice.Pause();
                 _isPlaying = false;
-                _isPaused = true;
             }
         }
+
             
         public void PlayDaPlaylist(int id)
         {

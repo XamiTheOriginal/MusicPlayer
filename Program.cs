@@ -17,14 +17,23 @@ class Program
             .StartWithClassicDesktopLifetime(args);
         
         var services = new ServiceCollection();
+        
         services.AddMusicManagers(); // Ajout des managers au conteneur DI
+        
 
         services.AddSingleton<Player>(); //Ajoute le singleton du player
         
+        
+        
         var provider = services.BuildServiceProvider();
-        ServiceLocator.Init(provider);
+        
         var songsManager = provider.GetRequiredService<SongsManager>();
         var playlistsManager = provider.GetRequiredService<PlaylistsManager>();
+
+        
+        
+        ServiceLocator.Init(provider);
+        
     }
     
     /* Pour récupérer songsManager et playlistsManager ailleurs :
