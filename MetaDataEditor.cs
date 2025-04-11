@@ -5,6 +5,10 @@ namespace MusicPlayer;
 
 public static class MetadataEditor
 {
+    /// <summary>
+    /// Permet d'écrire à la main des MétaDatas dans un fichier (celui du song.filepath)
+    /// </summary>
+    /// <param name="song"></param>
     public static void WriteMetadata(Song song)
     {
         var file = TagLib.File.Create(song.Filepath);
@@ -26,13 +30,15 @@ public static class MetadataEditor
         var tag = file.Tag;
 
         song.Title = string.IsNullOrWhiteSpace(tag.Title) ? "Unknown" : tag.Title;
-        song.Artist = (tag.Performers.Length > 0 && !string.IsNullOrWhiteSpace(tag.Performers[0])) ? tag.Performers[0] : "ADEFINIR";
+        song.Artist = (tag.Performers.Length > 0 && !string.IsNullOrWhiteSpace(tag.Performers[0])) ?
+            tag.Performers[0] : "Unknown";
         song.Album = string.IsNullOrWhiteSpace(tag.Album) ? "Unknown" : tag.Album;
 
         // Récupérer le Mood dans le champ Comment
         if (!string.IsNullOrWhiteSpace(tag.Comment) && tag.Comment.StartsWith("Mood:"))
         {
-            string moodStr = tag.Comment.Substring(5).Trim();
+            string moodStr = tag.Comment.Substring(5).Trim(); 
+            //Récupère le Mood, le substring permet de remove le Mood: de la string
             if (Enum.TryParse<Moods>(moodStr, out var moodParsed))
             {
                 song.Mood = moodParsed;

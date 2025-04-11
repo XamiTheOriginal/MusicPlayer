@@ -2,18 +2,19 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <IsPackable>false</IsPackable>
-        <IsTestProject>true</IsTestProject>
-        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-        <PackageReference Include="xunit" Version="2.5.3" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+        <ProjectReference Include="..\MusicPlayer.csproj" />
+        <ProjectReference Include="..\MusicPlayer\MusicPlayer.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MusicPlayer.csproj" />
-        <ProjectReference Include="MusicPlayer.csproj" />
+        <PackageReference Include="xunit" Version="2.5.3" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     </ItemGroup>
 </Project>

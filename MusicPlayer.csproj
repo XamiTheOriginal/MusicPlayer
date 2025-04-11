@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+        <RootNamespace>MusicPlayer</RootNamespace>
+        <OutputType>WinExe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <OutputType>WinExe</OutputType>
-        <RootNamespace>MusicPlayer</RootNamespace>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,7 +27,6 @@
         <PackageReference Include="TagLibSharp" Version="2.3.0" />
         <PackageReference Include="xunit.assert" Version="2.5.3" />
         <PackageReference Include="xunit.extensibility.core" Version="2.5.3" />
-        <!-- <PackageReference Include="VideoLibrary" Version="3.2.8" /> -->
     </ItemGroup>
 
     <ItemGroup>
