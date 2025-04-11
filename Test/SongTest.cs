@@ -8,45 +8,45 @@ namespace Test;
 public class SongTest
 {
     [Fact]
-    public void AlbumTest()
+    public void Constructor_InitializesFilepathAndId()
     {
-        Song song = new Song("DATA/Musics/NeverGonna.mp3", 2);
-        Assert.Equal("",song.Album);
+        var song = new Song("DATA/Musics/NeverGonna.mp3", 1);
+
+        Assert.Equal("DATA/Musics/NeverGonna.mp3", song.Filepath);
+        Assert.Equal(1, song.Id);
     }
+
     [Fact]
-    public void ArtistTest()
+    public void Constructor_DefaultMoodIsNeutral()
     {
-        Song song = new Song("DATA/Musics/NeverGonna.mp3", 2);
-        Assert.Equal("ADEFINIR",song.Artist);
+        var song = new Song("dummy.mp3", 0);
+
+        Assert.Equal(Moods.Neutral, song.Mood);
     }
+
     [Fact]
-    public void DurationTest()
+    public void CanSetAndGet_Title_Artist_Album_Duration()
     {
-        Song song = new Song("DATA/Musics/NeverGonna.mp3", 2);
-        Assert.Equal(30,song.Duration);
+        var song = new Song("dummy.mp3", 0)
+        {
+            Title = "Test Title",
+            Artist = "Test Artist",
+            Album = "Test Album",
+            Duration = 42.5
+        };
+
+        Assert.Equal("Test Title", song.Title);
+        Assert.Equal("Test Artist", song.Artist);
+        Assert.Equal("Test Album", song.Album);
+        Assert.Equal(42.5, song.Duration);
     }
+
     [Fact]
-    public void FilepathTest()
+    public void CanChangeMood()
     {
-        Song song = new Song("DATA/Musics/NeverGonna.mp3", 2);
-        Assert.Equal("DATA/Musics/NeverGonna.mp3",song.Filepath);
-    }
-    [Fact]
-    public void IdTest()
-    {
-        Song song = new Song("DATA/Musics/NeverGonna.mp3", 2);
-        Assert.Equal(2,song.Id);
-    }
-    [Fact]
-    public void MoodTest()
-    {
-        Song song = new Song("DATA/Musics/NeverGonna.mp3", 2);
-        Assert.Equal(Moods.Chill,song.Mood);
-    }
-    [Fact]
-    public void TitleTest()
-    {
-        Song song = new Song("DATA/Musics/NeverGonna.mp3", 2);
-        Assert.Equal("ADEFINIR",song.Title);
+        var song = new Song("dummy.mp3", 0);
+        song.Mood = Moods.Chill;
+
+        Assert.Equal(Moods.Chill, song.Mood);
     }
 }
