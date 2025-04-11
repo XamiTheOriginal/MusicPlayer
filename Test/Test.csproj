@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MusicPlayer.csproj" />
         <ProjectReference Include="..\MusicPlayer\MusicPlayer.csproj" />
     </ItemGroup>
 

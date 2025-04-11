@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
@@ -25,8 +26,6 @@
         <PackageReference Include="NAudio" Version="2.2.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="TagLibSharp" Version="2.3.0" />
-        <PackageReference Include="xunit.assert" Version="2.5.3" />
-        <PackageReference Include="xunit.extensibility.core" Version="2.5.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -49,4 +48,5 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
+
 </Project>
