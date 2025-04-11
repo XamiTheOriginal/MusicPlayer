@@ -2,6 +2,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler.Managers;
+using NAudio.Wave;
 
 namespace MusicPlayer;
 
@@ -24,7 +25,7 @@ class Program
         
         services.AddSingleton<Player>(); //Ajoute le singleton du player
         
-        
+        services.AddTransient<WaveOutEvent>();
         
         var provider = services.BuildServiceProvider();
         

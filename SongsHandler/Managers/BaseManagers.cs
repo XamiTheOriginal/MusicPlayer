@@ -25,6 +25,12 @@ public abstract class BaseManager<T>
         public int NextId { get; set; }
     }
 
+    protected int GetNextId()
+    {
+        if (AvailableIds.Count > 0) return AvailableIds.Dequeue();
+        else return NextId;
+    }
+    
     protected BaseManager(string saveFilePath)
     {
         SaveFilePath = saveFilePath;

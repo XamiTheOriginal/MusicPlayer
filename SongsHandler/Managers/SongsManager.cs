@@ -23,8 +23,9 @@ namespace MusicPlayer.SongsHandler.Managers
             catch (KeyNotFoundException) { return null; }
         }
 
-        public new void AddItem(Song item) 
+        public new void AddItem(string filepath) 
         {
+            Song item = new Song(filepath, GetNextId());
             if (!File.Exists(item.Filepath))
             {
                 Console.WriteLine($"⚠️ Le fichier '{item.Filepath}' est introuvable. Ajout annulé.");
