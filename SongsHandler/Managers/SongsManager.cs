@@ -38,7 +38,7 @@ namespace MusicPlayer.SongsHandler.Managers
             PlaylistSetup(item);
 
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
-            var defaultPlaylist = playlistsManager.GetItemByName("Default");
+            var defaultPlaylist = playlistsManager.GetItemByTitle("Default");
 
             if (defaultPlaylist != null)
             {
@@ -56,12 +56,12 @@ namespace MusicPlayer.SongsHandler.Managers
          
             if (item.Artist is not null)
             {
-                Playlist? temp = playlistsManager.GetItemByName(item.Artist);
+                Playlist? temp = playlistsManager.GetItemByTitle(item.Artist);
                 if (temp is not null) temp.AddSong(item.Id);
             }
             if (item.Album is not null)
             {
-                Playlist? temp = playlistsManager.GetItemByName(item.Album);
+                Playlist? temp = playlistsManager.GetItemByTitle(item.Album);
                 if (temp is not null) temp.AddSong(item.Id);
             }
         }

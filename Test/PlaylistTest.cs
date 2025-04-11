@@ -70,7 +70,7 @@ public class PlaylistTest
     {
         var playlist = new Playlist("Test", new List<int> { 10, 20 });
 
-        var result = playlist.GetSongNames();
+        var result = playlist.GetSongTitles();
 
         Assert.Equal(new List<string> { "10", "20" }, result);
     }

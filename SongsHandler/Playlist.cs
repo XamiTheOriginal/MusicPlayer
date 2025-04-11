@@ -23,7 +23,7 @@ namespace MusicPlayer.SongsHandler
             SongList = songList ?? new List<int>();
         }
         
-        public List<string> GetSongNames()
+        public List<string> GetSongTitles()
         {
             List<string> names = new List<string>();
             foreach (var song in SongList) names.Add(song.ToString());

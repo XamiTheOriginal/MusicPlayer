@@ -142,9 +142,9 @@ public abstract class BaseManager<T>
         return foundItem != null ? foundItem : throw new KeyNotFoundException();
     }
     
-    public T? GetItemByName(string name)
+    public T? GetItemByTitle(string title)
     {
-        dynamic foundItem = ItemsList.FirstOrDefault(item => ((dynamic)item).Name == name);
+        dynamic foundItem = ItemsList.FirstOrDefault(item => ((dynamic)item).Title == title);
         return foundItem != null ? foundItem : null;
     }
 }
