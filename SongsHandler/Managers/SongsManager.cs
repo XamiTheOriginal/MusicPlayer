@@ -28,7 +28,7 @@ namespace MusicPlayer.SongsHandler.Managers
             if (!File.Exists(item.Filepath))
             {
                 Console.WriteLine($"⚠️ Le fichier '{item.Filepath}' est introuvable. Ajout annulé.");
-                return;
+                return; // cas d'erreur
             }
 
             base.AddItem(item);
