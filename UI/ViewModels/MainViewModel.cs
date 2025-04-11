@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,20 +11,21 @@ namespace MusicPlayer.UI.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<string>? Songs { get; }
+        public ObservableCollection<string> Songs { get; } = new();
         
         public MainViewModel()
         {
-            
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
-            
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
 
             var path = Path.Combine("DATA", "Musics", "NeverGonna.mp3");
             songsManager.AddItem(new Song(path, 2));
 
-            List<string> Songs = playlistsManager.GetItemByName("Default").GetSongNames();
-            
+            var songList = playlistsManager.GetItemByName("Default").GetSongNames();
+            foreach (var song in songList)
+            {
+                Songs.Add(song);
+            }
         }
         
         

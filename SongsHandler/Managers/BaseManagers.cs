@@ -33,7 +33,7 @@ public abstract class BaseManager<T>
 
     public void LoadState()
     {
-        Console.WriteLine($"📥 Chargement depuis : {SaveFilePath}");  // ← Ajoute ça
+        //Console.WriteLine($"📥 Chargement depuis : {SaveFilePath}");  
         if (!File.Exists(SaveFilePath))
         {
             throw new FileNotFoundException($"Le fichier {SaveFilePath} n'existe pas, initialisation avec des valeurs par défaut.");
@@ -66,7 +66,7 @@ public abstract class BaseManager<T>
         }
         else
         {
-            throw new FileNotFoundException($"Le fichier {SaveFilePath} n'existe pas, initialisation avec des valeurs par défaut.");
+            throw new FileNotFoundException($"Le fichier {SaveFilePath} n'existe pas.");
 
             /*
             Console.WriteLine($"Le fichier {SaveFilePath} n'existe pas, initialisation avec des valeurs par défaut.");
@@ -90,7 +90,7 @@ public abstract class BaseManager<T>
     }
 
 
-    protected void SaveState()
+    public void SaveState()
     {
         var saveData = new SaveData
         {
