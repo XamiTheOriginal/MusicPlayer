@@ -18,7 +18,7 @@ namespace MusicPlayer.UI.ViewModels
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
 
-            var path = Path.Combine("DATA", "Musics", "NeverGonna.mp3");
+            var path = Path.Combine("DATA", "Musics", "Linkin Park \u29f8 Slipknot \u29f8 Eminem - Damage.mp3");
             songsManager.AddItem(new Song(path, 2));
 
             var songList = playlistsManager.GetItemByName("Default").GetSongNames();
