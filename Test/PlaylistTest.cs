@@ -12,4 +12,12 @@ public class PlaylistTest
         Playlist playlist = new Playlist("test", new List<int>());
         Assert.Empty(playlist.SongList);
     }
+
+    [Fact]
+    void IsNotEmptyTest()
+    {
+        Playlist playlist = new Playlist("test", new List<int>(1));
+        playlist.SongList.Add(1);
+        Assert.NotEmpty(playlist.SongList);
+    }
 }
