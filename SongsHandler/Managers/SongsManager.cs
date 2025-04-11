@@ -15,23 +15,13 @@ namespace MusicPlayer.SongsHandler.Managers
         /// Constructeur qui définit le chemin du fichier JSON.
         /// </summary>
         public SongsManager() : 
-            base(Path.Combine(AppContext.BaseDirectory, "DATA", "Songs.json"))
-        {
-            
-        }
+            base(Path.Combine(AppContext.BaseDirectory, "DATA", "Songs.json")) { }
         
         public Song? TryGetItemById(int id)
         {
-            try
-            {
-                return GetItemById(id);
-            }
-            catch (KeyNotFoundException)
-            {
-                return null;
-            }
+            try { return GetItemById(id); }
+            catch (KeyNotFoundException) { return null; }
         }
-
 
         public new void AddItem(Song item) 
         {
@@ -47,8 +37,6 @@ namespace MusicPlayer.SongsHandler.Managers
             {
                 Console.WriteLine("⚠️ Playlist 'Default' introuvable.");
             }
-
-            
         }
     }
 }
