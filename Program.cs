@@ -13,14 +13,12 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+
         
         var services = new ServiceCollection();
         
         services.AddMusicManagers(); // Ajout des managers au conteneur DI
         
-
         services.AddSingleton<Player>(); //Ajoute le singleton du player
         
         
@@ -29,11 +27,11 @@ class Program
         
         var songsManager = provider.GetRequiredService<SongsManager>();
         var playlistsManager = provider.GetRequiredService<PlaylistsManager>();
-
-        
         
         ServiceLocator.Init(provider);
         
+        BuildAvaloniaApp()
+            .StartWithClassicDesktopLifetime(args);
     }
     
     /* Pour récupérer songsManager et playlistsManager ailleurs :

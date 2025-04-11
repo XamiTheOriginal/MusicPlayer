@@ -14,12 +14,13 @@ namespace MusicPlayer.UI.ViewModels
         
         public MainViewModel()
         {
-            /*
+            
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+            
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
             songsManager.AddItem(new Song("NeverGonna.mp3", 2));
             List<string> Songs = playlistsManager.GetItemByName("Default").GetSongNames();
-            */
+            
         }
         
         
