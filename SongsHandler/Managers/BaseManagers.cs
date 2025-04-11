@@ -33,7 +33,6 @@ public abstract class BaseManager<T>
     protected BaseManager(string saveFilePath)
     {
         SaveFilePath = saveFilePath;
-        LoadState();
     }
 
     public virtual void LoadState()

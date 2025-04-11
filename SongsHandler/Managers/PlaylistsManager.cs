@@ -13,8 +13,11 @@ namespace MusicPlayer.SongsHandler.Managers
         public PlaylistsManager()
             : base(Path.Combine(AppContext.BaseDirectory, "DATA", "Playlists.json"))
         {
+
         }
 
+  
+        
         private static string GetDataFilePath()
         {
 
@@ -38,21 +41,23 @@ namespace MusicPlayer.SongsHandler.Managers
                 Console.WriteLine($"📄 Fichier Playlists.json introuvable, insertion du contenu par défaut.");
                 string defaultJson = @"{
 ""Items"": [
-{
-  ""Id"": 1,
-  ""Name"": ""Default"",
-  ""SongList"": [],
-  ""SongCount"": 0,
-  ""IsEmpty"": true
-}
-],
-""AvailableIds"": [],
-""NextId"": 2
-                }";
+        {
+          ""Id"": 1,
+          ""Name"": ""Default"",
+          ""SongList"": [],
+          ""SongCount"": 0,
+          ""IsEmpty"": true
+        }
+    ],
+    ""AvailableIds"": [],
+    ""NextId"": 2
+}";
                 File.WriteAllText(SaveFilePath, defaultJson);
             }
 
             base.LoadState();
+            Console.WriteLine("👀 Nombre de playlists chargées : " + ItemsList.Count);
+            
         }
     }
 }

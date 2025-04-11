@@ -37,8 +37,10 @@ namespace MusicPlayer.SongsHandler.Managers
             ExtractMetadata(item);
             PlaylistSetup(item);
 
+            if (ServiceLocator.Instance is null) throw new NullReferenceException("ServiceLocator est pas instancié.");
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
             var defaultPlaylist = playlistsManager.GetItemByTitle("Default");
+            
 
             if (defaultPlaylist != null)
             {
