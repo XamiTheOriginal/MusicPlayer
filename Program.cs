@@ -13,6 +13,9 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        
+        
+        
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
         
         var services = new ServiceCollection();
