@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
-
 /// <summary>
 /// Classe de base pour gérer des objets avec un système d'ID et de persistance.
 /// </summary>
@@ -37,12 +36,19 @@ public abstract class BaseManager<T>
         LoadState();
     }
 
-    public void LoadState()
+    public virtual void LoadState()
     {
         //Console.WriteLine($"📥 Chargement depuis : {SaveFilePath}");  
         if (!File.Exists(SaveFilePath))
         {
-            throw new FileNotFoundException($"Le fichier {SaveFilePath} n'existe pas, initialisation avec des valeurs par défaut.");
+            Console.WriteLine($"Le fichier {SaveFilePath} n'existe pas, création d'un nouveau fichier.");
+            var emptyData = new SaveData
+            {
+                Items = new List<T>(),
+                AvailableIds = new List<int>(),
+                NextId = 1
+            };
+            File.WriteAllText(SaveFilePath, JsonConvert.SerializeObject(emptyData, Formatting.Indented));
         }
         
         if (File.Exists(SaveFilePath))

@@ -30,7 +30,29 @@ namespace MusicPlayer.SongsHandler.Managers
 
             return dataFilePath;
         }
-        
 
+        public override void LoadState()
+        {
+            if (!File.Exists(SaveFilePath))
+            {
+                Console.WriteLine($"📄 Fichier Playlists.json introuvable, insertion du contenu par défaut.");
+                string defaultJson = @"{
+""Items"": [
+{
+  ""Id"": 1,
+  ""Name"": ""Default"",
+  ""SongList"": [],
+  ""SongCount"": 0,
+  ""IsEmpty"": true
+}
+],
+""AvailableIds"": [],
+""NextId"": 2
+                }";
+                File.WriteAllText(SaveFilePath, defaultJson);
+            }
+
+            base.LoadState();
+        }
     }
 }
