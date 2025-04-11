@@ -20,13 +20,10 @@ namespace MusicPlayer.UI.ViewModels
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
             
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
-<<<<<<< HEAD
-            string songFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DATA", "Playlists.json");
-            //songsManager.AddItem(new Song(songFilePath,2));
-=======
+
             var path = Path.Combine("DATA", "Musics", "NeverGonna.mp3");
             songsManager.AddItem(new Song(path, 2));
->>>>>>> 28992026a04adab243a896208d122f68d75f0b85
+
             List<string> Songs = playlistsManager.GetItemByName("Default").GetSongNames();
             
         }
