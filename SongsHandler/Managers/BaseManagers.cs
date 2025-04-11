@@ -90,7 +90,7 @@ public abstract class BaseManager<T>
     }
 
 
-    protected void SaveState()
+    public void SaveState()
     {
         var saveData = new SaveData
         {
