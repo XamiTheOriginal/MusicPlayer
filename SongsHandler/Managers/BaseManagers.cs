@@ -33,6 +33,12 @@ public abstract class BaseManager<T>
 
     public void LoadState()
     {
+        Console.WriteLine($"📥 Chargement depuis : {SaveFilePath}");  // ← Ajoute ça
+        if (!File.Exists(SaveFilePath))
+        {
+            throw new FileNotFoundException($"Le fichier {SaveFilePath} n'existe pas, initialisation avec des valeurs par défaut.");
+        }
+        
         if (File.Exists(SaveFilePath))
         {
             try
@@ -48,7 +54,7 @@ public abstract class BaseManager<T>
                 }
                 else
                 {
-                    Console.WriteLine("Le fichier JSON est corrompu. Réinitialisation...");
+                    Console.WriteLine("Le fichier JSON est vide. Réinitialisation...");
                     ItemsList = new List<T>();
                 }
             }
@@ -60,9 +66,13 @@ public abstract class BaseManager<T>
         }
         else
         {
+            throw new FileNotFoundException($"Le fichier {SaveFilePath} n'existe pas, initialisation avec des valeurs par défaut.");
+
+            /*
             Console.WriteLine($"Le fichier {SaveFilePath} n'existe pas, initialisation avec des valeurs par défaut.");
             ItemsList = new List<T>();
             InitializeDefaultData();
+            */
         }
     }
 

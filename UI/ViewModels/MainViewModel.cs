@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
@@ -18,7 +19,8 @@ namespace MusicPlayer.UI.ViewModels
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
             
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
-            songsManager.AddItem(new Song("NeverGonna.mp3", 2));
+            var path = Path.Combine("DATA", "Musics", "NeverGonna.mp3");
+            songsManager.AddItem(new Song(path, 2));
             List<string> Songs = playlistsManager.GetItemByName("Default").GetSongNames();
             
         }

@@ -11,14 +11,18 @@ namespace MusicPlayer.SongsHandler.Managers
     public class PlaylistsManager : BaseManager<Playlist>
     {
         public PlaylistsManager()
-            : base(Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName, "DATA", "Playlists.json"))
+            : base(Path.Combine(AppContext.BaseDirectory, "DATA", "Playlists.json"))
         {
         }
 
         private static string GetDataFilePath()
         {
-            string dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DATA", "Playlists.json");
-    
+
+            
+            string dataFilePath = Path.Combine(AppContext.BaseDirectory, "DATA", "Playlists.json");
+            Console.WriteLine($"🔍 Chemin recherché : {dataFilePath}");
+            Console.WriteLine($"📁 Fichier existe ? {File.Exists(dataFilePath)}");
+            
             if (!File.Exists(dataFilePath))
             {
                 Console.WriteLine($"⚠️ Le fichier Playlists.json est introuvable : {dataFilePath}");
@@ -27,5 +31,6 @@ namespace MusicPlayer.SongsHandler.Managers
             return dataFilePath;
         }
         
+
     }
 }
