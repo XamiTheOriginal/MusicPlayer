@@ -30,6 +30,7 @@ public class Song
     [JsonProperty]
     public Moods Mood { get; set; }
 
+    [JsonIgnore]
     private readonly PlaylistsManager? _playlistsManager;
 
     public Song(string filepath, int id, PlaylistsManager? playlistsManager = null)
