@@ -96,7 +96,7 @@ namespace MusicPlayer
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
             //var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
             Playlist playlist = playlistsManager.GetItemById(id);
-            _nextSongIdQueue = new Queue<int>(playlist.GetSongList());
+            _nextSongIdQueue = new Queue<int>(playlist.SongList);
             _previousSongQueue = new Queue<int>();
             if (_nextSongIdQueue.Count > 0)
             {

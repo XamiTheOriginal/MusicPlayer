@@ -8,38 +8,33 @@ namespace MusicPlayer.SongsHandler
     public class Playlist
     {
        
-        private List<int> _songList;
+        public List<int> SongList;
         public int Id;
-        public int SongCount => _songList.Count;
-        public bool IsEmpty => _songList.Count == 0;
+        public int SongCount => SongList.Count;
+        public bool IsEmpty => SongList.Count == 0;
         public string Name { get; set; }
         
         public Playlist(string name, List<int> songList)
         {
             Name = name;
-            _songList = songList;
-        }
-        
-        public List<int> GetSongList()
-        {
-            return _songList;
+            SongList = songList;
         }
         
         public List<string> GetSongNames()
         {
             List<string> names = new List<string>();
-            foreach (var song in _songList) names.Add(song.ToString());
+            foreach (var song in SongList) names.Add(song.ToString());
             return names;
         }
         
         public void AddSong(int item)
         {
-            _songList.Add(item);
+            SongList.Add(item);
         }
 
         public void RemoveSong(int item)
         {
-            _songList.Remove(item);
+            SongList.Remove(item);
         }
 
     }
