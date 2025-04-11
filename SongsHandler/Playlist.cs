@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MusicPlayer.SongsHandler
 {
     public class Playlist
     {
        
-        public List<int> SongList;
+        public List<int> SongList { get; } 
         public int Id;
+        [JsonIgnore]
         public int SongCount => SongList.Count;
+        [JsonIgnore]
         public bool IsEmpty => SongList.Count == 0;
         public string Name { get; set; }
         
         public Playlist(string name, List<int> songList)
         {
             Name = name;
-            SongList = songList;
+            SongList = songList ?? new List<int>();
         }
         
         public List<string> GetSongNames()
