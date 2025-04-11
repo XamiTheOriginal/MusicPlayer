@@ -2,16 +2,16 @@
 using System.IO;
 using System.Linq;
 using System.Net;
-using VideoLibrary;
+//using VideoLibrary;
 
 public class Downloader
 {
 
     public static void DownloadAudio(string videoUrl, string outputPath)
     {
-        try
+        /*try
         {
-            var youtube = YouTube.Default;
+            /*var youtube = YouTube.Default;
             var video = youtube.GetAllVideos(videoUrl)
                                .Where(v => v.AudioFormat != null) // Sélectionne uniquement l'audio
                                .OrderByDescending(v => v.AudioBitrate) // Meilleure qualité d'abord
@@ -37,6 +37,6 @@ public class Downloader
         catch (Exception ex)
         {
             Console.WriteLine("Erreur : " + ex.Message);
-        }
+        }*/
     }
 }
