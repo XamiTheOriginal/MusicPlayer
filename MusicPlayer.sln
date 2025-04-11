@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayer", "MusicPlayer.csproj", "{BBB01D2B-E073-4072-A4C8-263C7395655C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{047749B4-B703-4DCF-8636-282B64E16FBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{BBB01D2B-E073-4072-A4C8-263C7395655C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBB01D2B-E073-4072-A4C8-263C7395655C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBB01D2B-E073-4072-A4C8-263C7395655C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{047749B4-B703-4DCF-8636-282B64E16FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{047749B4-B703-4DCF-8636-282B64E16FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{047749B4-B703-4DCF-8636-282B64E16FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{047749B4-B703-4DCF-8636-282B64E16FBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
