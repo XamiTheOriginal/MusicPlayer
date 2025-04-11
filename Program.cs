@@ -22,7 +22,6 @@ class Program
         var services = new ServiceCollection();
         
         services.AddMusicManagers(); // Ajout des managers au conteneur DI
-        
         services.AddSingleton<Player>(); //Ajoute le singleton du player
         
         services.AddTransient<WaveOutEvent>();
@@ -42,6 +41,7 @@ class Program
     using Microsoft.Extensions.DependencyInjection;
     var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
     var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
+    var player = ServiceLocator.Instance.GetRequiredService<Player>();
     */
     
     // Avalonia configuration, don't remove; also used by visual designer.

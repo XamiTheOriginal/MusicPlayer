@@ -12,7 +12,7 @@ public class PlaylistTest
         var songs = new List<int> { 1, 2, 3 };
         var playlist = new Playlist("MaPlaylist", songs);
 
-        Assert.Equal("MaPlaylist", playlist.Name);
+        Assert.Equal("MaPlaylist", playlist.Title);
         Assert.Equal(3, playlist.SongCount);
         Assert.False(playlist.IsEmpty);
         Assert.Equal(songs, playlist.SongList);
@@ -23,7 +23,7 @@ public class PlaylistTest
     {
         var playlist = new Playlist("Vide", null);
 
-        Assert.Equal("Vide", playlist.Name);
+        Assert.Equal("Vide", playlist.Title);
         Assert.NotNull(playlist.SongList);
         Assert.Empty(playlist.SongList);
         Assert.True(playlist.IsEmpty);

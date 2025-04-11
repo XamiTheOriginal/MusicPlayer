@@ -39,4 +39,13 @@ public class Song
         Id = id;
         Mood = Moods.Neutral;
     }
+
+    public override string ToString()
+    {
+        if (string.IsNullOrEmpty(Title))
+        {
+            Title = Path.GetFileNameWithoutExtension(Filepath);
+        }
+        return Title;
+    }
 }

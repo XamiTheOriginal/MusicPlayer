@@ -15,11 +15,11 @@ namespace MusicPlayer.SongsHandler
         public int SongCount => SongList.Count;
         [JsonIgnore]
         public bool IsEmpty => SongList.Count == 0;
-        public string Name { get; set; }
+        public string Title { get; set; }
         
-        public Playlist(string name, List<int> songList)
+        public Playlist(string title, List<int> songList)
         {
-            Name = name;
+            Title = title;
             SongList = songList ?? new List<int>();
         }
         
@@ -40,5 +40,6 @@ namespace MusicPlayer.SongsHandler
             SongList.Remove(item);
         }
 
+        public override string ToString() => Title;
     }
 }
