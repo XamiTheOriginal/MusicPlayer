@@ -72,7 +72,7 @@ namespace MusicPlayer
 
                 _outputDevice.Init(_audioFile);
                 _outputDevice.Play();
-
+ 
                 _isPlaying = true;
             }
             catch (Exception e)

@@ -10,7 +10,8 @@ public static class MetadataEditor
     /// Permet d'écrire à la main des MétaDatas dans un fichier (celui du song.filepath)
     /// </summary>
     /// <param name="song"></param>
-    public static void WriteMetadata(Song song)
+    public static void WriteMetadata(Song song, string title = null, string performer = null,
+        string album = "", Moods mod = Moods.Chill)
     {
         var file = TagLib.File.Create(song.Filepath);
 

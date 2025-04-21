@@ -1,8 +1,10 @@
 ﻿using Avalonia;
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
 using NAudio.Wave;
+using TagLib.Flac;
 
 namespace MusicPlayer;
 
@@ -14,7 +16,8 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        
+        Song song = new Song("", 1);
+        MetadataEditor.WriteMetadata(song);
         
         
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
