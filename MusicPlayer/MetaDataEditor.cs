@@ -16,10 +16,13 @@ public static class MetadataEditor
         var file = TagLib.File.Create(song.Filepath);
 
         // Métadonnées standards
-        file.Tag.Title = song.Title ?? string.Empty;
-        file.Tag.Performers = new[] { song.Artist ?? string.Empty };
-        file.Tag.Album = song.Album ?? string.Empty;
+        //file.Tag.Title = song.Title ?? string.Empty;
+        //file.Tag.Performers = new[] { song.Artist ?? string.Empty };
+        //file.Tag.Album = song.Album ?? string.Empty;
 
+        file.Tag.Title = title;
+        file.Tag.Performers = new[] { performer };
+        file.Tag.Album = album;
         // Champ "Mood" encodé dans Comment (en texte lisible)
         file.Tag.Comment = $"Mood:{song.Mood}";
 
@@ -36,6 +39,10 @@ public static class MetadataEditor
             tag.Performers[0] : "Unknown";
         song.Album = string.IsNullOrWhiteSpace(tag.Album) ? "Unknown" : tag.Album;
 
+        Console.WriteLine(tag.Album);
+        Console.WriteLine(tag.Performers);
+        Console.WriteLine(tag.Title);
+        
         // Récupérer le Mood dans le champ Comment
         if (!string.IsNullOrWhiteSpace(tag.Comment) && tag.Comment.StartsWith("Mood:"))
         {
@@ -44,6 +51,7 @@ public static class MetadataEditor
             if (Enum.TryParse<Moods>(moodStr, out var moodParsed))
             {
                 song.Mood = moodParsed;
+                Console.WriteLine(tag.Comment);
             }
         }
     }

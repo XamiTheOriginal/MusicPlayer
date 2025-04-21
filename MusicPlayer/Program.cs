@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using System;
+using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
@@ -16,9 +17,14 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        Song song = new Song("", 1);
-        MetadataEditor.WriteMetadata(song);
+        string relativePath = @"..\..\..\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm";
+        string fullPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, relativePath));
+        Song song = new Song(fullPath, 1);
+        MetadataEditor.WriteMetadata(song, "Oui","Adele","feur",Moods.Dreamy);
+
+        MetadataEditor.ReadMetadata(song);
         
+        return;
         
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
         
