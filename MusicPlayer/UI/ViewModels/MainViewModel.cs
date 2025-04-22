@@ -24,7 +24,7 @@ namespace MusicPlayer.UI.ViewModels
 
             var defaultPlaylist = playlistsManager.GetItemByTitle("Default");
             if (defaultPlaylist != null) throw new Exception("Default playlist null");
-            List<string> songList = defaultPlaylist.GetSongTitles();
+            List<string> songList = defaultPlaylist.GetSongTitles(); //TODO : fix le object ref not set to an instance of an object
             foreach (var song in songList)
             {
                 Songs.Add(song);

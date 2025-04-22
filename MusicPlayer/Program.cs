@@ -17,14 +17,12 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        string relativePath = @"..\..\..\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm";
+        /*string relativePath = @"..\..\..\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.mp3";
         string fullPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, relativePath));
         Song song = new Song(fullPath, 1);
         MetadataEditor.WriteMetadata(song, "Oui","Adele","feur",Moods.Dreamy);
 
-        MetadataEditor.ReadMetadata(song);
-        
-        return;
+        MetadataEditor.ReadMetadata(song);*/
         
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
         
