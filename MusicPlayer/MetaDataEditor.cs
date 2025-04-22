@@ -40,9 +40,9 @@ public static class MetadataEditor
         song.Album = string.IsNullOrWhiteSpace(tag.Album) ? "Unknown" : tag.Album;
 
         Console.WriteLine(tag.Album);
-        foreach (var VARIABLE in tag.Performers)
+        foreach (var chanteur in tag.Performers)
         {
-            Console.WriteLine(tag.Performers);    
+            Console.WriteLine(chanteur);    
         }
         Console.WriteLine(tag.Title);
         
@@ -51,7 +51,7 @@ public static class MetadataEditor
         {
             string moodStr = tag.Comment.Substring(5).Trim(); 
             //Récupère le Mood, le substring permet de remove le Mood: de la string
-            if (Enum.TryParse<Moods>(moodStr, out var moodParsed)) //TODO : doesn t work to fix
+            if (Enum.TryParse<Moods>(moodStr, out var moodParsed))
             {
                 song.Mood = moodParsed;
                 Console.WriteLine(tag.Comment);

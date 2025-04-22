@@ -22,7 +22,9 @@ class Program
         Song song = new Song(fullPath, 1);
         MetadataEditor.WriteMetadata(song, "Oui","Adele","feur",Moods.Dreamy);
 
-        MetadataEditor.ReadMetadata(song);*/
+        MetadataEditor.ReadMetadata(song);
+
+        return;*/
         
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
         
