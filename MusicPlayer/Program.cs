@@ -17,7 +17,7 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        /*string relativePath = @"..\..\..\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.mp3";
+        /*string relativePath = @"..\..\..\DATA\Musics\Arcane S2 - Ma Meilleure Ennemie - Gragas AI Cover.webm";
         string fullPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, relativePath));
         Song song = new Song(fullPath, 1);
         MetadataEditor.WriteMetadata(song, "Oui","Adele","feur",Moods.Dreamy);
