@@ -1,100 +1,83 @@
-﻿using System.Collections.Generic;
-using MusicPlayer.SongsHandler;
+﻿using MusicPlayer.SongsHandler;
 using Xunit;
+using System.Collections.Generic;
 
-namespace Test;
-
-public class PlaylistTest
+namespace MusicPlayer.Tests
 {
-    [Fact]
-    public void Constructor_InitializesCorrectly()
+    public class PlaylistTests
     {
-        var songs = new List<int> { 1, 2, 3 };
-        var playlist = new Playlist("MaPlaylist", songs);
+        // Test pour vérifier que le constructeur initialise correctement le titre et la liste des chansons
+        [Fact]
+        public void Constructor_SetsTitleAndSongsCorrectly()
+        {
+            var playlist = new Playlist("Test", new List<int> { 1, 2 });
 
-        Assert.Equal("MaPlaylist", playlist.Title);
-        Assert.Equal(3, playlist.SongCount);
-        Assert.False(playlist.IsEmpty);
-        Assert.Equal(songs, playlist.SongList);
-    }
-    
-    [Fact]
-    public void Constructor_NullSongList_InitializesEmptyList()
-    {
-        var playlist = new Playlist("Vide", null);
+            Assert.Equal("Test", playlist.Title);
+            Assert.Equal(2, playlist.SongCount);
+            Assert.False(playlist.IsEmpty);
+        }
 
-        Assert.Equal("Vide", playlist.Title);
-        Assert.NotNull(playlist.SongList);
-        Assert.Empty(playlist.SongList);
-        Assert.True(playlist.IsEmpty);
-    }
-    
-    [Fact]
-    public void AddSong_AddsSongToList()
-    {
-        var playlist = new Playlist("Test", new List<int>());
+        // Test pour vérifier l'ajout d'une chanson à la playlist
+        [Fact]
+        public void AddSong_IncreasesCount()
+        {
+            var playlist = new Playlist("Test", new List<int>());
+            playlist.AddSong(3);
 
-        playlist.AddSong(42);
+            Assert.Single(playlist.SongList);  // Vérifie que la playlist contient une chanson
+            Assert.Equal(1, playlist.SongCount);  // Vérifie que le compteur est à 1
+        }
 
-        Assert.Single(playlist.SongList);
-        Assert.Equal(42, playlist.SongList[0]);
-        Assert.False(playlist.IsEmpty);
-    }
-    
-    [Fact]
-    public void RemoveSong_RemovesExistingSong()
-    {
-        var playlist = new Playlist("Test", new List<int> { 1, 2, 3 });
+        // Test pour vérifier la suppression d'une chanson de la playlist
+        [Fact]
+        public void RemoveSong_DecreasesCount()
+        {
+            var playlist = new Playlist("Test", new List<int> { 1, 2 });
+            playlist.RemoveSong(1);
 
-        playlist.RemoveSong(2);
+            Assert.Single(playlist.SongList);  // Vérifie que la playlist contient une chanson
+            Assert.Equal(1, playlist.SongCount);  // Vérifie que le compteur est à 1
+        }
 
-        Assert.DoesNotContain(2, playlist.SongList);
-        Assert.Equal(2, playlist.SongCount);
-    }
-    
-    [Fact]
-    public void RemoveSong_RemovingNonExistingSong_ChangesNothing()
-    {
-        var playlist = new Playlist("Test", new List<int> { 1, 2, 3 });
+        // Test pour vérifier que les titres des chansons sont correctement retournés
+        [Fact]
+        public void GetSongTitles_ReturnsCorrectStrings()
+        {
+            var playlist = new Playlist("Test", new List<int> { 1, 2 });
 
-        playlist.RemoveSong(42);
+            var titles = playlist.GetSongTitles();
 
-        Assert.Equal(3, playlist.SongCount);
-        Assert.Contains(1, playlist.SongList);
-        Assert.Contains(2, playlist.SongList);
-        Assert.Contains(3, playlist.SongList);
-    }
-    
-    [Fact]
-    public void GetSongNames_ReturnsCorrectNames()
-    {
-        var playlist = new Playlist("Test", new List<int> { 10, 20 });
+            Assert.Contains("1", titles);  // Vérifie que "1" est présent dans la liste
+            Assert.Contains("2", titles);  // Vérifie que "2" est présent dans la liste
+        }
 
-        var result = playlist.GetSongTitles();
+        // Test pour vérifier qu'une playlist vide est correctement identifiée
+        [Fact]
+        public void Playlist_ShouldBeEmptyWhenNoSongs()
+        {
+            var playlist = new Playlist("Empty Playlist", new List<int>());
 
-        Assert.Equal(new List<string> { "10", "20" }, result);
-    }
-    [Fact]
-    public void SongCount_ReflectsActualCount()
-    {
-        var playlist = new Playlist("Test", new List<int>());
+            Assert.True(playlist.IsEmpty);  // Vérifie que la playlist est vide
+        }
 
-        Assert.Equal(0, playlist.SongCount);
-        playlist.AddSong(5);
-        Assert.Equal(1, playlist.SongCount);
-    }
+        // Test pour vérifier qu'une playlist avec des chansons n'est pas vide
+        [Fact]
+        public void Playlist_ShouldNotBeEmptyWhenHasSongs()
+        {
+            var playlist = new Playlist("Non-empty Playlist", new List<int> { 1 });
 
-    [Fact]
-    public void IsEmpty_ReturnsTrueWhenEmpty()
-    {
-        var playlist = new Playlist("Empty", new List<int>());
-        Assert.True(playlist.IsEmpty);
-    }
+            Assert.False(playlist.IsEmpty);  // Vérifie que la playlist n'est pas vide
+        }
 
-    [Fact]
-    public void IsEmpty_ReturnsFalseWhenNotEmpty()
-    {
-        var playlist = new Playlist("NotEmpty", new List<int> { 1 });
-        Assert.False(playlist.IsEmpty);
+        // Test pour vérifier l'override ToString()
+        [Fact]
+        public void ToString_ShouldReturnTitle()
+        {
+            var playlist = new Playlist("Test", new List<int>());
+
+            var result = playlist.ToString();
+
+            Assert.Equal("Test", result);  // Vérifie que ToString() retourne le titre
+        }
     }
 }

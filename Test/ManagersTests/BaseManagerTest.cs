@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Collections.Generic;
+using Xunit;
 using MusicPlayer.SongsHandler.Managers;
 using System.IO;
 namespace Test;
@@ -63,4 +64,45 @@ public class BaseManagerTest
 
         Assert.Equal(item.Id, item2.Id); // L'ID a été recyclé
     }
+
+    [Fact]
+    public void LoadState_ShouldRestoreSavedItems()
+    {
+        string filePath = tempFilePath;
+
+        // Phase 1 : Création et ajout
+        var manager1 = new DummyManager(filePath);
+        manager1.AddItem(new DummyItem { Title = "PersistentItem" });
+
+        // Phase 2 : Nouveau manager, même fichier
+        var manager2 = new DummyManager(filePath);
+        manager2.LoadState();
+
+        var items = manager2.GetAllItems();
+        Assert.Single(items);
+        Assert.Equal("PersistentItem", items[0].Title);
+    }
+    [Fact]
+    public void GetItemByTitle_ShouldReturnCorrectItem()
+    {
+        var manager = new DummyManager(tempFilePath);
+        var item = new DummyItem { Title = "FindMe" };
+        manager.AddItem(item);
+
+        var found = manager.GetItemByTitle("FindMe");
+
+        Assert.NotNull(found);
+        Assert.Equal(item.Title, found.Title);
+    }
+    [Fact]
+    public void GetItemById_ShouldThrowIfNotFound()
+    {
+        var manager = new DummyManager(tempFilePath);
+
+        Assert.Throws<KeyNotFoundException>(() => manager.GetItemById(999));
+    }
+
+    
+    
+
 }
