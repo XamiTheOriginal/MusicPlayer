@@ -66,8 +66,10 @@ public partial class MainWindow : Window
                 _songsManager.AddItem(file.Path.LocalPath);
             }
         }
-        
-        //TODO actualiser la liste à gauche après l'ajout d'un son
+        if (DataContext is MainViewModel viewModel)
+        {
+            viewModel.RefreshSongs();
+        }
     }
 
     private async void AddPlaylist(object? sender, RoutedEventArgs e)
@@ -78,6 +80,10 @@ public partial class MainWindow : Window
         if (!string.IsNullOrWhiteSpace(result))
         {
             _playlistsManager.AddItem(new Playlist(result, new List<int>())); 
+            if (DataContext is MainViewModel viewModel)
+            {
+                viewModel.RefreshPlaylists();
+            }
         }
     }
 }
