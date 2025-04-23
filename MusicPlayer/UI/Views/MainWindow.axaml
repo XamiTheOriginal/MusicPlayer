@@ -17,16 +17,29 @@
                  Height="30" Click="AddSongFile"
                 Grid.Row="0" HorizontalAlignment="Right"
                 />
+        <Button Content="Add Playlist"
+                Height="30" Click="AddPlaylist"
+                Grid.Row="0" HorizontalAlignment="Left"
+        />
 
-        <!-- Liste de chansons (s'adapte entre le logo et le footer) -->
-        <Grid Grid.Row="1" ColumnDefinitions="1*,3*" Margin="0,10,0,10">
+        <Grid Grid.Row="1" ColumnDefinitions="1*,3*,1*" Margin="0,10,0,10">
             <!-- Colonne de gauche : logo + liste -->
             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-                <ListBox ItemsSource="{Binding Songs}"/>
+                <ListBox ItemsSource="{Binding Playlists}"/>
             </ScrollViewer>
 
-            <!-- Colonne de droite vide (pour futur contenu) -->
+            <!-- Colonne du milieu -->
+            <Grid Grid.Column="1">
+                <!-- contenu principal -->
+            </Grid>
+
+            <!-- Colonne de droite  -->
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <ListBox ItemsSource="{Binding Songs}"/>
+            </ScrollViewer>
         </Grid>
+        
+
 
         <!-- Barre de progression + contrôles média en bas -->
         <StackPanel Grid.Row="2" Orientation="Vertical" Spacing="10">

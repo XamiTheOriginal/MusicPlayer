@@ -11,6 +11,7 @@ namespace MusicPlayer.UI.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<string> Songs { get; } = new();
+        public ObservableCollection<string> Playlists { get; } = new();
 
         public MainViewModel()
         {
@@ -33,10 +34,16 @@ namespace MusicPlayer.UI.ViewModels
             {
                 Songs.Add(song);
             }
+
+            List<Playlist> playlistList = playlistsManager.GetAllItems();
+            foreach (Playlist playlist in playlistList)
+            {
+                Playlists.Add(playlist.Title);
+            }
         }
         
         private int _selectedSongIndex;
-        public int SelectedIndex
+        public int SelectedSongIndex
         {
             get => _selectedSongIndex;
             set
@@ -44,7 +51,21 @@ namespace MusicPlayer.UI.ViewModels
                 if (_selectedSongIndex != value)
                 {
                     _selectedSongIndex = value;
-                    OnPropertyChanged(nameof(SelectedIndex));
+                    OnPropertyChanged(nameof(SelectedSongIndex));
+                    UpdateCurrentSongInPlayer(); // Mettez à jour le Player avec l'indice sélectionné
+                }
+            }
+        }
+        
+        public int SelectedPlaylistIndex
+        {
+            get => _selectedSongIndex;
+            set
+            {
+                if (_selectedSongIndex != value)
+                {
+                    _selectedSongIndex = value;
+                    OnPropertyChanged(nameof(SelectedPlaylistIndex));
                     UpdateCurrentSongInPlayer(); // Mettez à jour le Player avec l'indice sélectionné
                 }
             }

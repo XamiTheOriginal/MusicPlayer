@@ -64,10 +64,18 @@ public partial class MainWindow : Window
                 _songsManager.AddItem(file.Path.LocalPath);
             }
         }
+        
+        //TODO actualiser la liste à gauche après l'ajout d'un son
     }
 
-    private void AddPlaylist(object? sender, RoutedEventArgs e)
+    private async void AddPlaylist(object? sender, RoutedEventArgs e)
     {
-        
+        Window prompt = new NamePromptWindow();
+        string? result = await prompt.ShowDialog<string?>(this); 
+
+        if (!string.IsNullOrWhiteSpace(result))
+        {
+            _songsManager.AddItem(result); 
+        }
     }
 }
