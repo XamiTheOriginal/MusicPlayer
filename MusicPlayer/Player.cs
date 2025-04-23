@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using MusicPlayer.SongsHandler;
 using NAudio.Wave;
 using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
-
 
 namespace MusicPlayer
 {
-    
-    //faire un singleton avec le player comme les managers
     public class Player
     {
         #region ClassVariables
@@ -17,7 +14,7 @@ namespace MusicPlayer
         public int CurrentSongId;
         private Queue<int> _nextSongIdQueue = new Queue<int>();
         private Queue<int> _previousSongQueue = new Queue<int>();
-        
+
         private WaveOutEvent _outputDevice;
         private AudioFileReader _audioFile;
         private bool _isPlaying;
@@ -31,19 +28,26 @@ namespace MusicPlayer
         }
 
         #endregion
-        
-        public Player(WaveOutEvent outputDevice, AudioFileReader audioFile)
+
+        // Constructeur sans injection de AudioFileReader
+        public Player(WaveOutEvent outputDevice)
         {
             _outputDevice = outputDevice;
-            _audioFile = audioFile;
             CurrentSongId = 1;
+        }
+
+        // Méthode pour changer la chanson actuelle
+        public void SetCurrentSongId(int songId)
+        {
+            CurrentSongId = songId;
+            PlayDaMusic(); // Lance la chanson immédiatement après la mise à jour de l'ID
         }
 
         public string GetFilePath()
         {
             return CurrentSong.Filepath;
         }
-        
+
         public void PlayDaMusic()
         {
             try
@@ -52,12 +56,12 @@ namespace MusicPlayer
                 if (_isPlaying)
                     return;
 
-                // Libération des anciens objets s'ils existent
-                _audioFile?.Dispose();
-                _outputDevice?.Dispose();
-
-                // Chargement du nouveau fichier
+                // Créer un nouveau lecteur de fichier audio avec le chemin du fichier actuel
+                _audioFile?.Dispose(); // Libération de l'ancien fichier si nécessaire
                 _audioFile = new AudioFileReader(CurrentSong.Filepath);
+
+                // Initialisation du périphérique de sortie audio
+                _outputDevice?.Dispose();
                 _outputDevice = new WaveOutEvent();
 
                 // Gestion de fin automatique
@@ -72,7 +76,7 @@ namespace MusicPlayer
 
                 _outputDevice.Init(_audioFile);
                 _outputDevice.Play();
- 
+
                 _isPlaying = true;
             }
             catch (Exception e)
@@ -90,11 +94,9 @@ namespace MusicPlayer
             }
         }
 
-            
         public void PlayDaPlaylist(int id)
         {
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
-            //var songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
             Playlist playlist = playlistsManager.GetItemById(id);
             _nextSongIdQueue = new Queue<int>(playlist.SongList);
             _previousSongQueue = new Queue<int>();
@@ -106,7 +108,6 @@ namespace MusicPlayer
             {
                 Console.WriteLine("La playlist est vide.");
             }
-
         }
 
         public void NextSong()
@@ -123,5 +124,4 @@ namespace MusicPlayer
             PlayDaMusic();
         }
     }
-    
 }
