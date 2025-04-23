@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
 using MusicPlayer.UI.ViewModels;
 
@@ -13,6 +14,7 @@ public partial class MainWindow : Window
     
     private Player Player => ServiceLocator.Instance.GetRequiredService<Player>();
     private SongsManager _songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
+    private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
     public MainWindow()
     {
         InitializeComponent();
@@ -75,7 +77,7 @@ public partial class MainWindow : Window
 
         if (!string.IsNullOrWhiteSpace(result))
         {
-            _songsManager.AddItem(result); 
+            _playlistsManager.AddItem(new Playlist(result, new List<int>())); 
         }
     }
 }
