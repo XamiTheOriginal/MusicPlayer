@@ -2,18 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
-
 
 namespace MusicPlayer.UI.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<string> Songs { get; } = new();
-        
+
         public MainViewModel()
         {
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
@@ -30,13 +28,12 @@ namespace MusicPlayer.UI.ViewModels
             var defaultPlaylist = playlistsManager.GetItemByTitle("Default");
             if (defaultPlaylist == null) 
                 throw new Exception("Default playlist null");
-            List<string> songList = defaultPlaylist.GetSongTitles(); //TODO : fix le object ref not set to an instance of an object
+            List<string> songList = defaultPlaylist.GetSongTitles();
             foreach (var song in songList)
             {
                 Songs.Add(song);
             }
         }
-        
         
         private int _selectedSongIndex;
         public int SelectedIndex
@@ -48,6 +45,7 @@ namespace MusicPlayer.UI.ViewModels
                 {
                     _selectedSongIndex = value;
                     OnPropertyChanged(nameof(SelectedIndex));
+                    UpdateCurrentSongInPlayer(); // Mettez à jour le Player avec l'indice sélectionné
                 }
             }
         }
@@ -64,6 +62,12 @@ namespace MusicPlayer.UI.ViewModels
                     OnPropertyChanged(nameof(Progress));
                 }
             }
+        }
+
+        private void UpdateCurrentSongInPlayer()
+        {
+            var player = ServiceLocator.Instance.GetRequiredService<Player>();
+            player.SetCurrentSongId(_selectedSongIndex); // Envoie l'indice de la chanson au Player
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
