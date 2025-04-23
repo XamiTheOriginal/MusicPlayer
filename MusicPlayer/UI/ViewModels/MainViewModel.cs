@@ -18,6 +18,14 @@ namespace MusicPlayer.UI.ViewModels
         {
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
             var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
+            
+            playlistsManager.LoadState();
+            
+            Console.WriteLine("📂 Playlists disponibles :");
+            foreach (var p in playlistsManager.GetAllItems())
+            {
+                Console.WriteLine($"➡️ Playlist : {p.Title}, Songs: {p.SongList?.Count}");
+            }
 
             string path = Path.Combine("DATA", "Musics", "Linkin Park \u29f8 Slipknot \u29f8 Eminem - Damage.mp3");
             songsManager.AddItem(path);

@@ -9,7 +9,7 @@ namespace MusicPlayer.SongsHandler
     public class Playlist
     {
        
-        public List<int> SongList { get; } 
+        public List<int> SongList { get; set; } 
         public int Id;
         [JsonIgnore]
         public int SongCount => SongList.Count;
