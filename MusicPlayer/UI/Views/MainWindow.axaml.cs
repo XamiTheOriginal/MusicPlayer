@@ -27,6 +27,7 @@ public partial class MainWindow : Window
     
     private void Button_Play(object? sender, RoutedEventArgs e)
     {
+        
         Player.PlayDaMusic();
     }
     
@@ -63,5 +64,10 @@ public partial class MainWindow : Window
                 _songsManager.AddItem(file.Path.LocalPath);
             }
         }
+    }
+
+    private void AddPlaylist(object? sender, RoutedEventArgs e)
+    {
+        
     }
 }
