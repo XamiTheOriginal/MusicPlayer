@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.Downloader;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
 using NAudio.Wave;
@@ -25,6 +26,10 @@ class Program
         MetadataEditor.ReadMetadata(song);
 
         return;*/
+        
+        var downloader = new DownLoader();
+        downloader.DownloadAudioAsync("https://www.youtube.com/watch?v=VIDEO_ID", "audio.webm");
+
         
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
         
