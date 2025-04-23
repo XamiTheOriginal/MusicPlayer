@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler.Managers;
 using MusicPlayer.UI.ViewModels;
 
 namespace MusicPlayer.UI.Views;
@@ -8,8 +11,8 @@ namespace MusicPlayer.UI.Views;
 public partial class MainWindow : Window
 {
     
-    private Player _player => ServiceLocator.Instance.GetRequiredService<Player>();
-
+    private Player Player => ServiceLocator.Instance.GetRequiredService<Player>();
+    private SongsManager _songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
     public MainWindow()
     {
         InitializeComponent();
@@ -19,16 +22,46 @@ public partial class MainWindow : Window
 
     private void Button_Previous(object? sender, RoutedEventArgs e)
     {
-        _player.PreviousSong();
+        Player.PreviousSong();
     }
     
     private void Button_Play(object? sender, RoutedEventArgs e)
     {
-        _player.PlayDaMusic();
+        Player.PlayDaMusic();
     }
     
     private void Button_Next(object? sender, RoutedEventArgs e)
     {
-        _player.NextSong();
+        Player.NextSong();
+    }
+
+    private async void AddSongFile(object? sender, RoutedEventArgs e)
+    {
+        // Utiliser le StorageProvider pour ouvrir des fichiers
+        IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Choisissez des fichiers audio",
+            AllowMultiple = true,
+            FileTypeFilter = new[] 
+            {
+                new FilePickerFileType("Fichiers audio")
+                {
+                    Patterns = new[] { "*.mp3", "*.wav", "*.flac" },
+                    MimeTypes = new[] { "audio/mpeg", "audio/wav", "audio/flac" }
+                },
+                new FilePickerFileType("Tous les fichiers")
+                {
+                    Patterns = new[] { "*.*" }
+                }
+            }
+        });
+
+        if (files.Count > 0)
+        {
+            foreach (var file in files)
+            {
+                _songsManager.AddItem(file.Path.LocalPath);
+            }
+        }
     }
 }

@@ -38,7 +38,9 @@ class Program
         var provider = services.BuildServiceProvider();
         
         var songsManager = provider.GetRequiredService<SongsManager>();
+        songsManager.LoadState();
         var playlistsManager = provider.GetRequiredService<PlaylistsManager>();
+        playlistsManager.LoadState();
         
         ServiceLocator.Init(provider);
         

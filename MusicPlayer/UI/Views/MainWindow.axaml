@@ -13,6 +13,10 @@
         <!-- Logo en haut -->
         <Image Source="avares://MusicPlayer/UI/Assets/Logo.png"
                Width="100" Height="100" Grid.Row="0" HorizontalAlignment="Center"/>
+        <Button Content="Add song file"
+                 Height="30" Click="AddSongFile"
+                Grid.Row="0" HorizontalAlignment="Right"
+                />
 
         <!-- Liste de chansons (s'adapte entre le logo et le footer) -->
         <Grid Grid.Row="1" ColumnDefinitions="1*,3*" Margin="0,10,0,10">
@@ -34,5 +38,7 @@
             <ProgressBar Height="20" Minimum="0" Maximum="100" Value="{Binding Progress}" Margin="0,0,0,0"/>
 
         </StackPanel>
+        
+
     </Grid>
 </Window>

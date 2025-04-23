@@ -26,10 +26,7 @@ namespace MusicPlayer.UI.ViewModels
             {
                 Console.WriteLine($"➡️ Playlist : {p.Title}, Songs: {p.SongList?.Count}");
             }
-
-            string path = Path.Combine("DATA", "Musics", "Linkin Park \u29f8 Slipknot \u29f8 Eminem - Damage.mp3");
-            songsManager.AddItem(path);
-
+            
             var defaultPlaylist = playlistsManager.GetItemByTitle("Default");
             if (defaultPlaylist == null) 
                 throw new Exception("Default playlist null");
