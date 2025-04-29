@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NAudio.Wave;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
+using LibVLCSharp.Shared;
 
 namespace MusicPlayer
 {
@@ -15,8 +15,8 @@ namespace MusicPlayer
         private Queue<int> _nextSongIdQueue = new Queue<int>();
         private Queue<int> _previousSongQueue = new Queue<int>();
 
-        private WaveOutEvent _outputDevice;
-        private AudioFileReader _audioFile;
+        private LibVLC _libVLC;
+        private MediaPlayer _mediaPlayer;
         private bool _isPlaying;
         private Song CurrentSong
         {
@@ -29,14 +29,13 @@ namespace MusicPlayer
 
         #endregion
 
-        // Constructeur sans injection de AudioFileReader
-        public Player(WaveOutEvent outputDevice)
+        public Player()
         {
-            _outputDevice = outputDevice;
+            _libVLC = new LibVLC(); //("--plugin-path=/Applications/VLC.app/Contents/MacOS/plugins");
+            _mediaPlayer = new MediaPlayer(_libVLC);
             CurrentSongId = 1;
         }
 
-        // Méthode pour changer la chanson actuelle
         public void SetCurrentSongId(int songId)
         {
             CurrentSongId = songId;
@@ -52,32 +51,19 @@ namespace MusicPlayer
         {
             try
             {
-                // Si déjà en train de jouer, on ne relance pas
-                if (_isPlaying)
-                    return;
-
-                // Créer un nouveau lecteur de fichier audio avec le chemin du fichier actuel
-                _audioFile?.Dispose(); // Libération de l'ancien fichier si nécessaire
-                _audioFile = new AudioFileReader(CurrentSong.Filepath);
-
-                // Initialisation du périphérique de sortie audio
-                _outputDevice?.Dispose();
-                _outputDevice = new WaveOutEvent();
-
-                // Gestion de fin automatique
-                _outputDevice.PlaybackStopped += (s, e) =>
+                if (_mediaPlayer.IsPlaying)
                 {
-                    // Vérifie que la musique est bien terminée (et pas juste "pause")
-                    if (_audioFile.Position >= _audioFile.Length)
-                    {
-                        NextSong();
-                    }
-                };
+                    PauseDaMusic();
+                    return;
+                }
 
-                _outputDevice.Init(_audioFile);
-                _outputDevice.Play();
-
+                var media = new Media(_libVLC, CurrentSong.Filepath, FromType.FromPath);
+                _mediaPlayer.Play(media);
                 _isPlaying = true;
+
+                _mediaPlayer.EndReached += (sender, e) => {
+                    NextSong();
+                };
             }
             catch (Exception e)
             {
@@ -87,9 +73,9 @@ namespace MusicPlayer
 
         public void PauseDaMusic()
         {
-            if (_outputDevice != null && _isPlaying)
+            if (_mediaPlayer != null && _isPlaying)
             {
-                _outputDevice.Pause();
+                _mediaPlayer.Pause();
                 _isPlaying = false;
             }
         }

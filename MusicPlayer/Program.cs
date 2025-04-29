@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.Downloader;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
-using NAudio.Wave;
+using LibVLCSharp.Shared;
 using TagLib.Flac;
 
 namespace MusicPlayer;
@@ -33,12 +33,12 @@ class Program
         
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
         
+        Core.Initialize();
+        
         var services = new ServiceCollection();
         
         services.AddMusicManagers(); // Ajout des managers au conteneur DI
         services.AddSingleton<Player>(); //Ajoute le singleton du player
-        
-        services.AddTransient<WaveOutEvent>();
         
         var provider = services.BuildServiceProvider();
         
