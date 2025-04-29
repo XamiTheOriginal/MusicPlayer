@@ -1,4 +1,21 @@
-*obj
-*bin
-.idea
-*DATA
+# Ignore bin and obj folders at any level
+**/bin/
+**/obj/
+
+# IDE files
+.idea/
+
+# User data
+*DATA/
+
+# NuGet packages
+*.nupkg
+packages/
+*.nuget.props
+*.nuget.targets
+
+# Project specific files
+*.cache
+*.dll
+*.exe
+*.pdb
