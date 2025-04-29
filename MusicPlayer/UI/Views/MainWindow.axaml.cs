@@ -86,4 +86,20 @@ public partial class MainWindow : Window
             }
         }
     }
+
+    private void PlaylistsListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (DataContext is MainViewModel viewModel)
+        {
+            viewModel.RefreshSongs();
+        }
+    }
+
+    private void SongsListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (DataContext is MainViewModel viewModel)
+        {
+            
+        }
+    }
 }
