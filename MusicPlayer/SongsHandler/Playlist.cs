@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler.Managers;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+
 
 namespace MusicPlayer.SongsHandler
 {
     public class Playlist
     {
-       
         public List<int> SongList { get; set; } 
         public int Id;
         [JsonIgnore]
