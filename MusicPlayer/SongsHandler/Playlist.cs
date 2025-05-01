@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler.Managers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -8,7 +10,7 @@ namespace MusicPlayer.SongsHandler
 {
     public class Playlist
     {
-       
+        private SongsManager _songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
         public List<int> SongList { get; set; } 
         public int Id;
         [JsonIgnore]
@@ -26,7 +28,9 @@ namespace MusicPlayer.SongsHandler
         public List<string> GetSongTitles()
         {
             List<string> names = new List<string>();
-            foreach (var song in SongList) names.Add(song.ToString());
+            foreach (var song in SongList) names.Add(
+                _songsManager.GetItemById(song).Title
+                );
             return names;
         }
         

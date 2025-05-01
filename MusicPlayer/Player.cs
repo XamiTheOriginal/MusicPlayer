@@ -31,7 +31,10 @@ namespace MusicPlayer
 
         public Player()
         {
-            _libVLC = new LibVLC("--plugin-path=/Applications/VLC.app/Contents/MacOS/plugins");
+            // Spécifiez le chemin complet vers libvlc.dylib
+            
+    
+            _libVLC = new LibVLC();
             _mediaPlayer = new MediaPlayer(_libVLC);
             CurrentSongId = 1;
         }
