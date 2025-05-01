@@ -97,9 +97,9 @@ public partial class MainWindow : Window
 
     private void SongsListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (DataContext is MainViewModel viewModel)
+        if (DataContext is MainViewModel viewModel && sender is ListBox listBox)
         {
-            
+            viewModel.SelectedSongIndex = listBox.SelectedIndex;
         }
     }
 }
