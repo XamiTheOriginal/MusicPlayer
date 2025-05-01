@@ -32,7 +32,7 @@ namespace MusicPlayer.UI.ViewModels
             if (defaultPlaylist == null) 
                 throw new Exception("Default playlist null");
             List<string> songList = defaultPlaylist.GetSongTitles();
-            foreach (var song in songList)
+            foreach (string song in songList)
             {
                 Songs.Add(song);
             }
