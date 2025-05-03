@@ -68,7 +68,7 @@ namespace MusicPlayer.SongsHandler
                 }
                 else
                 {
-                    names.Add($"Chanson introuvable pour l'ID {songId}");
+                    names.Add($"Chanson introuvable pour l'ID {songId}"); //Si la liste est vide
                 }
             }
 
