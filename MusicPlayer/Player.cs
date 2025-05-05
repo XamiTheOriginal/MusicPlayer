@@ -102,7 +102,7 @@ namespace MusicPlayer
         public void NextSong()
         {
             _previousSongQueue.Enqueue(CurrentSongId);
-            CurrentSongId = _nextSongIdQueue.Dequeue();
+            //CurrentSongId = _nextSongIdQueue.Dequeue();
             PlayDaMusic();
         }
 
