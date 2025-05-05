@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 /// <summary>
 /// Classe de base pour gérer des objets avec un système d'ID et de persistance.
 /// </summary>
-public abstract class BaseManager<T>
+public abstract class BaseManager<T> where T : IIdentifiable
 {
     protected List<T> ItemsList = new List<T>();
     protected Queue<int> AvailableIds = new Queue<int>();

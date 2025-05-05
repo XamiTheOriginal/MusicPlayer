@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace MusicPlayer.SongsHandler;
 
 [JsonObject(MemberSerialization.OptIn)]
-public class Song
+public class Song : IIdentifiable
 {
     [JsonProperty]
     public int Id { get; set; }

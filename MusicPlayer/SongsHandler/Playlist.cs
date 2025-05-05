@@ -7,13 +7,13 @@ using Newtonsoft.Json;
 
 namespace MusicPlayer.SongsHandler
 {
-    public class Playlist
+    public class Playlist : IIdentifiable
     {
 
         private SongsManager _songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
 
         public List<int> SongList { get; set; } 
-        public int Id;
+        public int Id { get; set; }
         [JsonIgnore]
         public int SongCount => SongList.Count;
         [JsonIgnore]
@@ -68,6 +68,7 @@ namespace MusicPlayer.SongsHandler
                 }
                 else
                 {
+                    Console.WriteLine(songId);
                     names.Add($"Chanson introuvable pour l'ID {songId}"); //Si la liste est vide
                 }
             }
