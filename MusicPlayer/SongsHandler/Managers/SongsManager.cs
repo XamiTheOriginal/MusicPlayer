@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler;
+
 
 namespace MusicPlayer.SongsHandler.Managers
 {
@@ -38,7 +40,9 @@ namespace MusicPlayer.SongsHandler.Managers
             PlaylistSetup(item);
 
             if (ServiceLocator.Instance is null) throw new NullReferenceException("ServiceLocator est pas instancié.");
-            var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+            var playlistsManager = ServiceLocator.Get<PlaylistsManager>();
+
+
             var defaultPlaylist = playlistsManager.GetItemByTitle("Default");
             
 
