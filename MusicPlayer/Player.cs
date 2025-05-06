@@ -83,6 +83,7 @@ namespace MusicPlayer
 
                 _currentMedia = new Media(_libVLC, CurrentSong.Filepath, FromType.FromPath);
                 _mediaPlayer.Media = _currentMedia;
+                Console.WriteLine(CurrentSong.Filepath);
 
                 _mediaPlayer.Play();
                 _isPlaying = true;
