@@ -2,11 +2,13 @@
 using Xunit;
 using MusicPlayer.SongsHandler.Managers;
 using System.IO;
+using MusicPlayer.SongsHandler;
+
 namespace Test;
 
 #region Emulation
 
-public class DummyItem
+public class DummyItem : IIdentifiable
 {
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
