@@ -17,7 +17,7 @@ class Program
     {
         // 1️⃣ Init console et dossier de sauvegarde
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
-        FileHelper.GetOrCreateSaveFolder("DATA");
+        FileHelper.GetOrCreateSaveFolder(AppContext.BaseDirectory +"DATA");
 
         // 2️⃣ Initialisation LibVLC
         Core.Initialize();
