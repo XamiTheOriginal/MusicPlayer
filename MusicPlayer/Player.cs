@@ -13,8 +13,7 @@
          #region ClassVariables
  
          public int CurrentSongId;
-         private Queue<int> _nextSongIdQueue = new Queue<int>();
-         private Queue<int> _previousSongQueue = new Queue<int>();
+         
  
          private WaveOutEvent _outputDevice;
          private AudioFileReader _audioFile;
@@ -78,7 +77,6 @@
                      {
                          NextSong();
                      }
-
                      NextSong();
                  };
  
@@ -96,10 +94,8 @@
          public void PauseDaMusic()
          {
              if (_outputDevice != null && _isPlaying)
-
              {
                  _outputDevice.Pause();
-
                  _isPlaying = false;
              }
          }
@@ -108,29 +104,16 @@
          {
              var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
              Playlist playlist = playlistsManager.GetItemById(id);
-             _nextSongIdQueue = new Queue<int>(playlist.SongList);
-             _previousSongQueue = new Queue<int>();
-             if (_nextSongIdQueue.Count > 0)
-             {
-                 NextSong();
-             }
-             else
-             {
-                 Console.WriteLine("La playlist est vide.");
-             }
+             NextSong();
          }
  
          public void NextSong()
          {
-             _previousSongQueue.Enqueue(CurrentSongId);
-             CurrentSongId = _nextSongIdQueue.Dequeue();
              PlayDaMusic();
          }
  
          public void PreviousSong()
          {
-             _nextSongIdQueue.Enqueue(CurrentSongId);
-             CurrentSongId = _previousSongQueue.Dequeue();
              PlayDaMusic();
          }
      }
