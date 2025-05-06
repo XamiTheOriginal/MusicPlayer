@@ -21,7 +21,7 @@ class Program
 
         // 2️⃣ Initialisation LibVLC
         Core.Initialize();
-
+        
         // 3️⃣ Configuration DI
         var services = new ServiceCollection();
         services.AddMusicManagers();        // Managers
