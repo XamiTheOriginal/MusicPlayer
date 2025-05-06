@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.Downloader;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
-using LibVLCSharp.Shared;
+using NAudio.Wave;
 using MusicPlayer;
 
 namespace MusicPlayer;
@@ -18,15 +18,15 @@ class Program
         // 1️⃣ Init console et dossier de sauvegarde
         Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
         FileHelper.GetOrCreateSaveFolder(AppContext.BaseDirectory +"DATA");
-
-        // 2️⃣ Initialisation LibVLC
-        Core.Initialize();
         
         // 3️⃣ Configuration DI
         var services = new ServiceCollection();
         services.AddMusicManagers();        // Managers
         services.AddSingleton<Player>();    // Player
+        
+        services.AddTransient<WaveOutEvent>();
         var provider = services.BuildServiceProvider();
+        
         ServiceLocator.Init(provider);
 
         // 4️⃣ Chargement de l’état
