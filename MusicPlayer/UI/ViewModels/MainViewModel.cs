@@ -101,6 +101,7 @@ namespace MusicPlayer.UI.ViewModels
             //TODO : Changer la selection dans l ui
             if (_selectedPlaylist != null && SelectedSongIndex >= 0)
             {
+                
                 _player.PlayFromPlaylist(_selectedPlaylist, SelectedSongIndex);
             }
         }

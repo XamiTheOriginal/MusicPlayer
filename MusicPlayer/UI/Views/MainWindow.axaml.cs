@@ -23,22 +23,37 @@ public partial class MainWindow : Window
         DataContext = new MainViewModel(); // Associe le ViewModel à la fenêtre
 
     }
+    
+    private void UpdateSelectedSong()
+    {
+        var currentSong = Player.CurrentSongId; // Récupère l'ID de la chanson actuelle
+        var songIndex = _songsManager.GetAllItems().FindIndex(song => song.Id == currentSong); // Trouve l'index de la chanson
 
+        if (songIndex >= 0)  // Si l'index est valide
+        {
+            //TODO : Correct me 
+            //SongsListBox.SelectedIndex = songIndex;  // Met à jour l'élément sélectionné dans la ListBox
+        }
+    }
     private void Button_Previous(object? sender, RoutedEventArgs e)
     {
         Player.PreviousSong();
+        UpdateSelectedSong();
     }
     
     private void Button_Play(object? sender, RoutedEventArgs e)
     {
-        
         Player.TogglePlayPause();
+        UpdateSelectedSong();
     }
     
     private void Button_Next(object? sender, RoutedEventArgs e)
     {
         Player.NextSong();
+        UpdateSelectedSong();
     }
+    
+    
 
     private async void AddSongFile(object? sender, RoutedEventArgs e)
     {

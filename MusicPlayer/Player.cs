@@ -152,6 +152,8 @@ namespace MusicPlayer
             _playlistIndex = 0;
             SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
         }
+        
+        
 
         public void NextSong()
         {
