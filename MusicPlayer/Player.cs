@@ -129,6 +129,15 @@ namespace MusicPlayer
 
         #region Playlist / Navigation
 
+        public void PlayFromPlaylist(Playlist playlist, int songIndex)
+        {
+            if (playlist == null || playlist.IsEmpty) return;
+
+            _currentPlaylist = playlist;
+            _playlistIndex = songIndex;
+            SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
+        }
+
         public void PlayDaPlaylist(int id)
         {
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
