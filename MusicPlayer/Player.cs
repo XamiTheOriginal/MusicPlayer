@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NAudio.Wave;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
@@ -17,9 +18,11 @@ namespace MusicPlayer
 
         private bool _isPlaying;
         private bool _isPaused;
-        
-        private string _lastFilePath; // pour suivre la chanson réellement jouée
 
+        private string _lastFilePath;
+
+        private Playlist _currentPlaylist;
+        private int _playlistIndex;
 
         private Song CurrentSong
         {
@@ -62,6 +65,7 @@ namespace MusicPlayer
         public void SetCurrentSongId(int songId)
         {
             CurrentSongId = songId;
+            _lastFilePath = ""; // force la relance même si le path est le même
             PlayDaMusic();
         }
 
@@ -76,7 +80,6 @@ namespace MusicPlayer
             {
                 string currentPath = CurrentSong.Filepath;
 
-                // Si en pause ET même fichier → reprise
                 if (_isPaused && _outputDevice != null && currentPath == _lastFilePath)
                 {
                     _outputDevice.Play();
@@ -85,7 +88,6 @@ namespace MusicPlayer
                     return;
                 }
 
-                // Sinon on relance la lecture proprement
                 _audioFile?.Dispose();
                 _outputDevice?.Dispose();
 
@@ -113,7 +115,6 @@ namespace MusicPlayer
             }
         }
 
-
         public void PauseDaMusic()
         {
             if (_outputDevice != null && _isPlaying)
@@ -126,25 +127,57 @@ namespace MusicPlayer
 
         #endregion
 
-        #region Lecture enchaînée / Playlist
+        #region Playlist / Navigation
 
         public void PlayDaPlaylist(int id)
         {
             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
-            Playlist playlist = playlistsManager.GetItemById(id);
-            NextSong(); // À améliorer plus tard avec gestion réelle de playlist
+            _currentPlaylist = playlistsManager.GetItemById(id);
+
+            if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
+            {
+                Console.WriteLine("⚠️ Playlist vide ou introuvable.");
+                return;
+            }
+
+            _playlistIndex = 0;
+            SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
         }
 
         public void NextSong()
         {
-            // TODO : logique pour sélectionner la prochaine chanson dans une playlist
-            PlayDaMusic();
+            if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
+            {
+                Console.WriteLine("⚠️ Pas de playlist active. Lecture actuelle relancée.");
+                PlayDaMusic(); // relancer la même chanson
+                return;
+            }
+
+            _playlistIndex++;
+            if (_playlistIndex >= _currentPlaylist.SongList.Count)
+            {
+                _playlistIndex = 0; // boucle
+            }
+
+            SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
         }
 
         public void PreviousSong()
         {
-            // TODO : logique pour chanson précédente
-            PlayDaMusic();
+            if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
+            {
+                Console.WriteLine("⚠️ Pas de playlist active. Lecture actuelle relancée.");
+                PlayDaMusic();
+                return;
+            }
+
+            _playlistIndex--;
+            if (_playlistIndex < 0)
+            {
+                _playlistIndex = _currentPlaylist.SongList.Count - 1; // boucle arrière
+            }
+
+            SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
         }
 
         #endregion
