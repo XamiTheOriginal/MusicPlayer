@@ -17,6 +17,9 @@ namespace MusicPlayer
 
         private bool _isPlaying;
         private bool _isPaused;
+        
+        private string _lastFilePath; // pour suivre la chanson réellement jouée
+
 
         private Song CurrentSong
         {
@@ -71,8 +74,10 @@ namespace MusicPlayer
         {
             try
             {
-                // Si en pause, reprendre simplement
-                if (_isPaused && _outputDevice != null)
+                string currentPath = CurrentSong.Filepath;
+
+                // Si en pause ET même fichier → reprise
+                if (_isPaused && _outputDevice != null && currentPath == _lastFilePath)
                 {
                     _outputDevice.Play();
                     _isPlaying = true;
@@ -80,16 +85,15 @@ namespace MusicPlayer
                     return;
                 }
 
-                // Libération des ressources précédentes
+                // Sinon on relance la lecture proprement
                 _audioFile?.Dispose();
                 _outputDevice?.Dispose();
 
-                _audioFile = new AudioFileReader(CurrentSong.Filepath);
+                _audioFile = new AudioFileReader(currentPath);
                 _outputDevice = new WaveOutEvent();
 
                 _outputDevice.PlaybackStopped += (s, e) =>
                 {
-                    // Si la lecture est terminée (et pas une pause)
                     if (!_isPaused && _audioFile.Position >= _audioFile.Length)
                     {
                         NextSong();
@@ -101,12 +105,14 @@ namespace MusicPlayer
 
                 _isPlaying = true;
                 _isPaused = false;
+                _lastFilePath = currentPath;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Erreur lors de la lecture : {e.Message}");
             }
         }
+
 
         public void PauseDaMusic()
         {
