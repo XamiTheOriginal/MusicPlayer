@@ -30,7 +30,7 @@ public partial class MainWindow : Window
     private void Button_Play(object? sender, RoutedEventArgs e)
     {
         
-        Player.PlayDaMusic();
+        Player.TogglePlayPause();
     }
     
     private void Button_Next(object? sender, RoutedEventArgs e)
