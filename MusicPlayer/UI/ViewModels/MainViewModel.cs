@@ -15,7 +15,17 @@ namespace MusicPlayer.UI.ViewModels
         private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
         public ObservableCollection<string> Songs { get; } = new();
         public ObservableCollection<string> Playlists { get; } = new();
+
         private Playlist _selectedPlaylist;
+        public Playlist SelectedPlaylist
+        {
+            get => _selectedPlaylist;
+            private set
+            {
+                _selectedPlaylist = value;
+                OnPropertyChanged(nameof(SelectedPlaylist));
+            }
+        }
 
 
         public MainViewModel()
@@ -96,7 +106,7 @@ namespace MusicPlayer.UI.ViewModels
         {
             if (_selectedPlaylistIndex >= 0 && _selectedPlaylistIndex < _playlistsManager.GetAllItems().Count)
             {
-                _selectedPlaylist = _playlistsManager.GetAllItems()[_selectedPlaylistIndex];
+                SelectedPlaylist = _playlistsManager.GetAllItems()[_selectedPlaylistIndex];
                 RefreshSongs();
             }
         }

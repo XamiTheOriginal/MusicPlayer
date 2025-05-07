@@ -25,6 +25,16 @@ namespace MusicPlayer.SongsHandler.Managers
             catch (KeyNotFoundException) { return null; }
         }
 
+        public Song TryGetItemByPath(string path)
+        {
+            foreach (var song in GetAllItems())
+            {
+                if (song.Filepath == path)
+                    return song;
+            }
+            throw new ArgumentException("mauvais filepath");
+        }
+
         public new void AddItem(string filepath) 
         {
             Song item = new Song(filepath, GetNextId());

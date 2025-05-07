@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -15,6 +16,7 @@ public partial class MainWindow : Window
     private Player Player => ServiceLocator.Instance.GetRequiredService<Player>();
     private SongsManager _songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
     private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+    
     public MainWindow()
     {
         InitializeComponent();
@@ -40,6 +42,9 @@ public partial class MainWindow : Window
 
     private async void AddSongFile(object? sender, RoutedEventArgs e)
     {
+        //TODO: ajouter les sons dans les playlists en fonction de MainViewModel.SelectedPlaylist
+        
+        
         // Utiliser le StorageProvider pour ouvrir des fichiers
         IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
@@ -64,6 +69,11 @@ public partial class MainWindow : Window
             foreach (var file in files)
             {
                 _songsManager.AddItem(file.Path.LocalPath);
+                if (DataContext is MainViewModel vm && vm.SelectedPlaylist != null)
+                {
+                    int songId = _songsManager.TryGetItemByPath(file.Path.LocalPath).Id;
+                    vm.SelectedPlaylist.SongList.Add(songId);
+                }
             }
         }
         if (DataContext is MainViewModel viewModel)
@@ -94,6 +104,8 @@ public partial class MainWindow : Window
             viewModel.RefreshSongs();
         }
     }
+    
+
 
     private void SongsListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {

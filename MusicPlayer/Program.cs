@@ -5,8 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.Downloader;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
-using NAudio.Wave;
+using LibVLCSharp.Shared;
 using MusicPlayer;
+using NAudio.Wave;
 
 namespace MusicPlayer;
 
@@ -26,7 +27,6 @@ class Program
         
         services.AddTransient<WaveOutEvent>();
         var provider = services.BuildServiceProvider();
-        
         ServiceLocator.Init(provider);
 
         // 4️⃣ Chargement de l’état
