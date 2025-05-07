@@ -98,8 +98,11 @@ namespace MusicPlayer.UI.ViewModels
 
         private void UpdateCurrentSongInPlayer()
         {
-            _player.SetCurrentSongId(
-                _selectedPlaylist.SongList[SelectedSongIndex]); // Envoie l'indice de la chanson au Player
+            //TODO : Changer la selection dans l ui
+            if (_selectedPlaylist != null && SelectedSongIndex >= 0)
+            {
+                _player.PlayFromPlaylist(_selectedPlaylist, SelectedSongIndex);
+            }
         }
         
         private void UpdateSelectedPlaylist()
