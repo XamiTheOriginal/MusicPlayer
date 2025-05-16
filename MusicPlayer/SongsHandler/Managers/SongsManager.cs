@@ -40,7 +40,7 @@ namespace MusicPlayer.SongsHandler.Managers
             Song item = new Song(filepath, GetNextId());
             if (!File.Exists(item.Filepath))
             {
-                Console.WriteLine($"⚠️ Le fichier '{item.Filepath}' est introuvable. Ajout annulé.");
+                Console.WriteLine($"Le fichier '{item.Filepath}' est introuvable. Ajout annulé.");
                 return; // cas d'erreur
             }
 
@@ -62,7 +62,7 @@ namespace MusicPlayer.SongsHandler.Managers
             }
             else
             {
-                Console.WriteLine("⚠️ Playlist 'Default' introuvable.");
+                Console.WriteLine("Playlist 'Default' introuvable.");
             }
         }
         

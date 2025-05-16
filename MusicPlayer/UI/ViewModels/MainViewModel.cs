@@ -32,10 +32,10 @@ namespace MusicPlayer.UI.ViewModels
         {
             _playlistsManager.LoadState();
             
-            Console.WriteLine("📂 Playlists disponibles :");
+            Console.WriteLine("Playlists disponibles :");
             foreach (var p in _playlistsManager.GetAllItems())
             {
-                Console.WriteLine($"➡️ Playlist : {p.Title}, Songs: {p.SongList?.Count}");
+                Console.WriteLine($"Playlist : {p.Title}, Songs: {p.SongList?.Count}");
             }
             
             Playlist defaultPlaylist = _playlistsManager.GetItemByTitle("Default");

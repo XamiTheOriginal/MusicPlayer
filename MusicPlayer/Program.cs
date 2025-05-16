@@ -17,7 +17,7 @@ class Program
     public static void Main(string[] args)
     {
         // 1️⃣ Init console et dossier de sauvegarde
-        Console.WriteLine($"🛠 Répertoire d'exécution : {AppContext.BaseDirectory}");
+        Console.WriteLine($"Répertoire d'exécution : {AppContext.BaseDirectory}");
         FileHelper.GetOrCreateSaveFolder(AppContext.BaseDirectory +"DATA");
         
         // 3️⃣ Configuration DI

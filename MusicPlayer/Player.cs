@@ -145,7 +145,7 @@ namespace MusicPlayer
 
             if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
             {
-                Console.WriteLine("⚠️ Playlist vide ou introuvable.");
+                Console.WriteLine("Playlist vide ou introuvable.");
                 return;
             }
 
@@ -159,7 +159,7 @@ namespace MusicPlayer
         {
             if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
             {
-                Console.WriteLine("⚠️ Pas de playlist active. Lecture actuelle relancée.");
+                Console.WriteLine("Pas de playlist active. Lecture actuelle relancée.");
                 PlayDaMusic(); // relancer la même chanson
                 return;
             }
@@ -177,7 +177,7 @@ namespace MusicPlayer
         {
             if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
             {
-                Console.WriteLine("⚠️ Pas de playlist active. Lecture actuelle relancée.");
+                Console.WriteLine("Pas de playlist active. Lecture actuelle relancée.");
                 PlayDaMusic();
                 return;
             }

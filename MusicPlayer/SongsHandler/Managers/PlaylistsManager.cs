@@ -20,15 +20,13 @@ namespace MusicPlayer.SongsHandler.Managers
 
         private static string GetDataFilePath()
         {
-
-
             string dataFilePath = Path.Combine(AppContext.BaseDirectory, "DATA", "Playlists.json");
-            Console.WriteLine($"🔍 Chemin recherché : {dataFilePath}");
-            Console.WriteLine($"📁 Fichier existe ? {File.Exists(dataFilePath)}");
+            Console.WriteLine($"Chemin recherché : {dataFilePath}");
+            Console.WriteLine($"Fichier existe ? {File.Exists(dataFilePath)}");
 
             if (!File.Exists(dataFilePath))
             {
-                Console.WriteLine($"⚠️ Le fichier Playlists.json est introuvable : {dataFilePath}");
+                Console.WriteLine($"Le fichier Playlists.json est introuvable : {dataFilePath}");
             }
 
             return dataFilePath;
@@ -37,7 +35,7 @@ namespace MusicPlayer.SongsHandler.Managers
         {
             if (!File.Exists(SaveFilePath))
             {
-                Console.WriteLine($"📄 Fichier Playlists.json introuvable, insertion du contenu par défaut.");
+                Console.WriteLine($"Fichier Playlists.json introuvable, insertion du contenu par défaut.");
                 string defaultJson = @"{
 ""Items"": [
     {
@@ -57,11 +55,11 @@ namespace MusicPlayer.SongsHandler.Managers
             // ⬇️ Ajout automatique si ItemsList est vide
             if (GetAllItems().Count == 0)
             {
-                Console.WriteLine("⚠️ Aucune playlist trouvée, insertion de 'Default' par défaut.");
+                Console.WriteLine("Aucune playlist trouvée, insertion de 'Default' par défaut.");
                 AddItem(new Playlist("Default", new List<int>()));
             }
 
-            Console.WriteLine("👀 Nombre de playlists chargées : " + GetAllItems().Count);
+            Console.WriteLine("Nombre de playlists chargées : " + GetAllItems().Count);
         }
 
         
