@@ -100,6 +100,7 @@ namespace MusicPlayer
         {
             try
             {
+                _stopwatch.Start();
                 string currentPath = CurrentSong.Filepath;
 
                 if (_isPaused && _outputDevice != null && currentPath == _lastFilePath)
@@ -179,9 +180,13 @@ namespace MusicPlayer
 
         public void NextSong()
         {
+            _stopwatch.Stop();
+            _profiler.UpdateData(CurrentSong.Mood, _stopwatch.Elapsed.Seconds);
+            _stopwatch.Reset();
             if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
             {
                 Console.WriteLine("Pas de playlist active. Lecture actuelle relancée.");
+                
                 PlayDaMusic(); // relancer la même chanson
                 return;
             }
