@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using NAudio.Wave;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
@@ -12,6 +13,9 @@ namespace MusicPlayer
         #region Variables
 
         public event Action? CurrentSongChanged;
+
+        private Stopwatch _stopwatch = new Stopwatch();
+        private Profiler _profiler = new Profiler();
 
         private int _currentSongId;
         public int CurrentSongId{
@@ -69,10 +73,14 @@ namespace MusicPlayer
             if (_isPlaying)
             {
                 PauseDaMusic();
+                _stopwatch.Stop();
+                _profiler.UpdateData(CurrentSong.Mood, _stopwatch.Elapsed.Seconds);
+                _stopwatch.Reset();
             }
             else
             {
                 PlayDaMusic();
+                _stopwatch.Start();
             }
         }
 
