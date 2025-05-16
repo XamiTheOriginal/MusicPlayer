@@ -11,7 +11,21 @@ namespace MusicPlayer
     {
         #region Variables
 
-        public int CurrentSongId;
+        public event Action? CurrentSongChanged;
+
+        private int _currentSongId;
+        public int CurrentSongId{
+            get => _currentSongId;
+            set
+            {
+                if (_currentSongId != value)
+                {
+                    _currentSongId = value;
+                    CurrentSongChanged?.Invoke();
+                    Console.WriteLine($"CurrentSongId changé : {_currentSongId}");
+                }
+            }
+        }
 
         private WaveOutEvent _outputDevice;
         private AudioFileReader _audioFile;

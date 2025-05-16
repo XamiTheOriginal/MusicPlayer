@@ -13,7 +13,6 @@ namespace MusicPlayer.UI.Views;
 
 public partial class MainWindow : Window
 {
-    
     private Player Player => ServiceLocator.Instance.GetRequiredService<Player>();
     private SongsManager _songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
     private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
