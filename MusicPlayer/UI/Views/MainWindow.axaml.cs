@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
 using MusicPlayer.UI.ViewModels;
+using MusicPlayer;
 
 namespace MusicPlayer.UI.Views;
 
@@ -16,6 +17,8 @@ public partial class MainWindow : Window
     private Player Player => ServiceLocator.Instance.GetRequiredService<Player>();
     private SongsManager _songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
     private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+    private Profiler _profiler =
+    private TimeSpan _timeSpan = new TimeSpan();
     
     public MainWindow()
     {
@@ -135,6 +138,7 @@ public partial class MainWindow : Window
     {
         if (DataContext is MainViewModel viewModel && sender is ListBox listBox)
         {
+            
             viewModel.SelectedSongIndex = listBox.SelectedIndex;
         }
     }

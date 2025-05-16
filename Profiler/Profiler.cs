@@ -12,7 +12,7 @@ public class Profiler
   private Dictionary<Moods, int> _moodsData; //integer represents amount of time, might have to create a class to represent it
   private string _path = "../DATA/userdata.json";
 
-  private Profiler()
+  public Profiler()
   {
     Profiler? item = JsonSerializer.Deserialize<Profiler>(_path);
     if (item != null)
