@@ -146,4 +146,14 @@ public abstract class BaseManager<T> where T : IIdentifiable
         dynamic foundItem = ItemsList.FirstOrDefault(item => ((dynamic)item).Title == title);
         return foundItem != null ? foundItem : null;
     }
+
+    public List<string> GetAllTitles()
+    {
+        List<string> rep = new List<string>();
+        foreach (T item in ItemsList)
+        {
+            rep.Add(item.Title);
+        }
+        return rep;
+    }
 }

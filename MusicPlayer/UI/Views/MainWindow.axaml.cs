@@ -112,6 +112,15 @@ public partial class MainWindow : Window
         }
     }
 
+    private async void AddSongToPlaylist(object? sender, RoutedEventArgs e)
+    {
+        Window prompt = new SongSelectionWindow();
+        
+        Console.WriteLine("Essaie de lancer SongSelectionWindow");
+        
+        await prompt.ShowDialog(this);
+    }
+
     private void PlaylistsListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         if (DataContext is MainViewModel viewModel)
