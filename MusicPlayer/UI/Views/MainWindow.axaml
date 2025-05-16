@@ -13,15 +13,24 @@
         <!-- Logo en haut -->
         <Image Source="avares://MusicPlayer/UI/Assets/Logo.png"
                Width="100" Height="100" Grid.Row="0" HorizontalAlignment="Center"/>
+        
         <Button Content="Add song file"
                  Height="30" Click="AddSongFile"
                 Grid.Row="0" HorizontalAlignment="Right"
                 />
-        <Button Content="Add Playlist"
-                Height="30" Click="AddPlaylist"
-                Grid.Row="0" HorizontalAlignment="Left"
-        />
-
+        
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <Button Content="Add Playlist"
+                    Height="30" Click="AddPlaylist"
+                    Grid.Row="0" HorizontalAlignment="Left"
+            />
+            
+            <Button Content="Add Song to Playlist"
+                    Height="30" Click="AddSongToPlaylist"
+                    Grid.Row="1" HorizontalAlignment="Left"
+            />
+        </StackPanel>
+        
         <Grid Grid.Row="1" ColumnDefinitions="1*,3*,1*" Margin="0,10,0,10">
             <!-- Colonne de gauche : logo + liste -->
             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">

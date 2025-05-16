@@ -1,0 +1,52 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:MusicPlayer.UI.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MusicPlayer.UI.Views.SongSelectionWindow"
+        x:DataType="viewModels:SongSelectionViewModel"
+        Title="SongSelectionWindow">
+<StackPanel>
+  <Grid>
+      
+      <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <!-- Liste de gauche -->
+      <ScrollViewer Grid.Column="0">
+          <ListBox Name="PlaylistListBox"
+                   HorizontalAlignment="Stretch"
+                   ItemsSource="{Binding Playlists}"
+                   VerticalAlignment="Stretch" />
+      </ScrollViewer>
+
+      <!-- Liste de droite -->
+          <ScrollViewer Grid.Column="1">
+              <ListBox Name="SongListBox"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       ItemsSource="{Binding Songs}"
+                       SelectionMode="Multiple">
+                  <ListBox.ItemTemplate>
+                      <DataTemplate>
+                          <ToggleButton Content="{Binding .}"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListBoxItem}}"
+                                        Margin="2"
+                                        HorizontalAlignment="Stretch"/>
+                      </DataTemplate>
+                  </ListBox.ItemTemplate>
+              </ListBox>
+          </ScrollViewer>
+          
+    </Grid>
+    
+    <Button Content="Valider la sélection"
+            HorizontalAlignment="Center"
+            Margin="10"
+            Click="OnValidateSelectionClick" />
+    
+  </StackPanel>
+</Window>
