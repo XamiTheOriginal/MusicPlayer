@@ -43,6 +43,26 @@
             <!-- Colonne du milieu -->
             <Grid Grid.Column="1">
                 <!-- contenu principal -->
+                <Border Grid.Row="1" Grid.Column="1"
+                        Background="White" 
+                        CornerRadius="10" 
+                        Padding="20"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        BorderBrush="Gray" 
+                        BorderThickness="0">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                        <Image Source="{Binding CurrentAlbumArt}"
+                               Width="150" Height="150"/>
+                        <TextBlock Text="{Binding CurrentTitle}"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="{Binding CurrentArtist}"
+                                   FontSize="12"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
             </Grid>
 
             <!-- Colonne de droite  -->

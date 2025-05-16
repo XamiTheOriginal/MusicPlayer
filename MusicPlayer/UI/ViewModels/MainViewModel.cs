@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
@@ -15,6 +17,24 @@ namespace MusicPlayer.UI.ViewModels
         private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
         public ObservableCollection<string> Songs { get; } = new();
         public ObservableCollection<string> Playlists { get; } = new();
+
+        private Song _playingSong;
+        public Song PlayingSong
+        {
+            get => _playingSong;
+            set
+            {
+                _playingSong = value;
+                OnPropertyChanged(nameof(PlayingSong));
+                OnPropertyChanged(nameof(CurrentTitle));
+                OnPropertyChanged(nameof(CurrentArtist));
+                OnPropertyChanged(nameof(CurrentAlbumArt));
+            }
+        }
+        public string CurrentTitle => PlayingSong.Title;
+        public string CurrentArtist => PlayingSong.Artist;
+        
+        public Bitmap? CurrentAlbumArt => AlbumArtHelper.GetAlbumArt(PlayingSong.Filepath);
 
         private Playlist _selectedPlaylist;
         public Playlist SelectedPlaylist
@@ -31,6 +51,9 @@ namespace MusicPlayer.UI.ViewModels
         public MainViewModel()
         {
             _playlistsManager.LoadState();
+
+            PlayingSong = _songsManager.GetItemById(_player.CurrentSongId);
+            _player.CurrentSongChanged += OnCurrentSongChanged; //abonnement à l'évènement "changement de playingsong"
             
             Console.WriteLine("Playlists disponibles :");
             foreach (var p in _playlistsManager.GetAllItems())
@@ -96,6 +119,11 @@ namespace MusicPlayer.UI.ViewModels
             }
         }
 
+        private void OnCurrentSongChanged()
+        {
+            PlayingSong = _songsManager.GetItemById(_player.CurrentSongId);
+        }
+        
         private void UpdateCurrentSongInPlayer()
         {
             //TODO : Changer la selection dans l ui
