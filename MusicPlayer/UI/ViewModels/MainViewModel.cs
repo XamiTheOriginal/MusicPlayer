@@ -7,17 +7,20 @@ using Avalonia.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlayer.SongsHandler;
 using MusicPlayer.SongsHandler.Managers;
+using Avalonia.Threading;
 
 namespace MusicPlayer.UI.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        #region variables
+        
         private SongsManager _songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
         private Player _player = ServiceLocator.Instance.GetRequiredService<Player>();
         private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
         public ObservableCollection<string> Songs { get; } = new();
         public ObservableCollection<string> Playlists { get; } = new();
-
+        private DispatcherTimer _progressTimer;
         private Song _playingSong;
         public Song PlayingSong
         {
@@ -29,10 +32,17 @@ namespace MusicPlayer.UI.ViewModels
                 OnPropertyChanged(nameof(CurrentTitle));
                 OnPropertyChanged(nameof(CurrentArtist));
                 OnPropertyChanged(nameof(CurrentAlbumArt));
+                OnPropertyChanged(nameof(CurrentLength));
+                
+                if (CurrentLength > 0)
+                    Progress = _player.GetCurrentProgress().TotalSeconds / CurrentLength;
+                else
+                    Progress = 0;
             }
         }
         public string CurrentTitle => PlayingSong.Title;
         public string CurrentArtist => PlayingSong.Artist;
+        public double CurrentLength => PlayingSong.Duration;
         
         public Bitmap? CurrentAlbumArt => AlbumArtHelper.GetAlbumArt(PlayingSong.Filepath);
 
@@ -47,6 +57,7 @@ namespace MusicPlayer.UI.ViewModels
             }
         }
 
+        #endregion 
 
         public MainViewModel()
         {
@@ -55,11 +66,26 @@ namespace MusicPlayer.UI.ViewModels
             PlayingSong = _songsManager.GetItemById(_player.CurrentSongId);
             _player.CurrentSongChanged += OnCurrentSongChanged; //abonnement à l'évènement "changement de playingsong"
             
+            _progressTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            _progressTimer.Tick += (sender, args) =>
+            {
+                if (CurrentLength > 0)
+                {
+                    Progress = _player.GetCurrentProgress().TotalSeconds / CurrentLength;
+                }
+            };
+            _progressTimer.Start();
+            
+            /* DEBUG
             Console.WriteLine("Playlists disponibles :");
             foreach (var p in _playlistsManager.GetAllItems())
             {
                 Console.WriteLine($"Playlist : {p.Title}, Songs: {p.SongList?.Count}");
             }
+            */
             
             Playlist defaultPlaylist = _playlistsManager.GetItemByTitle("Default");
             if (defaultPlaylist == null) 

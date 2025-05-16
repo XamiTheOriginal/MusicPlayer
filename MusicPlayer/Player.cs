@@ -10,7 +10,7 @@ namespace MusicPlayer
     public class Player
     {
         #region Variables
-
+        
         public event Action? CurrentSongChanged;
 
         private int _currentSongId;
@@ -50,6 +50,11 @@ namespace MusicPlayer
         public bool IsPlaying => _isPlaying;
         public bool IsPaused => _isPaused;
 
+        public TimeSpan GetCurrentProgress()
+        {
+            return _audioFile?.CurrentTime ?? TimeSpan.Zero;
+        }
+        
         #endregion
 
         #region Constructeur

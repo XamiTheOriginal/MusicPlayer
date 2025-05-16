@@ -20,7 +20,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = new MainViewModel(); // Associe le ViewModel à la fenêtre
-
     }
     
     private void UpdateSelectedSong()
