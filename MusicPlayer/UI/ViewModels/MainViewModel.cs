@@ -33,6 +33,7 @@ namespace MusicPlayer.UI.ViewModels
                 OnPropertyChanged(nameof(CurrentArtist));
                 OnPropertyChanged(nameof(CurrentAlbumArt));
                 OnPropertyChanged(nameof(CurrentLength));
+                OnPropertyChanged(nameof(CurrentLengthFormatted));
                 
                 if (CurrentLength > 0)
                     Progress = _player.GetCurrentProgress().TotalSeconds / CurrentLength;
@@ -43,6 +44,17 @@ namespace MusicPlayer.UI.ViewModels
         public string CurrentTitle => PlayingSong.Title;
         public string CurrentArtist => PlayingSong.Artist;
         public double CurrentLength => PlayingSong.Duration;
+
+        public string CurrentLengthFormatted
+        {
+            get
+            {
+                int totalSeconds = (int)PlayingSong.Duration;
+                int minutes = totalSeconds / 60;
+                int seconds = totalSeconds % 60;
+                return $"{minutes:D2}:{seconds:D2}";
+            }
+        }
         
         public Bitmap? CurrentAlbumArt => AlbumArtHelper.GetAlbumArt(PlayingSong.Filepath);
 
@@ -78,14 +90,6 @@ namespace MusicPlayer.UI.ViewModels
                 }
             };
             _progressTimer.Start();
-            
-            /* DEBUG
-            Console.WriteLine("Playlists disponibles :");
-            foreach (var p in _playlistsManager.GetAllItems())
-            {
-                Console.WriteLine($"Playlist : {p.Title}, Songs: {p.SongList?.Count}");
-            }
-            */
             
             Playlist defaultPlaylist = _playlistsManager.GetItemByTitle("Default");
             if (defaultPlaylist == null) 

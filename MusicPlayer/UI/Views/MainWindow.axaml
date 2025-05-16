@@ -47,21 +47,36 @@
                         Background="White" 
                         CornerRadius="10" 
                         Padding="20"
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"
                         BorderBrush="Gray" 
                         BorderThickness="0">
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
-                        <Image Source="{Binding CurrentAlbumArt}"
-                               Width="150" Height="150"/>
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Image Source="{Binding CurrentAlbumArt}" 
+                               Grid.Row="0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Stretch="Uniform"
+                               MaxWidth="600" MaxHeight="600"/>
+
                         <TextBlock Text="{Binding CurrentTitle}"
+                                   Grid.Row="1"
                                    FontSize="16"
                                    FontWeight="Bold"
-                                   TextAlignment="Center"/>
+                                   TextAlignment="Center"
+                                   Margin="0,10,0,0"/>
+
                         <TextBlock Text="{Binding CurrentArtist}"
+                                   Grid.Row="2"
                                    FontSize="12"
                                    TextAlignment="Center"/>
-                    </StackPanel>
+                    </Grid>
                 </Border>
             </Grid>
 
@@ -74,20 +89,29 @@
 
 
         <!-- Barre de progression + contrôles média en bas -->
-        <StackPanel Grid.Row="2" Orientation="Vertical" Spacing="10">
+        <StackPanel Grid.Row="2" Orientation="Vertical" Spacing="10" HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
                 <Button Content="⏮️" Width="50" Height="30" Click="Button_Previous"/>
                 <Button Content="▶️" Width="50" Height="30" Click="Button_Play"/>
                 <Button Content="⏭️" Width="50" Height="30" Click="Button_Next"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding CurrentLength}"/>
-                <ProgressBar Height="20" Minimum="0" Maximum="100" Value="{Binding Progress}" Margin="0,0,0,0"/>
-
-            </StackPanel>
-
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding CurrentLengthFormatted}" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,10,0" 
+                           Grid.Column="0"/>
+                <ProgressBar Grid.Column="1"
+                             Height="20"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Stretch"
+                             Value="{Binding Progress}"
+                             Minimum="0"
+                             Maximum="1"/>
+            </Grid>
         </StackPanel>
-        
-
     </Grid>
 </Window>
