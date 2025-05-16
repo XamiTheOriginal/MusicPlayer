@@ -58,7 +58,7 @@ namespace MusicPlayer.SongsHandler.Managers
 
             if (defaultPlaylist != null)
             {
-                defaultPlaylist.AddSong(item.Id);
+                //defaultPlaylist.AddSong(item.Id); //Evite d'ajouter  en double dans la playlist default
             }
             else
             {
