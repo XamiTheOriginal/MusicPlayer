@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AngleSharp.Common;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
@@ -121,10 +122,11 @@ public partial class MainWindow : Window
 
     private void PlaylistsListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (DataContext is MainViewModel viewModel)
+        if (DataContext is MainViewModel vm)
         {
-            viewModel.RefreshSongs();
+            vm.SelectedPlaylistIndex = ((ListBox)sender).SelectedIndex;
         }
+        
     }
     
 

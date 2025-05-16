@@ -186,6 +186,7 @@ namespace MusicPlayer.UI.ViewModels
             Songs.Clear();
             if (_selectedPlaylist?.SongList != null)
             {
+                Console.WriteLine(_selectedPlaylist);
                 foreach (var song in _selectedPlaylist.GetSongTitles())
                 {
                     Songs.Add(song);
