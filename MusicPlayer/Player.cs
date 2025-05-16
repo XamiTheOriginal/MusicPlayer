@@ -202,6 +202,9 @@ namespace MusicPlayer
 
         public void PreviousSong()
         {
+            _stopwatch.Stop();
+            _profiler.UpdateData(CurrentSong.Mood, _stopwatch.Elapsed.Seconds);
+            _stopwatch.Reset();
             if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
             {
                 Console.WriteLine("Pas de playlist active. Lecture actuelle relancée.");
