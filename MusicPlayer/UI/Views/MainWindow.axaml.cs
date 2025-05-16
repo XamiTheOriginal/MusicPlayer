@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -15,31 +16,50 @@ public partial class MainWindow : Window
     private Player Player => ServiceLocator.Instance.GetRequiredService<Player>();
     private SongsManager _songsManager =  ServiceLocator.Instance.GetRequiredService<SongsManager>();
     private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+    
     public MainWindow()
     {
         InitializeComponent();
         DataContext = new MainViewModel(); // Associe le ViewModel à la fenêtre
 
     }
+    
+    private void UpdateSelectedSong()
+    {
+        var currentSong = Player.CurrentSongId; // Récupère l'ID de la chanson actuelle
+        var songIndex = _songsManager.GetAllItems().FindIndex(song => song.Id == currentSong); // Trouve l'index de la chanson
 
+        if (songIndex >= 0)  // Si l'index est valide
+        {
+            //TODO : Correct me 
+            //SongsListBox.SelectedIndex = songIndex;  // Met à jour l'élément sélectionné dans la ListBox
+        }
+    }
     private void Button_Previous(object? sender, RoutedEventArgs e)
     {
         Player.PreviousSong();
+        UpdateSelectedSong();
     }
     
     private void Button_Play(object? sender, RoutedEventArgs e)
     {
-        
-        Player.PlayDaMusic();
+        Player.TogglePlayPause();
+        UpdateSelectedSong();
     }
     
     private void Button_Next(object? sender, RoutedEventArgs e)
     {
         Player.NextSong();
+        UpdateSelectedSong();
     }
+    
+    
 
     private async void AddSongFile(object? sender, RoutedEventArgs e)
     {
+        //TODO: ajouter les sons dans les playlists en fonction de MainViewModel.SelectedPlaylist
+        
+        
         // Utiliser le StorageProvider pour ouvrir des fichiers
         IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
@@ -64,6 +84,11 @@ public partial class MainWindow : Window
             foreach (var file in files)
             {
                 _songsManager.AddItem(file.Path.LocalPath);
+                if (DataContext is MainViewModel vm && vm.SelectedPlaylist != null)
+                {
+                    int songId = _songsManager.TryGetItemByPath(file.Path.LocalPath).Id;
+                    vm.SelectedPlaylist.SongList.Add(songId);
+                }
             }
         }
         if (DataContext is MainViewModel viewModel)
@@ -94,6 +119,8 @@ public partial class MainWindow : Window
             viewModel.RefreshSongs();
         }
     }
+    
+
 
     private void SongsListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {

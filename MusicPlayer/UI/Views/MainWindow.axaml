@@ -25,7 +25,10 @@
         <Grid Grid.Row="1" ColumnDefinitions="1*,3*,1*" Margin="0,10,0,10">
             <!-- Colonne de gauche : logo + liste -->
             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-                <ListBox x:Name="PlaylistsListBox" ItemsSource="{Binding Playlists}" SelectionChanged="PlaylistsListBox_SelectionChanged"/>
+                <ListBox x:Name="PlaylistsListBox" 
+                         ItemsSource="{Binding Playlists}" 
+                         SelectedItem="{Binding SelectedPlaylist, Mode=TwoWay}"
+                         SelectionChanged="PlaylistsListBox_SelectionChanged"/>
             </ScrollViewer>
 
             <!-- Colonne du milieu -->

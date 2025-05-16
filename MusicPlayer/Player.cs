@@ -1,120 +1,196 @@
 ﻿using System;
- using System.Collections.Generic;
- using NAudio.Wave;
- using Microsoft.Extensions.DependencyInjection;
- using MusicPlayer.SongsHandler;
- using MusicPlayer.SongsHandler.Managers;
+using System.Collections.Generic;
+using NAudio.Wave;
+using Microsoft.Extensions.DependencyInjection;
+using MusicPlayer.SongsHandler;
+using MusicPlayer.SongsHandler.Managers;
 
- 
- namespace MusicPlayer
- {
-     public class Player
-     {
-         #region ClassVariables
- 
-         public int CurrentSongId;
-         
- 
-         private WaveOutEvent _outputDevice;
-         private AudioFileReader _audioFile;
+namespace MusicPlayer
+{
+    public class Player
+    {
+        #region Variables
 
-         private bool _isPlaying;
-         private Song CurrentSong
-         {
-             get
-             {
-                 var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
-                 return songsManager.GetItemById(CurrentSongId);
-             }
-         }
- 
-         #endregion
- 
-         // Constructeur sans injection de AudioFileReader
-         public Player(WaveOutEvent outputDevice)
-         {
-             _outputDevice = outputDevice;
-             CurrentSongId = 1;
-         }
- 
-         // Méthode pour changer la chanson actuelle
-         public void SetCurrentSongId(int songId)
-         {
-             CurrentSongId = songId;
-             PlayDaMusic(); // Lance la chanson immédiatement après la mise à jour de l'ID
-         }
- 
-         public string GetFilePath()
-         {
-             return CurrentSong.Filepath;
-         }
- 
-         public void PlayDaMusic()
-         {
-             try
-             {
-                 // Si déjà en train de jouer, on ne relance pas
-                 if (_isPlaying)
-                 {
-                     PauseDaMusic();
-                     return;
-                 }
- 
-                 // Créer un nouveau lecteur de fichier audio avec le chemin du fichier actuel
-                 _audioFile?.Dispose(); // Libération de l'ancien fichier si nécessaire
-                 _audioFile = new AudioFileReader(CurrentSong.Filepath);
- 
-                 // Initialisation du périphérique de sortie audio
-                 _outputDevice?.Dispose();
-                 _outputDevice = new WaveOutEvent();
-                 _isPlaying = true;
- 
-                 // Gestion de fin automatique
-                 _outputDevice.PlaybackStopped += (s, e) =>
-                 {
-                     // Vérifie que la musique est bien terminée (et pas juste "pause")
-                     if (_audioFile.Position >= _audioFile.Length)
-                     {
-                         NextSong();
-                     }
-                     NextSong();
-                 };
- 
-                 _outputDevice.Init(_audioFile);
-                 _outputDevice.Play();
- 
-                 _isPlaying = true;
-             }
-             catch (Exception e)
-             {
-                 Console.WriteLine($"Erreur lors de la lecture : {e.Message}");
-             }
-         }
- 
-         public void PauseDaMusic()
-         {
-             if (_outputDevice != null && _isPlaying)
-             {
-                 _outputDevice.Pause();
-                 _isPlaying = false;
-             }
-         }
- 
-         public void PlayDaPlaylist(int id)
-         {
-             var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
-             Playlist playlist = playlistsManager.GetItemById(id);
-             NextSong();
-         }
- 
-         public void NextSong()
-         {
-             PlayDaMusic();
-         }
- 
-         public void PreviousSong()
-         {
-             PlayDaMusic();
-         }
-     }
- }
+        public int CurrentSongId;
+
+        private WaveOutEvent _outputDevice;
+        private AudioFileReader _audioFile;
+
+        private bool _isPlaying;
+        private bool _isPaused;
+
+        private string _lastFilePath;
+
+        private Playlist _currentPlaylist;
+        private int _playlistIndex;
+
+        private Song CurrentSong
+        {
+            get
+            {
+                var songsManager = ServiceLocator.Instance.GetRequiredService<SongsManager>();
+                return songsManager.GetItemById(CurrentSongId);
+            }
+        }
+
+        public bool IsPlaying => _isPlaying;
+        public bool IsPaused => _isPaused;
+
+        #endregion
+
+        #region Constructeur
+
+        public Player(WaveOutEvent outputDevice)
+        {
+            _outputDevice = outputDevice;
+            CurrentSongId = 1;
+        }
+
+        #endregion
+
+        #region Méthodes principales
+
+        public void TogglePlayPause()
+        {
+            if (_isPlaying)
+            {
+                PauseDaMusic();
+            }
+            else
+            {
+                PlayDaMusic();
+            }
+        }
+
+        public void SetCurrentSongId(int songId)
+        {
+            CurrentSongId = songId;
+            _lastFilePath = ""; // force la relance même si le path est le même
+            PlayDaMusic();
+        }
+
+        public string GetFilePath()
+        {
+            return CurrentSong.Filepath;
+        }
+
+        public void PlayDaMusic()
+        {
+            try
+            {
+                string currentPath = CurrentSong.Filepath;
+
+                if (_isPaused && _outputDevice != null && currentPath == _lastFilePath)
+                {
+                    _outputDevice.Play();
+                    _isPlaying = true;
+                    _isPaused = false;
+                    return;
+                }
+
+                _audioFile?.Dispose();
+                _outputDevice?.Dispose();
+
+                _audioFile = new AudioFileReader(currentPath);
+                _outputDevice = new WaveOutEvent();
+
+                _outputDevice.PlaybackStopped += (s, e) =>
+                {
+                    if (!_isPaused && _audioFile.Position >= _audioFile.Length)
+                    {
+                        NextSong();
+                    }
+                };
+
+                _outputDevice.Init(_audioFile);
+                _outputDevice.Play();
+
+                _isPlaying = true;
+                _isPaused = false;
+                _lastFilePath = currentPath;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erreur lors de la lecture : {e.Message}");
+            }
+        }
+
+        public void PauseDaMusic()
+        {
+            if (_outputDevice != null && _isPlaying)
+            {
+                _outputDevice.Pause();
+                _isPaused = true;
+                _isPlaying = false;
+            }
+        }
+
+        #endregion
+
+        #region Playlist / Navigation
+
+        public void PlayFromPlaylist(Playlist playlist, int songIndex)
+        {
+            if (playlist == null || playlist.IsEmpty) return;
+
+            _currentPlaylist = playlist;
+            _playlistIndex = songIndex;
+            SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
+        }
+
+        public void PlayDaPlaylist(int id)
+        {
+            var playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
+            _currentPlaylist = playlistsManager.GetItemById(id);
+
+            if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
+            {
+                Console.WriteLine("Playlist vide ou introuvable.");
+                return;
+            }
+
+            _playlistIndex = 0;
+            SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
+        }
+        
+        
+
+        public void NextSong()
+        {
+            if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
+            {
+                Console.WriteLine("Pas de playlist active. Lecture actuelle relancée.");
+                PlayDaMusic(); // relancer la même chanson
+                return;
+            }
+
+            _playlistIndex++;
+            if (_playlistIndex >= _currentPlaylist.SongList.Count)
+            {
+                _playlistIndex = 0; // boucle
+            }
+
+            SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
+        }
+
+        public void PreviousSong()
+        {
+            if (_currentPlaylist == null || _currentPlaylist.IsEmpty)
+            {
+                Console.WriteLine("Pas de playlist active. Lecture actuelle relancée.");
+                PlayDaMusic();
+                return;
+            }
+
+            _playlistIndex--;
+            if (_playlistIndex < 0)
+            {
+                _playlistIndex = _currentPlaylist.SongList.Count - 1; // boucle arrière
+            }
+
+            SetCurrentSongId(_currentPlaylist.SongList[_playlistIndex]);
+        }
+
+        #endregion
+    }
+}

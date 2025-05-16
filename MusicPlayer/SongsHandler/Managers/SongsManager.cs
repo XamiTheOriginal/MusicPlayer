@@ -25,12 +25,22 @@ namespace MusicPlayer.SongsHandler.Managers
             catch (KeyNotFoundException) { return null; }
         }
 
+        public Song TryGetItemByPath(string path)
+        {
+            foreach (var song in GetAllItems())
+            {
+                if (song.Filepath == path)
+                    return song;
+            }
+            throw new ArgumentException("mauvais filepath");
+        }
+
         public new void AddItem(string filepath) 
         {
             Song item = new Song(filepath, GetNextId());
             if (!File.Exists(item.Filepath))
             {
-                Console.WriteLine($"⚠️ Le fichier '{item.Filepath}' est introuvable. Ajout annulé.");
+                Console.WriteLine($"Le fichier '{item.Filepath}' est introuvable. Ajout annulé.");
                 return; // cas d'erreur
             }
 
@@ -48,11 +58,11 @@ namespace MusicPlayer.SongsHandler.Managers
 
             if (defaultPlaylist != null)
             {
-                defaultPlaylist.AddSong(item.Id);
+                //defaultPlaylist.AddSong(item.Id); //Evite d'ajouter  en double dans la playlist default
             }
             else
             {
-                Console.WriteLine("⚠️ Playlist 'Default' introuvable.");
+                Console.WriteLine("Playlist 'Default' introuvable.");
             }
         }
         

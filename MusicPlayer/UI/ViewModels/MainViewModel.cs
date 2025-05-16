@@ -15,17 +15,27 @@ namespace MusicPlayer.UI.ViewModels
         private PlaylistsManager _playlistsManager = ServiceLocator.Instance.GetRequiredService<PlaylistsManager>();
         public ObservableCollection<string> Songs { get; } = new();
         public ObservableCollection<string> Playlists { get; } = new();
+
         private Playlist _selectedPlaylist;
+        public Playlist SelectedPlaylist
+        {
+            get => _selectedPlaylist;
+            private set
+            {
+                _selectedPlaylist = value;
+                OnPropertyChanged(nameof(SelectedPlaylist));
+            }
+        }
 
 
         public MainViewModel()
         {
             _playlistsManager.LoadState();
             
-            Console.WriteLine("📂 Playlists disponibles :");
+            Console.WriteLine("Playlists disponibles :");
             foreach (var p in _playlistsManager.GetAllItems())
             {
-                Console.WriteLine($"➡️ Playlist : {p.Title}, Songs: {p.SongList?.Count}");
+                Console.WriteLine($"Playlist : {p.Title}, Songs: {p.SongList?.Count}");
             }
             
             Playlist defaultPlaylist = _playlistsManager.GetItemByTitle("Default");
@@ -88,15 +98,19 @@ namespace MusicPlayer.UI.ViewModels
 
         private void UpdateCurrentSongInPlayer()
         {
-            _player.SetCurrentSongId(
-                _selectedPlaylist.SongList[SelectedSongIndex]); // Envoie l'indice de la chanson au Player
+            //TODO : Changer la selection dans l ui
+            if (_selectedPlaylist != null && SelectedSongIndex >= 0)
+            {
+                
+                _player.PlayFromPlaylist(_selectedPlaylist, SelectedSongIndex);
+            }
         }
         
         private void UpdateSelectedPlaylist()
         {
             if (_selectedPlaylistIndex >= 0 && _selectedPlaylistIndex < _playlistsManager.GetAllItems().Count)
             {
-                _selectedPlaylist = _playlistsManager.GetAllItems()[_selectedPlaylistIndex];
+                SelectedPlaylist = _playlistsManager.GetAllItems()[_selectedPlaylistIndex];
                 RefreshSongs();
             }
         }
